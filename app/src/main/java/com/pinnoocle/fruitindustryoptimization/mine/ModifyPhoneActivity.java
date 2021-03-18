@@ -71,7 +71,7 @@ public class ModifyPhoneActivity extends BaseActivity {
         edPhone.setText(getIntent().getStringExtra("phone"));
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_get_code,  R.id.tv_get_code1, R.id.tv_sure})
+    @OnClick({R.id.iv_back, R.id.tv_get_code, R.id.tv_get_code1, R.id.tv_sure})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -105,7 +105,7 @@ public class ModifyPhoneActivity extends BaseActivity {
                     ToastUtils.showToast("请输入验证码");
                     return;
                 }
-                changePhone(edCode.getText().toString(),edNewPhone.getText().toString(),edCode1.getText().toString());
+                changePhone(edCode.getText().toString(), edNewPhone.getText().toString(), edCode1.getText().toString());
                 break;
         }
     }
