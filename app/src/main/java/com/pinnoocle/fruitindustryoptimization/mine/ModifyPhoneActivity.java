@@ -22,8 +22,6 @@ import com.pinnoocle.fruitindustryoptimization.utils.CountDownTimerUtils;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.pinnoocle.fruitindustryoptimization.utils.StatusBarUtil;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.HashMap;
 import java.util.Map;
 
