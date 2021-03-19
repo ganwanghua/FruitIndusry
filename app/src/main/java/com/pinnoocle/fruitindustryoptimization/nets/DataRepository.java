@@ -65,4 +65,9 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.changePhone(queryMap, callback);
     }
 
+    @Override
+    public void treePoster(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.treePoster(queryMap, callback);
+    }
+
 }

@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
@@ -68,7 +70,7 @@ public class MineFragment extends BaseFragment {
     private int[] icon = {R.mipmap.paid, R.mipmap.delivered, R.mipmap.received, R.mipmap.evaluated, R.mipmap.after_sales};
     private int[] icon1 = {R.mipmap.membership, R.mipmap.my_fruit_tree, R.mipmap.adoption, R.mipmap.registration};
     private String[] iconName = {"待付款", "待发货", "待收货", "待评价", "退款/售后"};
-    private String[] iconName1 = {"会员中心", "我的果树", "邀请认养", "客服"};
+    private String[] iconName1 = {"会员中心", "我的果树", "邀请认养", "邀请注册"};
     private SimpleAdapter sim_adapter, sim_adapter1;
     private ArrayList<Map<String, Object>> data_list, data_list1;
     private DataRepository dataRepository;
@@ -149,6 +151,14 @@ public class MineFragment extends BaseFragment {
         //配置适配器
         gridView1.setAdapter(sim_adapter1);
         gridView1.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        gridView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 3){
+                    startActivity(new Intent(getContext(), InvitationPosterActivity.class));
+                }
+            }
+        });
     }
 
     private List<Map<String, Object>> getData1() {

@@ -2,6 +2,7 @@ package com.pinnoocle.fruitindustryoptimization.nets;
 
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
 
@@ -10,6 +11,7 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -51,4 +53,8 @@ public interface RetrofitService {
     //修改手机号
     @POST("index.php")
     Observable<StatusModel> changePhone(@QueryMap Map<String, String> queryMap);
+
+    //推广二维码
+    @GET("index.php")
+    Observable<TreePosterModel> treePoster(@QueryMap Map<String, String> queryMap);
 }

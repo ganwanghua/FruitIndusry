@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mine.ModifyPhoneActivity"></activity>
+        <activity android:name=".mine.InvitationPosterActivity"></activity>
+        <activity android:name=".mine.ModifyPhoneActivity" />
         <activity android:name=".mine.SettingActivity" />
         <activity android:name=".login.LoginActivity">
             <intent-filter>

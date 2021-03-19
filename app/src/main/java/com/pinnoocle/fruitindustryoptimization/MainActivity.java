@@ -178,7 +178,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         if (position == 0 || position == 4) {
             initRed();
         } else {
-            initTransparent();
+            initWhite();
         }
         bottomNavigationBar.selectTab(position);
     }
