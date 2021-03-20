@@ -77,6 +77,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     ImageView ivSpecial;
     @BindView(R.id.iv_arrow)
     ImageView ivArrow;
+    @BindView(R.id.iv_image)
+    ImageView ivImage;
     private List<HomeModel.DataBeanX.ItemsBean.DataBean> bannerList = new ArrayList<>();
     private DataRepository dataRepository;
     private GridViewAdapter gridViewAdapter;
@@ -154,6 +156,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                                 ids.add(homeModel.getData().getItems().get(i).getData().get(j).getArticle_id());
                             }
                             initMarqueeView(titles);
+                        }else if (i == 6){
+                            Glide.with(getContext()).load(homeModel.getData().getItems().get(i).getData().get(0).getImgUrl()).into(ivImage);
                         }
                     }
                 }
