@@ -170,7 +170,7 @@ public class MineFragment extends BaseFragment {
         //新建适配器
         String[] from = {"image", "text"};
         int[] to = {R.id.image, R.id.text};
-        sim_adapter1 = new SimpleAdapter(getContext(), data_list1, R.layout.item, from, to);
+        sim_adapter1 = new SimpleAdapter(getContext(), data_list1, R.layout.item1, from, to);
         //配置适配器
         gridView1.setAdapter(sim_adapter1);
         gridView1.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -201,7 +201,7 @@ public class MineFragment extends BaseFragment {
         //新建适配器
         String[] from = {"image", "text"};
         int[] to = {R.id.image, R.id.text};
-        sim_adapter = new SimpleAdapter(getContext(), data_list, R.layout.item, from, to);
+        sim_adapter = new SimpleAdapter(getContext(), data_list, R.layout.item1, from, to);
         //配置适配器
         gridView.setAdapter(sim_adapter);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
