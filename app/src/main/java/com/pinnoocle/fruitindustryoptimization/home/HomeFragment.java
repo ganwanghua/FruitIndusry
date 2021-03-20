@@ -17,11 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
+import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.GoodListAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodListBean;
+import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
+import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
+import com.pinnoocle.fruitindustryoptimization.nets.Injection;
+import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.ActivityUtils;
+import com.pinnoocle.fruitindustryoptimization.utils.FastData;
+import com.pinnoocle.fruitindustryoptimization.utils.Remember;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.youth.banner.Banner;
@@ -62,10 +70,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private ArrayList<Map<String, Object>> data_list;
     private SimpleAdapter sim_adapter;
-    private List<Integer> bannerList = new ArrayList<>();
+    private List<HomeModel.DataBeanX.ItemsBean.DataBean> bannerList = new ArrayList<>();
     private int[] icon = {R.mipmap.fruit_tree, R.mipmap.seckill, R.mipmap.group_buying, R.mipmap.vip_product};
 
     private String[] iconName = {"果树认养", "秒杀助力", "团购好货", "会员产品"};
+    private DataRepository dataRepository;
 
     @Override
     protected int LayoutId() {
@@ -78,23 +87,54 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         gridView.setOnItemClickListener(this);
         initJzVideo();
 
-        bannerList.clear();
-        bannerList.add(R.drawable.banner);
-        initBanner();
         initGoodList();
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+        dataRepository = Injection.dataRepository(mContext);
+//        home();
+    }
+
+    private void home(){
+        ViewLoading.show(mContext);
+        Map<String, String> map = new HashMap<>();
+//        s=/api/page/index&page_id=0
+        map.put("s","/api/page/index&page_id=0");
+        map.put("wxapp_id", "10001");
+        map.put("token",FastData.getToken());
+        dataRepository.home(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                HomeModel homeModel = (HomeModel)data;
+                if(homeModel.getCode()==1){
+                    bannerList = homeModel.getData().getItems().get(2).getData();
+                    initBanner();
+                }
+            }
+        });
+    }
 
     private void initBanner() {
         banner.isAutoLoop(true)
-                .setAdapter(new BannerImageAdapter<Integer>(bannerList) {
+                .setAdapter(new BannerImageAdapter<HomeModel.DataBeanX.ItemsBean.DataBean>(bannerList) {
                     @Override
-                    public void onBindView(BannerImageHolder holder, Integer data, int position, int size) {
+                    public void onBindView(BannerImageHolder holder, HomeModel.DataBeanX.ItemsBean.DataBean data, int position, int size) {
                         //图片加载自己实现
                         Glide.with(holder.itemView)
-                                .load(data)
+                                .load(data.getImgUrl())
                                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                                 .into(holder.imageView);
+                        holder.itemView.setOnClickListener(v -> {
+                            ToastUtils.showToast(data.getLinkUrl());
+                        });
                     }
                 });
     }
@@ -103,11 +143,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         recycleView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         GoodListAdapter adapter = new GoodListAdapter(getContext());
         recycleView.setAdapter(adapter);
-        ArrayList<GoodListBean> list = new ArrayList<>();
-        for (int i = 0; i <12; i++) {
-            list.add(new GoodListBean("果树", "15", ""));
-        }
-        adapter.setData(list);
     }
 
 

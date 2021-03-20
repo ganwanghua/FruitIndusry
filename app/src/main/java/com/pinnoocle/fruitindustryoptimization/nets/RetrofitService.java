@@ -1,5 +1,7 @@
 package com.pinnoocle.fruitindustryoptimization.nets;
 
+import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
+import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
@@ -62,4 +64,12 @@ public interface RetrofitService {
     //用户认养订单
     @GET("index.php")
     Observable<TreeOrderModel> treeOrder(@QueryMap Map<String, String> queryMap);
+
+    //首页
+    @GET("index.php")
+    Observable<HomeModel> home(@QueryMap Map<String, String> queryMap);
+
+    //全部分类
+    @GET("index.php")
+    Observable<CategoryIndexModel> categoryIndex(@QueryMap Map<String, String> queryMap);
 }

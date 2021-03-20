@@ -75,4 +75,14 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.treeOrder(queryMap, callback);
     }
 
+    @Override
+    public void home(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.home(queryMap, callback);
+    }
+
+    @Override
+    public void categoryIndex(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.categoryIndex(queryMap, callback);
+    }
+
 }
