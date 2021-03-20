@@ -85,4 +85,19 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.categoryIndex(queryMap, callback);
     }
 
+    @Override
+    public void wallet(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.wallet(queryMap, callback);
+    }
+
+    @Override
+    public void balanceDetail(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.balanceDetail(queryMap, callback);
+    }
+
+    @Override
+    public void article(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.article(queryMap, callback);
+    }
+
 }

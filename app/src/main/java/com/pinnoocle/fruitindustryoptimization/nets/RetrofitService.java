@@ -1,5 +1,7 @@
 package com.pinnoocle.fruitindustryoptimization.nets;
 
+import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
+import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
@@ -8,6 +10,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
+import com.pinnoocle.fruitindustryoptimization.bean.WalletModel;
 
 import java.util.Map;
 
@@ -50,7 +53,7 @@ public interface RetrofitService {
     Observable<StatusModel> modify(@Query("s") String s, @Query("nickName") String nickName, @Query("wxapp_id") String wxappid, @Query("token") String token, @Part MultipartBody.Part file);
 
     //修改昵称
-    @POST("index.php?s=/api/user/modify&wxapp_id=10001")
+    @POST("index.php")
     Observable<StatusModel> modify1(@Body Map<String, String> queryMap);
 
     //修改手机号
@@ -65,6 +68,14 @@ public interface RetrofitService {
     @GET("index.php")
     Observable<TreeOrderModel> treeOrder(@QueryMap Map<String, String> queryMap);
 
+    //我的钱包
+    @GET("index.php")
+    Observable<WalletModel> wallet(@QueryMap Map<String, String> queryMap);
+
+    //余额明细
+    @GET("index.php")
+    Observable<BalanceDetailModel> balanceDetail(@QueryMap Map<String, String> queryMap);
+
     //首页
     @GET("index.php")
     Observable<HomeModel> home(@QueryMap Map<String, String> queryMap);
@@ -72,4 +83,8 @@ public interface RetrofitService {
     //全部分类
     @GET("index.php")
     Observable<CategoryIndexModel> categoryIndex(@QueryMap Map<String, String> queryMap);
+
+    //文章详情
+    @GET("index.php")
+    Observable<ArticleModel> article(@QueryMap Map<String, String> queryMap);
 }

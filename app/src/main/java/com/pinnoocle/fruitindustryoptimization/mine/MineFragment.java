@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -76,6 +77,10 @@ public class MineFragment extends BaseFragment {
     SmartRefreshLayout refresh;
     @BindView(R.id.rl_adoption_order)
     RelativeLayout rlAdoptionOrder;
+    @BindView(R.id.ll_balance)
+    LinearLayout llBalance;
+    @BindView(R.id.tv_money)
+    TextView tvMoney;
     private int[] icon = {R.mipmap.paid, R.mipmap.delivered, R.mipmap.received, R.mipmap.evaluated, R.mipmap.after_sales};
     private int[] icon1 = {R.mipmap.membership, R.mipmap.my_fruit_tree, R.mipmap.adoption, R.mipmap.registration};
     private String[] iconName = {"待付款", "待发货", "待收货", "待评价", "退款/售后"};
@@ -151,6 +156,7 @@ public class MineFragment extends BaseFragment {
                             }
                         }
                         tvPhone.setText(sb.toString());
+                        tvMoney.setText(userInfoModel.getData().getUserInfo().getBalance());
                     }
                 }
             }
@@ -211,7 +217,7 @@ public class MineFragment extends BaseFragment {
         return data_list;
     }
 
-    @OnClick({R.id.iv_setting, R.id.rl_adoption_order})
+    @OnClick({R.id.iv_setting, R.id.rl_adoption_order, R.id.ll_balance})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_setting:
@@ -219,6 +225,9 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.rl_adoption_order:
                 startActivity(new Intent(getContext(), AdoptionOrderActivity.class));
+                break;
+            case R.id.ll_balance:
+                startActivity(new Intent(getContext(), BalanceActivity.class));
                 break;
         }
     }

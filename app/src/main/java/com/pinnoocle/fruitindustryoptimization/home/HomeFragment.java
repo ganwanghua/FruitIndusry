@@ -1,15 +1,15 @@
 package com.pinnoocle.fruitindustryoptimization.home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +21,7 @@ import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.GoodListAdapter;
-import com.pinnoocle.fruitindustryoptimization.bean.GoodListBean;
+import com.pinnoocle.fruitindustryoptimization.adapter.GridViewAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
@@ -29,8 +29,10 @@ import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.ActivityUtils;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
-import com.pinnoocle.fruitindustryoptimization.utils.Remember;
+import com.pinnoocle.fruitindustryoptimization.widget.GridViewInScrollView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
@@ -54,7 +56,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @BindView(R.id.banner)
     Banner banner;
     @BindView(R.id.gridView)
-    GridView gridView;
+    GridViewInScrollView gridView;
     @BindView(R.id.scrollview)
     NestedScrollView scrollview;
     @BindView(R.id.refresh)
@@ -67,14 +69,19 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     JzvdStd jzVideo;
     @BindView(R.id.recycleView)
     RecyclerView recycleView;
-
-    private ArrayList<Map<String, Object>> data_list;
-    private SimpleAdapter sim_adapter;
+    @BindView(R.id.logo)
+    ImageView logo;
+    @BindView(R.id.classic)
+    ImageView classic;
+    @BindView(R.id.iv_special)
+    ImageView ivSpecial;
+    @BindView(R.id.iv_arrow)
+    ImageView ivArrow;
     private List<HomeModel.DataBeanX.ItemsBean.DataBean> bannerList = new ArrayList<>();
-    private int[] icon = {R.mipmap.fruit_tree, R.mipmap.seckill, R.mipmap.group_buying, R.mipmap.vip_product};
-
-    private String[] iconName = {"果树认养", "秒杀助力", "团购好货", "会员产品"};
     private DataRepository dataRepository;
+    private GridViewAdapter gridViewAdapter;
+    private List<String> titles = new ArrayList<>();
+    private List<Integer> ids = new ArrayList<>();
 
     @Override
     protected int LayoutId() {
@@ -83,41 +90,85 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     protected void initView() {
-        grid();
-        gridView.setOnItemClickListener(this);
         initJzVideo();
-
         initGoodList();
     }
 
     @Override
-    protected void initData() {
-        super.initData();
-        dataRepository = Injection.dataRepository(mContext);
-//        home();
+    public void onStart() {
+        super.onStart();
+        marqueeView.startFlipping();
     }
 
-    private void home(){
+    @Override
+    public void onStop() {
+        super.onStop();
+        marqueeView.stopFlipping();
+    }
+
+    @Override
+    protected void initData() {
+        dataRepository = Injection.dataRepository(mContext);
+        home();
+        refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                home();
+            }
+        });
+        gridView.setOnItemClickListener(this);
+    }
+
+    private void home() {
         ViewLoading.show(mContext);
         Map<String, String> map = new HashMap<>();
-//        s=/api/page/index&page_id=0
-        map.put("s","/api/page/index&page_id=0");
+        map.put("s", "/api/page/index");
+        map.put("page_id", "0");
         map.put("wxapp_id", "10001");
-        map.put("token",FastData.getToken());
+        map.put("token", FastData.getToken());
         dataRepository.home(map, new RemotDataSource.getCallback() {
             @Override
             public void onFailure(String info) {
+                refresh.finishRefresh();
                 ViewLoading.dismiss(mContext);
             }
 
             @Override
             public void onSuccess(Object data) {
+                refresh.finishRefresh();
                 ViewLoading.dismiss(mContext);
-                HomeModel homeModel = (HomeModel)data;
-                if(homeModel.getCode()==1){
-                    bannerList = homeModel.getData().getItems().get(2).getData();
-                    initBanner();
+                HomeModel homeModel = (HomeModel) data;
+                if (homeModel.getCode() == 1) {
+                    for (int i = 0; i < homeModel.getData().getItems().size(); i++) {
+                        if (i == 3) {
+                            gridViewAdapter = new GridViewAdapter(getContext(), homeModel.getData().getItems().get(i).getData());
+                            gridView.setAdapter(gridViewAdapter);
+                            gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                        } else if (i == 2) {
+                            bannerList = homeModel.getData().getItems().get(i).getData();
+                            initBanner();
+                        } else if (i == 4) {
+                            titles.clear();
+                            for (int j = 0; j < homeModel.getData().getItems().get(i).getData().size(); j++) {
+                                titles.add(homeModel.getData().getItems().get(i).getData().get(j).getArticle_title());
+                                ids.add(homeModel.getData().getItems().get(i).getData().get(j).getArticle_id());
+                            }
+                            initMarqueeView(titles);
+                        }
+                    }
                 }
+            }
+        });
+    }
+
+    private void initMarqueeView(List<String> titles) {
+        marqueeView.startWithList(titles);
+        marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, TextView textView) {
+                Intent intent1 = new Intent(getContext(), ArticleActivity.class);
+                intent1.putExtra("id", ids.get(position));
+                startActivity(intent1);
             }
         });
     }
@@ -145,21 +196,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         recycleView.setAdapter(adapter);
     }
 
-
-    private void grid() {
-        data_list = new ArrayList<Map<String, Object>>();
-        //获取数据
-        getData();
-        //新建适配器
-        String[] from = {"image", "text"};
-        int[] to = {R.id.image, R.id.text};
-        sim_adapter = new SimpleAdapter(getContext(), data_list, R.layout.item, from, to);
-        //配置适配器
-        gridView.setAdapter(sim_adapter);
-        gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-
-    }
-
     private void initJzVideo() {
         jzVideo.setUp("http://1251316161.vod2.myqcloud.com/5f6ddb64vodsh1251316161/ece2c7df5285890812999168943/mKHguCyn6gIA.mp4"
                 , "饺子闭眼睛");
@@ -172,36 +208,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     }
 
-    public List<Map<String, Object>> getData() {
-        //cion和iconName的长度是相同的，这里任选其一都可以
-        for (int i = 0; i < icon.length; i++) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("image", icon[i]);
-            map.put("text", iconName[i]);
-            data_list.add(map);
-        }
-        return data_list;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == 0) {
-//            ActivityUtils.startActivity(getContext(),FruitTreeActivity.class);
-        } else if (position == 1) {
-
-        } else if (position == 2) {
-
-        } else if (position == 3) {
-
-
-        }
-    }
-
-    @OnClick(R.id.ed_search)
-    public void onViewClicked() {
-        ActivityUtils.startActivity(getContext(), SearchActivity.class);
-    }
-
     @Override
     public void onPause() {
         super.onPause();
@@ -211,6 +217,21 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onBackPressed() {
         if (jzVideo.backPress()) {
             return;
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @OnClick({R.id.ed_search})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ed_search:
+                ActivityUtils.startActivity(getContext(), SearchActivity.class);
+                break;
+
         }
     }
 }

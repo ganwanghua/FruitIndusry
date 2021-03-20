@@ -34,6 +34,14 @@ public interface RemotDataSource {
     void treePoster(Map<String, String> queryMap, getCallback callback);
 
     void treeOrder(Map<String, String> queryMap, getCallback callback);
+
+    void wallet(Map<String, String> queryMap, getCallback callback);
+
+    void balanceDetail(Map<String, String> queryMap, getCallback callback);
+
     void home(Map<String, String> queryMap, getCallback callback);
+
     void categoryIndex(Map<String, String> queryMap, getCallback callback);
+
+    void article(Map<String, String> queryMap, getCallback callback);
 }

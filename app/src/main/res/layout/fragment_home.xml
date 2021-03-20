@@ -15,73 +15,72 @@
         android:layout_marginRight="-50dp"
         android:src="@drawable/bg_home" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refresh"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srlAccentColor="@color/white" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/rl_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
 
-            <RelativeLayout
-                android:id="@+id/rl_search"
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/logo" />
+
+            <ImageView
+                android:id="@+id/classic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                android:src="@mipmap/other" />
+
+            <TextView
+                android:id="@+id/ed_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/classic"
+                android:layout_toRightOf="@id/logo"
+                android:background="@drawable/bg_search"
+                android:drawableLeft="@mipmap/search"
+                android:drawablePadding="10dp"
+                android:hint="搜索"
+                android:imeOptions="actionSearch"
+                android:padding="8dp"
+                android:singleLine="true"
+                android:textColor="@color/grey"
+                android:textColorHint="@color/grey1"
+                android:textSize="14sp" />
+        </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/logo" />
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rl_search">
 
-                <ImageView
-                    android:id="@+id/classic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:padding="10dp"
-                    android:src="@mipmap/other" />
-
-                <TextView
-                    android:id="@+id/ed_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@id/classic"
-                    android:layout_toRightOf="@id/logo"
-                    android:background="@drawable/bg_search"
-                    android:drawableLeft="@mipmap/search"
-                    android:drawablePadding="10dp"
-                    android:hint="搜索"
-                    android:imeOptions="actionSearch"
-                    android:padding="8dp"
-                    android:singleLine="true"
-                    android:textColor="@color/grey"
-                    android:textColorHint="@color/grey1"
-                    android:textSize="14sp" />
-            </RelativeLayout>
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srlAccentColor="@color/white" />
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/scrollview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/rl_search"
                 android:overScrollMode="never">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <com.youth.banner.Banner
@@ -91,52 +90,50 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp" />
 
-                    <GridView
+                    <com.pinnoocle.fruitindustryoptimization.widget.GridViewInScrollView
                         android:id="@+id/gridView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:gravity="center"
-                        android:numColumns="4" />
+                        android:numColumns="4"
+                        android:scrollbars="none" />
 
                     <RelativeLayout
                         android:id="@+id/rl_marqueeView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:padding="15dp">
 
                         <ImageView
                             android:id="@+id/iv_special"
-                            android:src="@mipmap/special"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp" />
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:src="@mipmap/special" />
 
                         <com.sunfusheng.marqueeview.MarqueeView
-                            android:layout_toEndOf="@id/iv_special"
-                            android:layout_toStartOf="@id/iv_arrow"
                             android:id="@+id/marqueeView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/iv_arrow"
+                            android:layout_toEndOf="@id/iv_special"
                             android:layout_weight="1"
-                            android:text="用户月公告"
+                            android:paddingLeft="10dp"
                             app:mvAnimDuration="1000"
                             app:mvSingleLine="true"
                             app:mvTextColor="#333333"
                             app:mvTextSize="14sp" />
+
                         <ImageView
+                            android:id="@+id/iv_arrow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/arrow_right_1"
                             android:layout_alignParentEnd="true"
-                            android:id="@+id/iv_arrow"/>
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/arrow_right_1" />
                     </RelativeLayout>
 
                     <cn.jzvd.JzvdStd
@@ -153,6 +150,7 @@
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
-        </RelativeLayout>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </RelativeLayout>
 </RelativeLayout>

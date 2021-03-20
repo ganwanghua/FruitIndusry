@@ -3,6 +3,8 @@ package com.pinnoocle.fruitindustryoptimization.nets;
 
 import android.content.Context;
 
+import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
+import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
@@ -11,6 +13,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
+import com.pinnoocle.fruitindustryoptimization.bean.WalletModel;
 
 import java.util.Map;
 
@@ -275,6 +278,72 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(CategoryIndexModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void wallet(Map<String, String> queryMap, getCallback callback) {
+        Observable<WalletModel> observable = RetrofitHelper.getInstance(mContext).getServer().wallet(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<WalletModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(WalletModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void balanceDetail(Map<String, String> queryMap, getCallback callback) {
+        Observable<BalanceDetailModel> observable = RetrofitHelper.getInstance(mContext).getServer().balanceDetail(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BalanceDetailModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BalanceDetailModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void article(Map<String, String> queryMap, getCallback callback) {
+        Observable<ArticleModel> observable = RetrofitHelper.getInstance(mContext).getServer().article(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ArticleModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(ArticleModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });
