@@ -2,6 +2,7 @@ package com.pinnoocle.fruitindustryoptimization.nets;
 
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
@@ -57,4 +58,8 @@ public interface RetrofitService {
     //推广二维码
     @GET("index.php")
     Observable<TreePosterModel> treePoster(@QueryMap Map<String, String> queryMap);
+
+    //用户认养订单
+    @GET("index.php")
+    Observable<TreeOrderModel> treeOrder(@QueryMap Map<String, String> queryMap);
 }

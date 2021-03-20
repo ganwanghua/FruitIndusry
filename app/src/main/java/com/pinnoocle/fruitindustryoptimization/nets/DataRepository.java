@@ -70,4 +70,9 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.treePoster(queryMap, callback);
     }
 
+    @Override
+    public void treeOrder(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.treeOrder(queryMap, callback);
+    }
+
 }

@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +25,9 @@ import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.pinnoocle.fruitindustryoptimization.widget.GlideCircleTransform;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -67,6 +72,10 @@ public class MineFragment extends BaseFragment {
     ImageView ivCollection1;
     @BindView(R.id.iv_message)
     ImageView ivMessage;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refresh;
+    @BindView(R.id.rl_adoption_order)
+    RelativeLayout rlAdoptionOrder;
     private int[] icon = {R.mipmap.paid, R.mipmap.delivered, R.mipmap.received, R.mipmap.evaluated, R.mipmap.after_sales};
     private int[] icon1 = {R.mipmap.membership, R.mipmap.my_fruit_tree, R.mipmap.adoption, R.mipmap.registration};
     private String[] iconName = {"待付款", "待发货", "待收货", "待评价", "退款/售后"};
@@ -105,6 +114,12 @@ public class MineFragment extends BaseFragment {
         grid();
         grid1();
         userInfo();
+        refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                userInfo();
+            }
+        });
     }
 
     private void userInfo() {
@@ -115,10 +130,12 @@ public class MineFragment extends BaseFragment {
         dataRepository.userInfo(map, new RemotDataSource.getCallback() {
             @Override
             public void onFailure(String info) {
+                refresh.finishRefresh();
             }
 
             @Override
             public void onSuccess(Object data) {
+                refresh.finishRefresh();
                 UserInfoModel userInfoModel = (UserInfoModel) data;
                 if (userInfoModel.getCode() == 1) {
                     Glide.with(getContext()).load(userInfoModel.getData().getUserInfo().getAvatarUrl()).apply(bitmapTransform(new GlideCircleTransform(getContext()))).into(ivAvatar);
@@ -154,7 +171,7 @@ public class MineFragment extends BaseFragment {
         gridView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 3){
+                if (position == 3) {
                     startActivity(new Intent(getContext(), InvitationPosterActivity.class));
                 }
             }
@@ -194,8 +211,15 @@ public class MineFragment extends BaseFragment {
         return data_list;
     }
 
-    @OnClick(R.id.iv_setting)
-    public void onViewClicked() {
-        startActivity(new Intent(getContext(), SettingActivity.class));
+    @OnClick({R.id.iv_setting, R.id.rl_adoption_order})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_setting:
+                startActivity(new Intent(getContext(), SettingActivity.class));
+                break;
+            case R.id.rl_adoption_order:
+                startActivity(new Intent(getContext(), AdoptionOrderActivity.class));
+                break;
+        }
     }
 }

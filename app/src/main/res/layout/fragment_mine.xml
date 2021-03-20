@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -315,7 +316,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp">
+                            android:padding="15dp">
 
                             <ImageView
                                 android:id="@+id/iv_purchase"
@@ -350,7 +351,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp">
+                            android:padding="15dp">
 
                             <ImageView
                                 android:id="@+id/iv_second_kill"
@@ -383,9 +384,10 @@
                             android:background="#F2F2F2" />
 
                         <RelativeLayout
+                            android:id="@+id/rl_adoption_order"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp">
+                            android:padding="15dp">
 
                             <ImageView
                                 android:id="@+id/iv_tree"
@@ -420,7 +422,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp">
+                            android:padding="15dp">
 
                             <ImageView
                                 android:id="@+id/iv_collection"
@@ -455,7 +457,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp">
+                            android:padding="15dp">
 
                             <ImageView
                                 android:id="@+id/iv_location"
@@ -490,7 +492,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp">
+                            android:padding="15dp">
 
                             <ImageView
                                 android:id="@+id/iv_collection1"
@@ -525,7 +527,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp">
+                            android:padding="15dp">
 
                             <ImageView
                                 android:id="@+id/iv_message"

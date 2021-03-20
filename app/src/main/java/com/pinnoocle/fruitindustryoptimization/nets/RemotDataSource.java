@@ -32,4 +32,6 @@ public interface RemotDataSource {
     void changePhone(Map<String, String> queryMap, getCallback callback);
 
     void treePoster(Map<String, String> queryMap, getCallback callback);
+
+    void treeOrder(Map<String, String> queryMap, getCallback callback);
 }
