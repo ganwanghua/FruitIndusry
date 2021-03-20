@@ -11,9 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
+import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.R;
+import com.pinnoocle.fruitindustryoptimization.adapter.ChildAdapter;
 import com.pinnoocle.fruitindustryoptimization.adapter.ClassificationAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
+import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
@@ -47,6 +50,7 @@ public class ClassificationFragment extends BaseFragment {
     RecyclerView rvGoodsList;
     private DataRepository dataRepository;
     private ClassificationAdapter classificationAdapter;
+    private ChildAdapter childAdapter;
 
     @Override
     protected int LayoutId() {
@@ -64,18 +68,29 @@ public class ClassificationFragment extends BaseFragment {
             @Override
             public void onItemViewClick(View view, int position,CategoryIndexModel.DataBeanX.ListBean o) {
                 classificationAdapter.setPos(position);
-                getChildCat(o.getGoods());
+                getChildCat(o.getGoods().getData());
             }
         });
 
-        rvGoodsList.setLayoutManager(new GridLayoutManager(mContext,3));
+        rvGoodsList.setLayoutManager(new LinearLayoutManager(mContext));
+        childAdapter = new ChildAdapter(mContext);
+        rvGoodsList.setAdapter(childAdapter);
+        childAdapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<CategoryIndexModel.DataBeanX.ListBean.GoodsBean.DataBean>() {
+            @Override
+            public void onItemViewClick(View view, int position, CategoryIndexModel.DataBeanX.ListBean.GoodsBean.DataBean o) {
+                if(view.getId()==R.id.iv_add_cart){
+                    cartAdd(o.getGoods_id()+"", o.getGoods_sku().getSpec_sku_id(),1);
+                }else {
 
-//        rvGoodsList.setAdapter();
+
+                }
+            }
+        });
 
     }
 
-    private void getChildCat(CategoryIndexModel.DataBeanX.ListBean.GoodsBean goods) {
-
+    private void getChildCat(List<CategoryIndexModel.DataBeanX.ListBean.GoodsBean.DataBean> goods) {
+        childAdapter.setData(goods);
     }
 
     @Override
@@ -104,10 +119,39 @@ public class ClassificationFragment extends BaseFragment {
                 if(categoryIndexModel.getCode()==1){
                     List<CategoryIndexModel.DataBeanX.ListBean> list = categoryIndexModel.getData().getList();
                     classificationAdapter.setData(list);
+                    getChildCat(list.get(0).getGoods().getData());
                 }
 
             }
         });
     }
+    private void cartAdd(String goods_id,String goods_sku_id,int goods_num) {
+        ViewLoading.show(mContext);
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/cart/add");
+        map.put("wxapp_id","10001");
+        map.put("token", FastData.getToken());
+        map.put("goods_id", goods_id);
+        map.put("goods_num",goods_num+"" );
+        map.put("goods_sku_id", goods_sku_id);
+        dataRepository.cartAdd(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                StatusModel statusModel = (StatusModel)data;
+                if(statusModel.getCode()==1){
+
+                }
+                ToastUtils.showToast(statusModel.getMsg());
+
+            }
+        });
+    }
+
 
 }

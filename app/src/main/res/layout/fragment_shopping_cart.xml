@@ -22,112 +22,129 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_select"
+    <LinearLayout
+        android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_title"
-        android:layout_marginTop="10dp"
-        android:background="@color/white">
-        <LinearLayout
-            android:id="@+id/ll_del"
-            android:layout_width="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_select"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:gravity="center_vertical"
-            android:padding="10dp">
-            <ImageView
-                android:layout_marginEnd="5dp"
+            android:layout_below="@id/rl_title"
+            android:layout_marginTop="10dp"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:id="@+id/ll_del"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/delete" />
-            <TextView
-                android:id="@+id/tv_del"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="管理"
-                android:textColor="@color/gray_black"
-                android:textSize="13sp" />
-        </LinearLayout>
-    </RelativeLayout>
+                android:layout_alignParentEnd="true"
+                android:gravity="center_vertical"
+                android:padding="10dp">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/rl_select"
-        android:background="@color/grey3" />
+                <ImageView
+                    android:id="@+id/iv_del"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/delete" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view"
-        android:background="@color/white"
-        android:overScrollMode="never" />
+                <TextView
+                    android:id="@+id/tv_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="管理"
+                    android:textColor="@color/gray_black"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/rl_select"
+            android:background="@color/grey3" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view"
+            android:background="@color/white"
+            android:overScrollMode="never" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/rl_panel"
-        android:background="@color/white"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        >
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
         <LinearLayout
-            android:layout_centerVertical="true"
             android:id="@+id/ll_all_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            >
+            android:orientation="horizontal">
+
             <CheckBox
-                android:clickable="false"
-                android:layout_centerVertical="true"
                 android:id="@+id/checkbox"
-                android:padding="5dp"
-                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="15dp"
-                android:button="@drawable/check_selector" />
+                android:button="@drawable/check_selector"
+                android:clickable="false"
+                android:gravity="center"
+                android:padding="5dp" />
+
             <TextView
-                android:layout_marginStart="5dp"
-                android:layout_centerVertical="true"
                 android:id="@+id/tv_all_select_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/checkbox"
                 android:text="全选"
-                android:layout_toEndOf="@id/checkbox"/>
+                android:textColor="@color/black"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
-            android:layout_marginEnd="5dp"
             android:id="@+id/tv_total_price"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/light_red"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@id/tv_settlement"
             android:text="￥598.00"
-            android:layout_toStartOf="@id/tv_settlement"/>
+            android:textColor="@color/light_red"
+            android:textSize="14sp" />
+
         <TextView
             android:id="@+id/tv_settlement"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:background="@drawable/bg_btn_settlement"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:text="去结算"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:background="@drawable/bg_btn_settlement"/>
+            android:textSize="16sp" />
 
     </RelativeLayout>
+
+    <include
+        android:visibility="gone"
+        layout="@layout/empty_shopcart" />
 
 </RelativeLayout>

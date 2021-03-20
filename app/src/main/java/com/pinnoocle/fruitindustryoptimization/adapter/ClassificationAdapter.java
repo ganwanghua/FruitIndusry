@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,10 @@ public class ClassificationAdapter extends BaseAdapter<CategoryIndexModel.DataBe
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
+        holder.iv_rect.setVisibility(View.GONE);
+        if(pos ==position){
+            holder.iv_rect.setVisibility(View.VISIBLE);
+        }
         holder.text.setText(mDatas.get(position).getName());
         if (position == pos) {
             holder.text.setBackgroundColor(mContext.getResources().getColor(R.color.white));
@@ -61,6 +66,8 @@ public class ClassificationAdapter extends BaseAdapter<CategoryIndexModel.DataBe
     public static class VH extends RecyclerView.ViewHolder {
         @BindView(R.id.text)
         TextView text;
+        @BindView(R.id.iv_rect)
+        ImageView iv_rect;
 
         public VH(@NonNull View itemView) {
             super(itemView);

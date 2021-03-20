@@ -1,5 +1,6 @@
 package com.pinnoocle.fruitindustryoptimization.nets;
 
+import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
@@ -83,8 +84,17 @@ public interface RetrofitService {
     //全部分类
     @GET("index.php")
     Observable<CategoryIndexModel> categoryIndex(@QueryMap Map<String, String> queryMap);
+    //加入购物车
+    @POST("index.php")
+    Observable<StatusModel> cartAdd(@QueryMap Map<String, String> queryMap);
+    //购物车商品列表
+    @POST("index.php")
+    Observable<CartListsModel> cartList(@QueryMap Map<String, String> queryMap);
 
     //文章详情
     @GET("index.php")
     Observable<ArticleModel> article(@QueryMap Map<String, String> queryMap);
+    //删除购物车商品
+    @GET("index.php")
+    Observable<StatusModel> cartDelete(@QueryMap Map<String, String> queryMap);
 }
