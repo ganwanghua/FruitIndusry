@@ -79,4 +79,5 @@ dependencies {
     implementation('com.zzhoujay.richtext:richtext:3.0.7') {
         exclude group: 'com.android.support'
     }
+    implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
 }

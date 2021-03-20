@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodListBean;
+import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GoodListAdapter extends BaseAdapter<GoodListBean, GoodListAdapter.VH> {
+public class GoodListAdapter extends BaseAdapter<HomeModel.DataBeanX.ItemsBean.DataBean, GoodListAdapter.VH> {
 
 
     public GoodListAdapter(Context mContext) {
@@ -33,9 +34,9 @@ public class GoodListAdapter extends BaseAdapter<GoodListBean, GoodListAdapter.V
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        Glide.with(mContext).load(mDatas.get(position).getPic()).into(holder.ivGoodsPic);
-        holder.tvGoodsTitle.setText(mDatas.get(position).getTitle());
-        holder.tvPrice.setText("￥"+mDatas.get(position).getPrice());
+        Glide.with(mContext).load(mDatas.get(position).getGoods_image()).into(holder.ivGoodsPic);
+        holder.tvGoodsTitle.setText(mDatas.get(position).getGoods_name());
+        holder.tvPrice.setText("￥"+mDatas.get(position).getGoods_price());
     }
 
     @Override

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.dd.ShadowLayout;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.R;
@@ -79,11 +80,17 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     ImageView ivArrow;
     @BindView(R.id.iv_image)
     ImageView ivImage;
+    @BindView(R.id.upload_event)
+    ImageView uploadEvent;
+    @BindView(R.id.fab)
+    ShadowLayout fab;
     private List<HomeModel.DataBeanX.ItemsBean.DataBean> bannerList = new ArrayList<>();
+    private List<HomeModel.DataBeanX.ItemsBean.DataBean> dataBeans = new ArrayList<>();
     private DataRepository dataRepository;
     private GridViewAdapter gridViewAdapter;
     private List<String> titles = new ArrayList<>();
     private List<Integer> ids = new ArrayList<>();
+    private GoodListAdapter adapter;
 
     @Override
     protected int LayoutId() {
@@ -115,6 +122,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         refresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                dataBeans.clear();
                 home();
             }
         });
@@ -156,8 +164,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                                 ids.add(homeModel.getData().getItems().get(i).getData().get(j).getArticle_id());
                             }
                             initMarqueeView(titles);
-                        }else if (i == 6){
+                        } else if (i == 6) {
                             Glide.with(getContext()).load(homeModel.getData().getItems().get(i).getData().get(0).getImgUrl()).into(ivImage);
+                        } else if (i == 8) {
+                            Glide.with(getContext()).load(homeModel.getData().getItems().get(i).getParams().getImage()).into(uploadEvent);
+                        } else if (i == 9 || i == 10 || i == 11) {
+                            dataBeans.addAll(homeModel.getData().getItems().get(i).getData());
+                            adapter.setData(dataBeans);
                         }
                     }
                 }
@@ -196,7 +209,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private void initGoodList() {
         recycleView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        GoodListAdapter adapter = new GoodListAdapter(getContext());
+        adapter = new GoodListAdapter(getContext());
         recycleView.setAdapter(adapter);
     }
 
