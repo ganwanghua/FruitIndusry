@@ -9,8 +9,10 @@ import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
+import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
+import com.pinnoocle.fruitindustryoptimization.bean.UserTreesModel;
 import com.pinnoocle.fruitindustryoptimization.bean.WalletModel;
 
 import java.util.Map;
@@ -84,9 +86,11 @@ public interface RetrofitService {
     //全部分类
     @GET("index.php")
     Observable<CategoryIndexModel> categoryIndex(@QueryMap Map<String, String> queryMap);
+
     //加入购物车
     @POST("index.php")
     Observable<StatusModel> cartAdd(@QueryMap Map<String, String> queryMap);
+
     //购物车商品列表
     @POST("index.php")
     Observable<CartListsModel> cartList(@QueryMap Map<String, String> queryMap);
@@ -94,7 +98,16 @@ public interface RetrofitService {
     //文章详情
     @GET("index.php")
     Observable<ArticleModel> article(@QueryMap Map<String, String> queryMap);
+
     //删除购物车商品
     @GET("index.php")
     Observable<StatusModel> cartDelete(@QueryMap Map<String, String> queryMap);
+
+    //用户果树列表
+    @GET("index.php")
+    Observable<UserTreesModel> userTrees(@QueryMap Map<String, String> queryMap);
+
+    //果树列表
+    @GET("index.php")
+    Observable<TreesModel> trees(@QueryMap Map<String, String> queryMap);
 }

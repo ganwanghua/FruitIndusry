@@ -115,4 +115,14 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.cartDelete(queryMap, callback);
     }
 
+    @Override
+    public void userTrees(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.userTrees(queryMap, callback);
+    }
+
+    @Override
+    public void trees(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.trees(queryMap, callback);
+    }
+
 }

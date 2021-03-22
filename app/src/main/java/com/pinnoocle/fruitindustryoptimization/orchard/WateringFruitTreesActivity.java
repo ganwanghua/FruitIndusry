@@ -16,8 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
+import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
+import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
+import com.pinnoocle.fruitindustryoptimization.nets.Injection;
+import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
+import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.pinnoocle.fruitindustryoptimization.widget.GlideCircleTransform;
 import com.pinnoocle.fruitindustryoptimization.widget.SpringScaleInterpolator;
 import com.pinnoocle.fruitindustryoptimization.widget.StrokeTextView1;
@@ -25,6 +31,9 @@ import com.timmy.tdialog.TDialog;
 import com.timmy.tdialog.base.BindViewHolder;
 import com.timmy.tdialog.listener.OnBindViewListener;
 import com.timmy.tdialog.listener.OnViewClickListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

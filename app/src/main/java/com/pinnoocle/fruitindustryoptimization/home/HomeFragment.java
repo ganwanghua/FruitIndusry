@@ -38,6 +38,7 @@ import com.sunfusheng.marqueeview.MarqueeView;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
+import com.youth.banner.util.BannerUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -192,13 +193,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private void initBanner() {
         banner.isAutoLoop(true)
+                .setBannerRound(BannerUtils.dp2px(10))
                 .setAdapter(new BannerImageAdapter<HomeModel.DataBeanX.ItemsBean.DataBean>(bannerList) {
                     @Override
                     public void onBindView(BannerImageHolder holder, HomeModel.DataBeanX.ItemsBean.DataBean data, int position, int size) {
                         //图片加载自己实现
                         Glide.with(holder.itemView)
                                 .load(data.getImgUrl())
-                                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                                 .into(holder.imageView);
                         holder.itemView.setOnClickListener(v -> {
                             ToastUtils.showToast(data.getLinkUrl());

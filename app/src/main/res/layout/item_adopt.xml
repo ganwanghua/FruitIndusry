@@ -15,10 +15,10 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/iv_image"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/a" />
+            android:layout_height="200dp"
+            android:scaleType="fitXY" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,10 +34,10 @@
                 android:maxLines="2" />
 
             <TextView
+                android:id="@+id/tv_sub_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="新疆兵团大地有机灰枣，新疆兵团大地有机灰枣有机灰枣，有机灰枣！"
                 android:textColor="#A5A5A5"
                 android:textSize="13sp" />
 
@@ -69,11 +69,10 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tv_wxPay_money"
+                        android:id="@+id/tv_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="￥1.90"
                         android:textColor="#DA251D"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -100,10 +99,10 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_day"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="285天"
                         android:textColor="#DA251D"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -125,15 +124,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="剩余数量"
+                        android:text="认养时长"
                         android:textColor="@color/grey"
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="567"
                         android:textColor="#DA251D"
                         android:textSize="16sp" />
                 </LinearLayout>
