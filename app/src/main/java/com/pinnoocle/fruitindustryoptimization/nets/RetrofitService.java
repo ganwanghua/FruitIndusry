@@ -9,6 +9,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
+import com.pinnoocle.fruitindustryoptimization.bean.TreesDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
@@ -110,4 +111,8 @@ public interface RetrofitService {
     //果树列表
     @GET("index.php")
     Observable<TreesModel> trees(@QueryMap Map<String, String> queryMap);
+
+    //果树详情
+    @GET("index.php")
+    Observable<TreesDetailModel> treesDetail(@QueryMap Map<String, String> queryMap);
 }

@@ -106,10 +106,10 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_dollar"
-                    android:text="1.90"
                     android:textColor="#DA251D"
                     android:textSize="28sp" />
 
@@ -120,7 +120,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="14dp"
-                    android:text="蜀山A地块"
                     android:textColor="@color/grey"
                     android:textSize="13sp" />
 
@@ -134,21 +133,21 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="认养一颗新疆灰枣，每年送10斤红枣零食红枣零食..."
                 android:textColor="#111111"
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/tv_sub_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="新疆兵团大地有机灰枣，新疆兵团大地有机灰枣有机灰枣，有机灰枣！"
                 android:textColor="#A5A5A5"
                 android:textSize="13sp" />
 

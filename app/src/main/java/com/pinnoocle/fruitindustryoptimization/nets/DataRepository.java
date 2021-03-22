@@ -125,4 +125,9 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.trees(queryMap, callback);
     }
 
+    @Override
+    public void treesDetail(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.treesDetail(queryMap, callback);
+    }
+
 }

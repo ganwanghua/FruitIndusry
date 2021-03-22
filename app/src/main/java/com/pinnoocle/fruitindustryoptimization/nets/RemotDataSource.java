@@ -54,4 +54,6 @@ public interface RemotDataSource {
     void userTrees(Map<String, String> queryMap, getCallback callback);
 
     void trees(Map<String, String> queryMap, getCallback callback);
+
+    void treesDetail(Map<String, String> queryMap, getCallback callback);
 }

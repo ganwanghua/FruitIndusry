@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.pinnoocle.fruitindustryoptimization.R;
+import com.pinnoocle.fruitindustryoptimization.bean.TreesDetailModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
@@ -22,7 +23,11 @@ public class BannerImageFragment extends BaseFragment implements OnPageChangeLis
     Banner banner;
     @BindView(R.id.banner_indicator)
     TextView bannerIndicator;
-    private List<Integer> bannerList = new ArrayList<>();
+    private List<TreesDetailModel.DataBean.TreeBean.ImagesBean> images = new ArrayList<>();
+
+    public BannerImageFragment(List<TreesDetailModel.DataBean.TreeBean.ImagesBean> images) {
+        this.images = images;
+    }
 
     @Override
     protected int LayoutId() {
@@ -31,26 +36,23 @@ public class BannerImageFragment extends BaseFragment implements OnPageChangeLis
 
     @Override
     protected void initView() {
-        bannerList.clear();
-        bannerList.add(R.drawable.a);
         initBanner();
     }
 
     private void initBanner() {
         banner.isAutoLoop(false)
-                .setAdapter(new BannerImageAdapter<Integer>(bannerList) {
+                .setAdapter(new BannerImageAdapter<TreesDetailModel.DataBean.TreeBean.ImagesBean>(images) {
                     @Override
-                    public void onBindView(BannerImageHolder holder, Integer data, int position, int size) {
+                    public void onBindView(BannerImageHolder holder, TreesDetailModel.DataBean.TreeBean.ImagesBean data, int position, int size) {
                         //图片加载自己实现
                         Glide.with(holder.itemView)
-                                .load(data)
-                                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
+                                .load(data.getFile_path())
                                 .into(holder.imageView);
                     }
                 })
                 .isAutoLoop(false)
                 .addOnPageChangeListener(this);
-        bannerIndicator.setText("1/" + bannerList.size());
+        bannerIndicator.setText("1/" + images.size());
     }
 
     @Override
@@ -61,7 +63,7 @@ public class BannerImageFragment extends BaseFragment implements OnPageChangeLis
     @Override
     public void onPageSelected(int position) {
         int realposition = position + 1;
-        bannerIndicator.setText(realposition + "/" + bannerList.size());
+        bannerIndicator.setText(realposition + "/" + images.size());
     }
 
     @Override

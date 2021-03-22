@@ -1,5 +1,6 @@
 package com.pinnoocle.fruitindustryoptimization.orchard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -53,6 +54,7 @@ public class AdoptActivity extends BaseActivity implements AdoptAdapter.OnItemCl
     Banner banner;
     private DataRepository dataRepository;
     private List<TreesModel.DataBean.NewBannerBean> bannerList = new ArrayList<>();
+    private TreesModel treesModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +92,7 @@ public class AdoptActivity extends BaseActivity implements AdoptAdapter.OnItemCl
             @Override
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(mContext);
-                TreesModel treesModel = (TreesModel) data;
+                treesModel = (TreesModel) data;
                 if (treesModel.getCode() == 1) {
                     bannerList = treesModel.getData().getNewBanner();
                     initBanner();
@@ -125,6 +127,9 @@ public class AdoptActivity extends BaseActivity implements AdoptAdapter.OnItemCl
 
     @Override
     public void onItemClick(int position) {
-        ActivityUtils.startActivity(this, AdoptDetailsActivity.class);
+        Intent intent = new Intent(this, AdoptDetailsActivity.class);
+        intent.putExtra("id", treesModel.getData().getTrees().get(position).getTree_id() + "");
+        intent.putExtra("number", treesModel.getData().getTrees().get(position).getNumber() + "");
+        startActivity(intent);
     }
 }
