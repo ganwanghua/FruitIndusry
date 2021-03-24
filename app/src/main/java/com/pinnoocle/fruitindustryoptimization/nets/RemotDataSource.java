@@ -69,8 +69,6 @@ public interface RemotDataSource {
 
     void addressEdit(Map<String, String> queryMap, getCallback callback);
 
-    void addressAdd(Map<String, String> queryMap, String region, String detail, getCallback callback);
-
     void fileInfo(Map<String, String> queryMap, getCallback callback);
 
     void beforeBuy(Map<String, String> queryMap, getCallback callback);

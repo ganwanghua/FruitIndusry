@@ -580,28 +580,6 @@ public class RemotDataSourceImpl implements RemotDataSource {
     }
 
     @Override
-    public void addressEdit(Map<String, String> queryMap, getCallback callback) {
-        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().addressEdit(queryMap);
-        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<StatusModel>() {
-                    @Override
-                    public void onCompleted() { // 完成请求后
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) { // 异常处理
-                        callback.onFailure(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(StatusModel s) { // 请求成功
-                        callback.onSuccess(s);
-                    }
-                });
-    }
-
-    @Override
     public void addressAdd(String s, String wxapp_id, String token
             , String name, String phone, String detail, String region, getCallback callback) {
         Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().addressAdd(s, wxapp_id, token, name, phone, detail, region);
@@ -707,6 +685,28 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(GeneTreeOrderModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void addressEdit(Map<String, String> queryMap, getCallback callback) {
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().addressEdit(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<StatusModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(StatusModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });
