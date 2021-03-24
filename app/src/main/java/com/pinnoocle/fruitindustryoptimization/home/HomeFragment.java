@@ -24,6 +24,8 @@ import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.GoodListAdapter;
 import com.pinnoocle.fruitindustryoptimization.adapter.GridViewAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
+import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
@@ -39,6 +41,8 @@ import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
 import com.youth.banner.util.BannerUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -179,6 +183,34 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         });
     }
 
+    private void cartAdd(String goods_id,String goods_sku_id,int goods_num) {
+        ViewLoading.show(mContext);
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/cart/add");
+        map.put("wxapp_id","10001");
+        map.put("token", FastData.getToken());
+        map.put("goods_id", goods_id);
+        map.put("goods_num",goods_num+"" );
+        map.put("goods_sku_id", goods_sku_id);
+        dataRepository.cartAdd(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                StatusModel statusModel = (StatusModel)data;
+                if(statusModel.getCode()==1){
+                }
+                ToastUtils.showToast(statusModel.getMsg());
+
+            }
+        });
+    }
+
+
     private void initMarqueeView(List<String> titles) {
         marqueeView.startWithList(titles);
         marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
@@ -212,6 +244,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         recycleView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapter = new GoodListAdapter(getContext());
         recycleView.setAdapter(adapter);
+        adapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<HomeModel.DataBeanX.ItemsBean.DataBean>() {
+            @Override
+            public void onItemViewClick(View view, int position, HomeModel.DataBeanX.ItemsBean.DataBean o) {
+                cartAdd(o.getGoods_sku().getGoods_id()+"", o.getGoods_sku().getSpec_sku_id(),1);
+                EventBus.getDefault().post("cart_refresh");
+            }
+        });
     }
 
     private void initJzVideo() {

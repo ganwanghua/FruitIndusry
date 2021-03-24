@@ -50,6 +50,8 @@
             android:name=".home.VideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
+        <activity android:name=".mine.AddressActivity" />
+        <activity android:name=".mine.AddAddressActivity" />
     </application>
 
 </manifest>

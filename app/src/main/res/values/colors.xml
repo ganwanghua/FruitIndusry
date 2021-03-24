@@ -14,5 +14,6 @@
     <color name="grey2">#333333</color>
     <color name="grey3">#E5E5E7</color>
     <color name="hint_color">#AAAAAA</color>
+    <color name="grey_3">#666666</color>
 
 </resources>

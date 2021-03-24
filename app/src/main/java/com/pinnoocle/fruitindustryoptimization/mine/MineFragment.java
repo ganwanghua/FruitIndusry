@@ -217,7 +217,7 @@ public class MineFragment extends BaseFragment {
         return data_list;
     }
 
-    @OnClick({R.id.iv_setting, R.id.rl_adoption_order, R.id.ll_balance})
+    @OnClick({R.id.iv_setting, R.id.rl_adoption_order, R.id.ll_balance,R.id.rl_addresss})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_setting:
@@ -228,6 +228,9 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.ll_balance:
                 startActivity(new Intent(getContext(), BalanceActivity.class));
+                break;
+            case R.id.rl_addresss:
+                startActivity(new Intent(getContext(), AddressActivity.class));
                 break;
         }
     }

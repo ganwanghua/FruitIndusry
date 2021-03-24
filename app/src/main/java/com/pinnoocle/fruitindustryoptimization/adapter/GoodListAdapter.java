@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.pinnoocle.fruitindustryoptimization.R;
-import com.pinnoocle.fruitindustryoptimization.bean.GoodListBean;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 
@@ -20,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class GoodListAdapter extends BaseAdapter<HomeModel.DataBeanX.ItemsBean.DataBean, GoodListAdapter.VH> {
+
 
 
     public GoodListAdapter(Context mContext) {
@@ -36,7 +36,12 @@ public class GoodListAdapter extends BaseAdapter<HomeModel.DataBeanX.ItemsBean.D
     public void onBindViewHolder(@NonNull VH holder, int position) {
         Glide.with(mContext).load(mDatas.get(position).getGoods_image()).into(holder.ivGoodsPic);
         holder.tvGoodsTitle.setText(mDatas.get(position).getGoods_name());
-        holder.tvPrice.setText("￥"+mDatas.get(position).getGoods_price());
+        holder.tvPrice.setText("￥" + mDatas.get(position).getGoods_price());
+        holder.ivAddCart.setOnClickListener(v -> {
+            if (mOnItemDataClickListener != null) {
+                mOnItemDataClickListener.onItemViewClick(v,position,mDatas.get(position));
+            }
+        });
     }
 
     @Override
@@ -45,12 +50,15 @@ public class GoodListAdapter extends BaseAdapter<HomeModel.DataBeanX.ItemsBean.D
     }
 
     static class VH extends RecyclerView.ViewHolder {
+
         @BindView(R.id.iv_goods_pic)
         ImageView ivGoodsPic;
         @BindView(R.id.tv_goods_title)
         TextView tvGoodsTitle;
         @BindView(R.id.tv_price)
         TextView tvPrice;
+        @BindView(R.id.iv_add_cart)
+        ImageView ivAddCart;
 
 
         public VH(@NonNull View itemView) {

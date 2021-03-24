@@ -1,6 +1,7 @@
 package com.pinnoocle.fruitindustryoptimization.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,15 +72,19 @@ public class ShoppingCartAdapter extends BaseAdapter<CartListsModel.DataBean.Goo
             }
         });
 
-//        holder.mGoodsCountBtn.setViewClick(view -> {
-//            holder.mCheckedCb.setChecked(true);
-//            mDatas.get(position).setIs_select(true);
-//            isOnechecked(holder, position);
-//            mDatas.get(position).setNums(holder.mGoodsCountBtn.getNumber());
-//            EventBus.getDefault().post(new UpdateTotalPriceEvent());
-//            EventBus.getDefault().post(new SetCartNums(mDatas.get(position).getId(), holder.mGoodsCountBtn.getNumber()+""));
-//
-//        });
+        holder.mGoodsCountBtn.setViewClick(view -> {
+            holder.mCheckedCb.setChecked(true);
+            mDatas.get(position).setIs_select(true);
+            isOnechecked(holder, position);
+
+            if (mOnItemDataClickListener != null) {
+                mOnItemDataClickListener.onItemViewClick(view,position,mDatas.get(position));
+            }
+
+        });
+        holder.itemView.setOnClickListener(v -> {
+
+        });
 
     }
 

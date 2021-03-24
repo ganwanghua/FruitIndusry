@@ -50,10 +50,16 @@ public interface RemotDataSource {
     void article(Map<String, String> queryMap, getCallback callback);
 
     void cartDelete(Map<String, String> queryMap, getCallback callback);
+    void cartSub(Map<String, String> queryMap, getCallback callback);
 
     void userTrees(Map<String, String> queryMap, getCallback callback);
 
     void trees(Map<String, String> queryMap, getCallback callback);
 
     void treesDetail(Map<String, String> queryMap, getCallback callback);
+    void orderCart(Map<String, String> queryMap, getCallback callback);
+    void addressList(Map<String, String> queryMap, getCallback callback);
+    void setDefault(Map<String, String> queryMap, getCallback callback);
+    void addressDelete(Map<String, String> queryMap, getCallback callback);
+    void addressAdd(Map<String, String> queryMap,String region,String detail, getCallback callback);
 }

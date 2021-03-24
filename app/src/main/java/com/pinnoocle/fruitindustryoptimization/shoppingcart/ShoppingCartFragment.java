@@ -18,6 +18,7 @@ import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.ShoppingCartAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.event.CanSettlement;
 import com.pinnoocle.fruitindustryoptimization.event.CartAllCheckedEvent;
@@ -25,6 +26,7 @@ import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
+import com.pinnoocle.fruitindustryoptimization.widget.NumberButtonExt;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -99,6 +101,24 @@ public class ShoppingCartFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ShoppingCartAdapter(getContext());
         recyclerView.setAdapter(adapter);
+        adapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<CartListsModel.DataBean.GoodsListBean>() {
+            @Override
+            public void onItemViewClick(View view, int position, CartListsModel.DataBean.GoodsListBean o) {
+                switch (view.getId()){
+                    case R.id.button_add:
+                        cartAdd(o.getGoods_id()+"", o.getGoods_sku().getSpec_sku_id(),1);
+                        o.setTotal_num(o.getTotal_num()+1);
+                        break;
+                    case R.id.button_sub:
+                        if(o.getTotal_num()-1<1){
+                            return;
+                        }
+                        cartSub(o.getGoods_id()+"", o.getGoods_sku().getSpec_sku_id(),1);
+                        o.setTotal_num(o.getTotal_num()-1);
+                        break;
+                }
+            }
+        });
 
     }
 
@@ -126,15 +146,17 @@ public class ShoppingCartFragment extends BaseFragment {
                 CartListsModel cartListsModel = (CartListsModel) data;
                 if (cartListsModel.getCode() == 1) {
                     List<CartListsModel.DataBean.GoodsListBean> goods_list = cartListsModel.getData().getGoods_list();
-                    if (goods_list.size() == 0) {
+                    if (goods_list==null||goods_list.size() == 0) {
                         llContent.setVisibility(View.GONE);
                         rlPanel.setVisibility(View.GONE);
                         emptyShopCart.setVisibility(View.VISIBLE);
+
                     } else {
                         llContent.setVisibility(View.VISIBLE);
                         rlPanel.setVisibility(View.VISIBLE);
                         emptyShopCart.setVisibility(View.GONE);
                         adapter.setData(goods_list);
+                        updateTotalPrice();
                     }
                 }
             }
@@ -161,10 +183,68 @@ public class ShoppingCartFragment extends BaseFragment {
                 if (statusModel.getCode() == 1) {
                     cartList();
                 }
-                ToastUtils.showToast(statusModel.getMsg());
+
             }
         });
     }
+
+    private void cartAdd(String goods_id,String goods_sku_id,int goods_num) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/cart/add");
+        map.put("wxapp_id","10001");
+        map.put("token", FastData.getToken());
+        map.put("goods_id", goods_id);
+        map.put("goods_num",goods_num+"" );
+        map.put("goods_sku_id", goods_sku_id);
+        dataRepository.cartAdd(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+
+                StatusModel statusModel = (StatusModel)data;
+                if(statusModel.getCode()==1){
+
+                }
+
+
+            }
+        });
+    }
+
+    private void cartSub(String goods_id,String goods_sku_id,int goods_num) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/cart/sub");
+        map.put("wxapp_id","10001");
+        map.put("token", FastData.getToken());
+        map.put("goods_id", goods_id);
+        map.put("goods_num",goods_num+"" );
+        map.put("goods_sku_id", goods_sku_id);
+        dataRepository.cartSub(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+
+                StatusModel statusModel = (StatusModel)data;
+                if(statusModel.getCode()==1){
+
+                }
+
+
+            }
+        });
+    }
+
+
 
 
     private void refreshEditStatus() {
@@ -238,7 +318,6 @@ public class ShoppingCartFragment extends BaseFragment {
                 adapter.getData()) {
             if (listBean.isIs_select()) {
                 totalPrice += listBean.getTotal_num() * Double.parseDouble(listBean.getGoods_price());
-                tvTotalPrice.setText("￥" + totalPrice);
             }
         }
         tvTotalPrice.setText("   ￥" + doubleToString(totalPrice));
@@ -273,5 +352,13 @@ public class ShoppingCartFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = false) //在ui线程执行，优先级为100
     public void onEvent(CanSettlement event) {
         tvSettlement.setEnabled(event.canSettlement());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = false) //在ui线程执行，优先级为100
+    public void onEvent(String event) {
+        if(event.equals("cart_refresh"))
+        {
+            cartList();
+        }
     }
 }

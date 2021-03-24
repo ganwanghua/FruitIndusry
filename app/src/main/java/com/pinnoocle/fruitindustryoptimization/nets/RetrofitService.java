@@ -1,11 +1,13 @@
 package com.pinnoocle.fruitindustryoptimization.nets;
 
+import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
+import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
@@ -21,6 +23,7 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -101,8 +104,12 @@ public interface RetrofitService {
     Observable<ArticleModel> article(@QueryMap Map<String, String> queryMap);
 
     //删除购物车商品
-    @GET("index.php")
+    @POST("index.php")
     Observable<StatusModel> cartDelete(@QueryMap Map<String, String> queryMap);
+    //减少数量
+    @POST("index.php")
+    Observable<StatusModel> cartSub(@QueryMap Map<String, String> queryMap);
+
 
     //用户果树列表
     @GET("index.php")
@@ -115,4 +122,26 @@ public interface RetrofitService {
     //果树详情
     @GET("index.php")
     Observable<TreesDetailModel> treesDetail(@QueryMap Map<String, String> queryMap);
+
+    //预结算
+    @GET("index.php")
+    Observable<OrderCartModel> orderCart(@QueryMap Map<String, String> queryMap);
+
+    //地址列表
+    @GET("index.php")
+    Observable<AddressListModel> addressList(@QueryMap Map<String, String> queryMap);
+
+    //设为默认地址
+    @POST("index.php")
+    Observable<StatusModel> setDefault(@QueryMap Map<String, String> queryMap);
+
+    //删除地址
+    @POST("index.php")
+    Observable<StatusModel> addressDelete(@QueryMap Map<String, String> queryMap);
+
+    //添加地址
+    @FormUrlEncoded
+    @POST("index.php")
+    Observable<StatusModel> addressAdd(@QueryMap(encoded=false) Map<String, String> queryMap,@Field("region") String region,@Field("detail") String detail);
+
 }
