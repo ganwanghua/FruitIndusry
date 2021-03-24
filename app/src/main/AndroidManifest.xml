@@ -52,6 +52,7 @@
             android:screenOrientation="landscape" />
         <activity android:name=".mine.AddressActivity" />
         <activity android:name=".mine.AddAddressActivity" />
+        <activity android:name=".mine.EditAddressActivity" />
     </application>
 
 </manifest>

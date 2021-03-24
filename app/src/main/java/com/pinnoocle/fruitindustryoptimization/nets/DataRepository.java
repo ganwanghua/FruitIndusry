@@ -146,6 +146,11 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
+    public void addressEdit(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.addressEdit(queryMap, callback);
+    }
+
+    @Override
     public void addressAdd(Map<String, String> queryMap,String region,String detail, getCallback callback) {
         mRemoteDataSource.addressAdd(queryMap,region,detail, callback);
     }

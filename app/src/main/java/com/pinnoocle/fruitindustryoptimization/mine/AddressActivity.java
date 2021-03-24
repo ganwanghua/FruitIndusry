@@ -72,28 +72,29 @@ public class AddressActivity extends BaseActivity {
         adapter = new AddressAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-//        adapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<AddressListModel.DataBean.ListBean>() {
-//            @Override
-//            public void onItemViewClick(View view, int position, AddressListModel.DataBean.ListBean dataBean) {
-//                switch (view.getId()) {
-//                    case R.id.ll_check:
-//                        setDefShip(dataBean.getAddress_id());
-//                        break;
-//
-//                    case R.id.tv_del:
-//                        Intent intent = new Intent(AddressActivity.this, EditAddressActivity.class);
-//                        intent.putExtra("dataBean", dataBean);
-//                        if (dataBean.getAddress_id() == addressListModel.getData().getDefault_id()) {
-//                            intent.putExtra("default_id", 1);
-//                        } else {
-//                            intent.putExtra("default_id", 0);
-//                        }
-//                        startActivity(intent);
-//                        break;
-//                    case R.id.tv_delete:
-//                        showAddressDeleteDialog(dataBean.getAddress_id());
-//                        break;
-//
+
+        adapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<AddressListModel.DataBean.ListBean>() {
+            @Override
+            public void onItemViewClick(View view, int position, AddressListModel.DataBean.ListBean dataBean) {
+                switch (view.getId()) {
+                    case R.id.ll_check:
+                        setDefShip(dataBean.getAddress_id());
+                        break;
+
+                    case R.id.tv_del:
+                        Intent intent = new Intent(AddressActivity.this, EditAddressActivity.class);
+                        intent.putExtra("dataBean", dataBean);
+                        if (dataBean.getAddress_id() == addressListModel.getData().getDefault_id()) {
+                            intent.putExtra("default_id", 1);
+                        } else {
+                            intent.putExtra("default_id", 0);
+                        }
+                        startActivity(intent);
+                        break;
+                    case R.id.tv_delete:
+                        showAddressDeleteDialog(dataBean.getAddress_id());
+                        break;
+
 //                    default:
 ////                        if (!TextUtils.isEmpty(getIntent().getStringExtra("from"))) {
 ////                            setResult(RESULT_OK);
@@ -118,9 +119,9 @@ public class AddressActivity extends BaseActivity {
 //                            }
 //                        }
 //                        break;
-//                }
-//            }
-//        });
+                }
+            }
+        });
     }
 
     private void initData() {

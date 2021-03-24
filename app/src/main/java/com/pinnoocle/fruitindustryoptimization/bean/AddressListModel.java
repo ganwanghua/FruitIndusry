@@ -1,5 +1,6 @@
 package com.pinnoocle.fruitindustryoptimization.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class AddressListModel {
@@ -63,7 +64,7 @@ public class AddressListModel {
             this.list = list;
         }
 
-        public static class ListBean {
+        public static class ListBean implements Serializable {
             /**
              * address_id : 13397
              * name : 周星驰
@@ -198,7 +199,7 @@ public class AddressListModel {
                 this.region = region;
             }
 
-            public static class RegionBean {
+            public static class RegionBean implements Serializable {
                 /**
                  * province : 北京市
                  * city : 北京市

@@ -144,4 +144,9 @@ public interface RetrofitService {
     @POST("index.php")
     Observable<StatusModel> addressAdd(@QueryMap(encoded=false) Map<String, String> queryMap,@Field("region") String region,@Field("detail") String detail);
 
+    //编辑地址
+    @POST("index.php")
+    Observable<StatusModel> addressEdit(@QueryMap Map<String, String> queryMap);
+
+
 }
