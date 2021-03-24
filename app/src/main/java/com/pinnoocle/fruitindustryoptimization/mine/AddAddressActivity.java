@@ -1,7 +1,6 @@
 package com.pinnoocle.fruitindustryoptimization.mine;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -79,35 +78,35 @@ public class AddAddressActivity extends BaseActivity {
     }
 
     private void saveUserShip() {
-        if (TextUtils.isEmpty(area_id)) {
-            return;
-        }
         ViewLoading.show(this);
         Map<String, String> map = new HashMap<>();
         map.put("s", "/api/address/add");
-        map.put("wxapp_id","10001");
+        map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("name", edName.getText().toString().trim());
-        map.put("phone ", edPhone.getText().toString().trim());
+        map.put("phone", edPhone.getText().toString().trim());
+        map.put("detail", edAddress.getText().toString().trim());
+        map.put("region", provinceName + "," + cityName + "," + districtName);
 
-        dataRepository.addressAdd(map,provinceName + "," + cityName + "," + districtName,edAddress.getText().toString().trim(), new RemotDataSource.getCallback() {
-            @Override
-            public void onFailure(String info) {
-                ViewLoading.dismiss(AddAddressActivity.this);
-            }
+        dataRepository.addressAdd("/api/address/add", "10001", FastData.getToken(), edName.getText().toString().trim(),
+                edPhone.getText().toString().trim(), edAddress.getText().toString().trim(), provinceName + "," + cityName + "," + districtName, new RemotDataSource.getCallback() {
+                    @Override
+                    public void onFailure(String info) {
+                        ViewLoading.dismiss(AddAddressActivity.this);
+                    }
 
-            @Override
-            public void onSuccess(Object data) {
-                ViewLoading.dismiss(AddAddressActivity.this);
-                StatusModel resultModel = (StatusModel) data;
-                if (resultModel.getCode() == 1) {
-                    ToastUtils.showToast(resultModel.getMsg());
-                    EventBus.getDefault().post(new AddAddressEvent());
-                    finish();
-                }
-                ToastUtils.showToast(resultModel.getMsg());
-            }
-        });
+                    @Override
+                    public void onSuccess(Object data) {
+                        ViewLoading.dismiss(AddAddressActivity.this);
+                        StatusModel resultModel = (StatusModel) data;
+                        if (resultModel.getCode() == 1) {
+                            ToastUtils.showToast(resultModel.getMsg());
+                            EventBus.getDefault().post(new AddAddressEvent());
+                            finish();
+                        }
+                        ToastUtils.showToast(resultModel.getMsg());
+                    }
+                });
     }
 
     @OnClick({R.id.iv_back, R.id.ed_area, R.id.tv_save})
@@ -135,7 +134,6 @@ public class AddAddressActivity extends BaseActivity {
                         ToastUtils.showToast("手机号码格式不正确");
                     } else {
                         //保存地址到服务器
-//                        getAreaId();
                         saveUserShip();
                     }
                 }

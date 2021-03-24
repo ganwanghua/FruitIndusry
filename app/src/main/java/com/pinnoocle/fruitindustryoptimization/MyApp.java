@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
+import com.zzhoujay.richtext.RichText;
 
 
 public class MyApp extends Application {
@@ -20,5 +21,6 @@ public class MyApp extends Application {
         sContext = this;
         FastData.getInstance();
         ToastUtils.init(this);
+        RichText.initCacheDir(this);
     }
 }

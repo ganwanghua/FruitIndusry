@@ -40,7 +40,7 @@ public class BannerImageFragment extends BaseFragment implements OnPageChangeLis
     }
 
     private void initBanner() {
-        banner.isAutoLoop(false)
+        banner.isAutoLoop(true)
                 .setAdapter(new BannerImageAdapter<TreesDetailModel.DataBean.TreeBean.ImagesBean>(images) {
                     @Override
                     public void onBindView(BannerImageHolder holder, TreesDetailModel.DataBean.TreeBean.ImagesBean data, int position, int size) {
@@ -50,7 +50,6 @@ public class BannerImageFragment extends BaseFragment implements OnPageChangeLis
                                 .into(holder.imageView);
                     }
                 })
-                .isAutoLoop(false)
                 .addOnPageChangeListener(this);
         bannerIndicator.setText("1/" + images.size());
     }

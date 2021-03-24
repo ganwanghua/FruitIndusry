@@ -33,23 +33,37 @@
         android:id="@+id/rl_buy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:layout_alignParentBottom="true"
+        android:background="@color/white"
         android:padding="10dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="订单金额：￥2"
-            android:textColor="#111111"
-            android:textSize="14sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_all_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#111111"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_remission_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#DA251D"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/bg_red_20"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
@@ -64,8 +78,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/rl_buy"
-        android:overScrollMode="never"
         android:layout_below="@id/rl_title"
+        android:overScrollMode="never"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
@@ -99,18 +113,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/iv_image"
-                        android:text="认养一颗新疆灰枣，每年送10斤红枣零食..."
                         android:textColor="#111111"
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_area"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_title"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_toRightOf="@id/iv_image"
-                        android:text="地块信息地块信息"
                         android:textColor="#A5A5A5"
                         android:textSize="13sp" />
                 </RelativeLayout>
@@ -142,50 +155,14 @@
                         android:textColor="#111111"
                         android:textSize="14sp" />
 
-                    <LinearLayout
+                    <com.pinnoocle.fruitindustryoptimization.widget.NumberButton1
+                        android:id="@+id/number_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:orientation="horizontal">
+                        app:editable="false"
+                        app:textSize="5sp" />
 
-                        <RelativeLayout
-                            android:id="@+id/rl_shop_delete"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/shape_delect_bg">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/ic_baseline_remove_24" />
-
-                        </RelativeLayout>
-
-                        <EditText
-                            android:id="@+id/et_shop_num"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="#E5E5E7"
-                            android:gravity="center"
-                            android:singleLine="true"
-                            android:text="1"
-                            android:textColor="#333333"
-                            android:textSize="16sp" />
-
-                        <RelativeLayout
-                            android:id="@+id/rl_shop_insert"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/shape_insert_bg">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/ic_baseline_add_24" />
-                        </RelativeLayout>
-                    </LinearLayout>
                 </RelativeLayout>
 
                 <View
@@ -215,20 +192,13 @@
                         android:textColor="#111111"
                         android:textSize="14sp" />
 
-                    <ImageView
-                        android:id="@+id/iv_right"
+                    <TextView
+                        android:id="@+id/tv_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_baseline_chevron_right_24" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/iv_right"
-                        android:text="请选择个人/企业"
-                        android:textColor="#A5A5A5"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
                 </RelativeLayout>
 
@@ -252,12 +222,15 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/ed_tree_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:background="@color/white"
                         android:gravity="end"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
                         android:hint="请为您的果树命名（选填）"
                         android:textColor="#111111"
                         android:textColorHint="#A5A5A5"
@@ -339,6 +312,7 @@
                     android:background="#F1F1F1" />
 
                 <EditText
+                    android:id="@+id/ed_wish"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:background="@color/white"
@@ -384,11 +358,13 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/ed_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:background="@color/white"
                         android:hint="请输入用户姓名"
+                        android:padding="10dp"
                         android:textColor="#111111"
                         android:textColorHint="#A5A5A5"
                         android:textSize="14sp" />
@@ -414,16 +390,18 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/ed_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/tv_phone"
                         android:layout_toLeftOf="@id/tv_authorized_phone"
+                        android:layout_toRightOf="@id/tv_phone"
                         android:background="@color/white"
-                        android:maxLength="11"
-                        android:inputType="number"
                         android:hint="请输入用户电话"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:padding="10dp"
                         android:textColor="#111111"
                         android:textColorHint="#A5A5A5"
                         android:textSize="14sp" />
@@ -440,7 +418,8 @@
                         android:paddingBottom="5dp"
                         android:text="授权手机号"
                         android:textColor="#00A23B"
-                        android:textSize="11sp" />
+                        android:textSize="11sp"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <View
@@ -451,12 +430,20 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/iv_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/unselect" />
 
                     <TextView
                         android:id="@+id/tv_adoption_agreement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -479,11 +466,10 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_sub_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="新疆兵团大地有机灰枣，新疆兵团大地有机灰枣有机灰
-枣，有机灰枣！"
                     android:textColor="#A5A5A5"
                     android:textSize="14sp" />
             </LinearLayout>

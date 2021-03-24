@@ -17,7 +17,9 @@ import com.bumptech.glide.Glide;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.FragmentAdapter;
+import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreesDetailModel;
+import com.pinnoocle.fruitindustryoptimization.common.AppManager;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
@@ -73,6 +75,7 @@ public class AdoptDetailsActivity extends BaseActivity {
     List<Fragment> fragments = new ArrayList<>();
     List<String> titles = new ArrayList<>();
     private DataRepository dataRepository;
+    private TreesDetailModel treesDetailModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,7 @@ public class AdoptDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adopt_details);
         ButterKnife.bind(this);
+        AppManager.getInstance().addActivity(this);
         dataRepository = Injection.dataRepository(this);
         initView();
     }
@@ -116,7 +120,7 @@ public class AdoptDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(mContext);
-                TreesDetailModel treesDetailModel = (TreesDetailModel) data;
+                treesDetailModel = (TreesDetailModel) data;
                 if (treesDetailModel.getCode() == 1) {
                     initMarqueeView(treesDetailModel.getData().getRecord());
                     bannerImageFragment = new BannerImageFragment(treesDetailModel.getData().getTree().getImages());
@@ -125,7 +129,7 @@ public class AdoptDetailsActivity extends BaseActivity {
                     mList.add(bannerVideoFragment);
                     switchFragment(mList.get(0));
 
-//                    tvMoney.setText(treesDetailModel.getData().getTree().getPrice_show());
+                    tvMoney.setText(Double.parseDouble(treesDetailModel.getData().getTree().getPrice()) * 12 + "");
                     tvAddress.setText(treesDetailModel.getData().getTree().getSub_title());
                     tvName.setText(treesDetailModel.getData().getTree().getTree_title());
                     tvSubTitle.setText(treesDetailModel.getData().getTree().getSub_title());
@@ -136,9 +140,9 @@ public class AdoptDetailsActivity extends BaseActivity {
                     for (int i = 0; i < titles.size(); i++) {
                         if (i == 0) {
                             fragments.add(new ShopDetailFragment(treesDetailModel.getData().getTree().getDetail1()));
-                        }else if (i == 1) {
+                        } else if (i == 1) {
                             fragments.add(new ShopDetailFragment(treesDetailModel.getData().getTree().getDetail2()));
-                        }else {
+                        } else {
                             fragments.add(new ShopDetailFragment(treesDetailModel.getData().getTree().getDetail3()));
                         }
                     }
@@ -195,6 +199,7 @@ public class AdoptDetailsActivity extends BaseActivity {
                 break;
             case R.id.tv_adopt:
                 Intent intent = new Intent(this, ConfirmOrderActivity.class);
+                intent.putExtra("id", treesDetailModel.getData().getTree().getTree_id() + "");
                 startActivity(intent);
                 break;
         }

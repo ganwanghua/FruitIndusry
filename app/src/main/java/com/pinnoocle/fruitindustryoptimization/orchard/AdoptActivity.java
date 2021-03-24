@@ -18,6 +18,7 @@ import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.AdoptAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
+import com.pinnoocle.fruitindustryoptimization.common.AppManager;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
@@ -62,6 +63,7 @@ public class AdoptActivity extends BaseActivity implements AdoptAdapter.OnItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adopt);
         ButterKnife.bind(this);
+        AppManager.getInstance().addActivity(this);
         dataRepository = Injection.dataRepository(this);
         initView();
     }

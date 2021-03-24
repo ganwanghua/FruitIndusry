@@ -13,9 +13,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
+import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
+import com.pinnoocle.fruitindustryoptimization.bean.BeforeBuyModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
+import com.pinnoocle.fruitindustryoptimization.common.AppManager;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
+import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
+import com.pinnoocle.fruitindustryoptimization.nets.Injection;
+import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
+import com.pinnoocle.fruitindustryoptimization.utils.FastData;
+import com.pinnoocle.fruitindustryoptimization.widget.NumberButton1;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,14 +42,6 @@ public class ConfirmOrderActivity extends BaseActivity {
     ImageView ivImage;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.rl_shop_delete)
-    RelativeLayout rlShopDelete;
-    @BindView(R.id.et_shop_num)
-    EditText etShopNum;
-    @BindView(R.id.rl_shop_insert)
-    RelativeLayout rlShopInsert;
-    @BindView(R.id.iv_right)
-    ImageView ivRight;
     @BindView(R.id.iv_location)
     ImageView ivLocation;
     @BindView(R.id.iv_right1)
@@ -53,6 +56,32 @@ public class ConfirmOrderActivity extends BaseActivity {
     RelativeLayout rlBuy;
     @BindView(R.id.tv_authorized_phone)
     TextView tvAuthorizedPhone;
+    @BindView(R.id.tv_area)
+    TextView tvArea;
+    @BindView(R.id.tv_type)
+    TextView tvType;
+    @BindView(R.id.tv_sub_title)
+    TextView tvSubTitle;
+    @BindView(R.id.tv_all_money)
+    TextView tvAllMoney;
+    @BindView(R.id.number_button)
+    NumberButton1 numberButton;
+    @BindView(R.id.tv_remission_money)
+    TextView tvRemissionMoney;
+    @BindView(R.id.iv_select)
+    ImageView ivSelect;
+    @BindView(R.id.ed_name)
+    EditText edName;
+    @BindView(R.id.ed_phone)
+    EditText edPhone;
+    @BindView(R.id.ed_tree_name)
+    EditText edTreeName;
+    @BindView(R.id.ed_wish)
+    EditText edWish;
+    private DataRepository dataRepository;
+    private BeforeBuyModel beforeBuyModel;
+    private int num = 1;
+    private boolean isSelect = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +89,10 @@ public class ConfirmOrderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
         ButterKnife.bind(this);
+        AppManager.getInstance().addActivity(this);
+        dataRepository = Injection.dataRepository(this);
+        beforeBuy(num);
+
         final String linkWord1 = "《认养协议》";
         String word = "我已阅读并同意" + linkWord1;
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(word);
@@ -67,7 +100,9 @@ public class ConfirmOrderActivity extends BaseActivity {
         spannableStringBuilder.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                ToastUtils.showToast("暂无认养协议");
+                Intent intent1 = new Intent(ConfirmOrderActivity.this, AdoptionAgreementActivity.class);
+                intent1.putExtra("content", beforeBuyModel.getData().getTree().getRules());
+                startActivity(intent1);
             }
 
             @Override
@@ -80,18 +115,110 @@ public class ConfirmOrderActivity extends BaseActivity {
         tvAdoptionAgreement.setText(spannableStringBuilder);
         tvAdoptionAgreement.setMovementMethod(LinkMovementMethod.getInstance());
         tvAdoptionAgreement.setHighlightColor(getResources().getColor(R.color.transparent));
+
+        numberButton.setOnNumberButtonListener(new NumberButton1.OnNumberButtonListener() {
+            @Override
+            public void onNumberButtonListener(View v) {
+                beforeBuy(numberButton.getNumber());
+            }
+        });
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_buy})
+    private void beforeBuy(int num) {
+        ViewLoading.show(this);
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/tree/before_buy");
+        map.put("wxapp_id", "10001");
+        map.put("tree_id", getIntent().getStringExtra("id"));
+        map.put("token", FastData.getToken());
+        map.put("month", "12");
+        map.put("number", num + "");
+        map.put("address_id", "");
+        dataRepository.beforeBuy(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                beforeBuyModel = (BeforeBuyModel) data;
+                if (beforeBuyModel.getCode() == 1) {
+                    tvTitle.setText(beforeBuyModel.getData().getTree().getTree_title());
+                    tvArea.setText(beforeBuyModel.getData().getTree().getSub_title());
+                    tvSubTitle.setText(beforeBuyModel.getData().getTree().getSub_title());
+                    if (beforeBuyModel.getData().getTree().getType() == 1) {
+                        tvType.setText("个人");
+                    } else {
+                        tvType.setText("企业");
+                    }
+                    tvAllMoney.setText("订单金额：￥" + beforeBuyModel.getData().getTree().getTotal_price());
+                    if (beforeBuyModel.getData().getTree().getDiscount_price() == 0) {
+                        tvRemissionMoney.setVisibility(View.GONE);
+                    } else {
+                        tvRemissionMoney.setVisibility(View.VISIBLE);
+                        tvRemissionMoney.setText("待减免金额：￥" + beforeBuyModel.getData().getTree().getDiscount_price());
+                    }
+                }
+            }
+        });
+    }
+
+    @OnClick({R.id.iv_back, R.id.tv_buy, R.id.iv_select})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
             case R.id.tv_buy:
-                Intent intent = new Intent(this, ECertActivity.class);
-                startActivity(intent);
+                geneTreeOrder();
+//                Intent intent = new Intent(this, ECertActivity.class);
+//                startActivity(intent);
+                break;
+            case R.id.iv_select:
+                if (isSelect) {
+                    ivSelect.setImageResource(R.mipmap.select);
+                    isSelect = false;
+                } else {
+                    ivSelect.setImageResource(R.mipmap.unselect);
+                    isSelect = true;
+                }
                 break;
         }
+    }
+
+    private void geneTreeOrder() {
+        ViewLoading.show(this);
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/tree/gene_tree_order");
+        map.put("wxapp_id", "10001");
+        map.put("tree_id", getIntent().getStringExtra("id"));
+        map.put("token", FastData.getToken());
+        map.put("spec", beforeBuyModel.getData().getTree().getType() + "");
+        map.put("number", numberButton.getNumber() + "");
+        map.put("time", beforeBuyModel.getData().getTree().getMonth());
+        map.put("land_id", beforeBuyModel.getData().getTree().getLand_id() + "");
+        map.put("name", edName.getText().toString());
+        map.put("phone", edPhone.getText().toString());
+        map.put("address_id", "13409");
+        map.put("tree_name", edTreeName.getText().toString());
+        map.put("share_id", FastData.getUserId());
+        map.put("wish", edWish.getText().toString());
+        dataRepository.geneTreeOrder(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                GeneTreeOrderModel geneTreeOrderModel = (GeneTreeOrderModel) data;
+                if (geneTreeOrderModel.getCode() == 1) {
+
+                }
+            }
+        });
     }
 }

@@ -151,8 +151,9 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
-    public void addressAdd(Map<String, String> queryMap,String region,String detail, getCallback callback) {
-        mRemoteDataSource.addressAdd(queryMap,region,detail, callback);
+    public void addressAdd(String s, String wxapp_id, String token
+            , String name, String phone, String detail, String region, getCallback callback) {
+        mRemoteDataSource.addressAdd(s, wxapp_id, token, name, phone, detail, region, callback);
     }
 
     @Override
@@ -163,6 +164,21 @@ public class DataRepository implements RemotDataSource {
     @Override
     public void treesDetail(Map<String, String> queryMap, getCallback callback) {
         mRemoteDataSource.treesDetail(queryMap, callback);
+    }
+
+    @Override
+    public void fileInfo(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.fileInfo(queryMap, callback);
+    }
+
+    @Override
+    public void beforeBuy(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.beforeBuy(queryMap, callback);
+    }
+
+    @Override
+    public void geneTreeOrder(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.geneTreeOrder(queryMap, callback);
     }
 
 }

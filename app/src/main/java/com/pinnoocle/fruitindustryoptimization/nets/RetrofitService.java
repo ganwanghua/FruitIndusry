@@ -1,10 +1,13 @@
 package com.pinnoocle.fruitindustryoptimization.nets;
 
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
+import com.pinnoocle.fruitindustryoptimization.bean.BeforeBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
+import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
@@ -106,6 +109,7 @@ public interface RetrofitService {
     //删除购物车商品
     @POST("index.php")
     Observable<StatusModel> cartDelete(@QueryMap Map<String, String> queryMap);
+
     //减少数量
     @POST("index.php")
     Observable<StatusModel> cartSub(@QueryMap Map<String, String> queryMap);
@@ -142,8 +146,20 @@ public interface RetrofitService {
     //添加地址
     @FormUrlEncoded
     @POST("index.php")
-    Observable<StatusModel> addressAdd(@QueryMap(encoded=false) Map<String, String> queryMap,@Field("region") String region,@Field("detail") String detail);
+    Observable<StatusModel> addressAdd(@Field("s") String s, @Field("wxapp_id") String wxapp_id, @Field("token") String token
+            , @Field("name") String name, @Field("phone") String phone, @Field("detail") String detail, @Field("region") String region);
 
+    //图片视频信息 （按照地块获取）
+    @POST("index.php")
+    Observable<FileInfoModel> fileInfo(@QueryMap Map<String, String> queryMap);
+
+    //预下单-认养果树
+    @GET("index.php")
+    Observable<BeforeBuyModel> beforeBuy(@QueryMap Map<String, String> queryMap);
+
+    //下单-认养果树
+    @GET("index.php")
+    Observable<GeneTreeOrderModel> geneTreeOrder(@QueryMap Map<String, String> queryMap);
     //编辑地址
     @POST("index.php")
     Observable<StatusModel> addressEdit(@QueryMap Map<String, String> queryMap);

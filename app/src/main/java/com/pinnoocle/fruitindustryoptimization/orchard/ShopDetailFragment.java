@@ -1,12 +1,13 @@
 package com.pinnoocle.fruitindustryoptimization.orchard;
 
 import android.text.Html;
-import android.webkit.WebSettings;
 import android.widget.TextView;
 
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.widget.ImageGetterUtils;
+import com.zzhoujay.richtext.ImageHolder;
+import com.zzhoujay.richtext.RichText;
 
 import butterknife.BindView;
 
@@ -31,7 +32,11 @@ public class ShopDetailFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        tvContent.setText(Html.fromHtml(translation(detail1), new ImageGetterUtils.MyImageGetter(getActivity(), tvContent), null));
+        RichText.from(translation(detail1)).bind(this)
+                .showBorder(false)
+                .autoPlay(false)
+                .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
+                .into(tvContent);
     }
 
     private String translation(String content) {
@@ -40,5 +45,11 @@ public class ShopDetailFragment extends BaseFragment {
         String replace2 = replace1.replace("&amp;", "&");
         String replace3 = replace2.replace("&quot;", "\"");
         return replace3.replace("&copy;", "©");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RichText.clear(getActivity());
     }
 }

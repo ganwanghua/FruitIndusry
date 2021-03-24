@@ -70,4 +70,13 @@ public interface RemotDataSource {
     void addressEdit(Map<String, String> queryMap, getCallback callback);
 
     void addressAdd(Map<String, String> queryMap, String region, String detail, getCallback callback);
+
+    void fileInfo(Map<String, String> queryMap, getCallback callback);
+
+    void beforeBuy(Map<String, String> queryMap, getCallback callback);
+
+    void geneTreeOrder(Map<String, String> queryMap, getCallback callback);
+
+    void addressAdd(String s, String wxapp_id, String token
+            , String name, String phone, String detail, String region, getCallback callback);
 }

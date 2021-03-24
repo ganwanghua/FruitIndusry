@@ -4,10 +4,13 @@ package com.pinnoocle.fruitindustryoptimization.nets;
 import android.content.Context;
 
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
+import com.pinnoocle.fruitindustryoptimization.bean.BeforeBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
+import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
@@ -24,6 +27,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.WalletModel;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import retrofit2.http.Field;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -598,8 +602,9 @@ public class RemotDataSourceImpl implements RemotDataSource {
     }
 
     @Override
-    public void addressAdd(Map<String, String> queryMap,String region,String detail, getCallback callback) {
-        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().addressAdd(queryMap,region,detail);
+    public void addressAdd(String s, String wxapp_id, String token
+            , String name, String phone, String detail, String region, getCallback callback) {
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().addressAdd(s, wxapp_id, token, name, phone, detail, region);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<StatusModel>() {
                     @Override
@@ -636,6 +641,72 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(TreesDetailModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void fileInfo(Map<String, String> queryMap, getCallback callback) {
+        Observable<FileInfoModel> observable = RetrofitHelper.getInstance(mContext).getServer().fileInfo(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FileInfoModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(FileInfoModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void beforeBuy(Map<String, String> queryMap, getCallback callback) {
+        Observable<BeforeBuyModel> observable = RetrofitHelper.getInstance(mContext).getServer().beforeBuy(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BeforeBuyModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BeforeBuyModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void geneTreeOrder(Map<String, String> queryMap, getCallback callback) {
+        Observable<GeneTreeOrderModel> observable = RetrofitHelper.getInstance(mContext).getServer().geneTreeOrder(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<GeneTreeOrderModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(GeneTreeOrderModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });

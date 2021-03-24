@@ -21,6 +21,7 @@ import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.adapter.MainAdapter;
 import com.pinnoocle.fruitindustryoptimization.classification.ClassificationFragment;
+import com.pinnoocle.fruitindustryoptimization.common.AppManager;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.home.HomeFragment;
 import com.pinnoocle.fruitindustryoptimization.mine.MineFragment;
@@ -28,6 +29,9 @@ import com.pinnoocle.fruitindustryoptimization.orchard.OrchardFragment;
 import com.pinnoocle.fruitindustryoptimization.shoppingcart.ShoppingCartFragment;
 import com.pinnoocle.fruitindustryoptimization.utils.DensityUtil;
 import com.pinnoocle.fruitindustryoptimization.widget.NoScrollViewPager;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -56,8 +60,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     }
 
     private void initView() {
+        AppManager.getInstance().addActivity(this);
         initBottomNavigationBar();
         initViewPager();
+
+        if (getIntent().getIntExtra("pos", -1) == 1) {
+            bottomNavigationBar.selectTab(2);
+        }
     }
 
 

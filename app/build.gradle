@@ -79,8 +79,8 @@ dependencies {
     implementation('com.zzhoujay.richtext:richtext:3.0.7') {
         exclude group: 'com.android.support'
     }
-    implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
-
     implementation 'liji.library.dev:citypickerview:5.2.4'
-
+    implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
+    implementation 'com.android.support:design:30.0.2'
+    implementation 'com.github.yuruiyin:AppbarLayoutBehavior:v1.0.2'
 }
