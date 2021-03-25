@@ -92,7 +92,7 @@ public class MineFragment extends BaseFragment {
     private int[] icon = {R.mipmap.paid, R.mipmap.delivered, R.mipmap.received, R.mipmap.evaluated, R.mipmap.after_sales};
     private int[] icon1 = {R.mipmap.membership, R.mipmap.my_fruit_tree, R.mipmap.adoption, R.mipmap.registration};
     private String[] iconName = {"待付款", "待发货", "待收货", "待评价", "退款/售后"};
-    private String[] iconName1 = {"会员中心", "我的果树", "邀请认养", "邀请注册"};
+    private String[] iconName1 = {"会员中心", "我的果树", "邀请认养", "客服"};
     private SimpleAdapter sim_adapter, sim_adapter1;
     private ArrayList<Map<String, Object>> data_list, data_list1;
     private DataRepository dataRepository;
@@ -186,8 +186,10 @@ public class MineFragment extends BaseFragment {
         gridView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 3) {
+                if (position == 2) {
                     startActivity(new Intent(getContext(), InvitationPosterActivity.class));
+                } else if (position == 1) {
+                    EventBus.getDefault().post("2");
                 }
             }
         });
@@ -226,7 +228,7 @@ public class MineFragment extends BaseFragment {
         return data_list;
     }
 
-    @OnClick({R.id.iv_setting, R.id.rl_adoption_order, R.id.ll_balance, R.id.rl_addresss, R.id.ll_rebate,R.id.rl_collection})
+    @OnClick({R.id.iv_setting, R.id.rl_adoption_order, R.id.ll_balance, R.id.rl_addresss, R.id.ll_rebate, R.id.rl_collection})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_setting:

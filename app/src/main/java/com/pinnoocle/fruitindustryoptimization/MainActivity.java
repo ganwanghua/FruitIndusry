@@ -197,6 +197,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = false) //在ui线程执行，优先级为100
+    public void onEvent(String event) {
+        if (event.equals("2")) {
+            bottomNavigationBar.selectTab(2);
+        }
+    }
+
     /**
      * 手机返回键监听
      */

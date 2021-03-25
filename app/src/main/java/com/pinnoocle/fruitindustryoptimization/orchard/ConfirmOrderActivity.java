@@ -102,6 +102,7 @@ public class ConfirmOrderActivity extends BaseActivity {
             public void onClick(View widget) {
                 Intent intent1 = new Intent(ConfirmOrderActivity.this, AdoptionAgreementActivity.class);
                 intent1.putExtra("content", beforeBuyModel.getData().getTree().getRules());
+                intent1.putExtra("title", "认养须知");
                 startActivity(intent1);
             }
 

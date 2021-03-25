@@ -25,11 +25,16 @@ import com.pinnoocle.fruitindustryoptimization.adapter.GoodListAdapter;
 import com.pinnoocle.fruitindustryoptimization.adapter.GridViewAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
+import com.pinnoocle.fruitindustryoptimization.bean.VipIntroModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
+import com.pinnoocle.fruitindustryoptimization.orchard.AdoptActivity;
+import com.pinnoocle.fruitindustryoptimization.orchard.AdoptionAgreementActivity;
+import com.pinnoocle.fruitindustryoptimization.orchard.ConfirmOrderActivity;
 import com.pinnoocle.fruitindustryoptimization.utils.ActivityUtils;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.pinnoocle.fruitindustryoptimization.widget.GridViewInScrollView;
@@ -40,6 +45,7 @@ import com.sunfusheng.marqueeview.MarqueeView;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
+import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.util.BannerUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -104,7 +110,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     protected void initView() {
-        initJzVideo();
         initGoodList();
     }
 
@@ -169,6 +174,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                                 ids.add(homeModel.getData().getItems().get(i).getData().get(j).getArticle_id());
                             }
                             initMarqueeView(titles);
+                        } else if (i == 5) {
+                            initJzVideo(homeModel.getData().getItems().get(i).getParams().getPoster());
                         } else if (i == 6) {
                             Glide.with(getContext()).load(homeModel.getData().getItems().get(i).getData().get(0).getImgUrl()).into(ivImage);
                         } else if (i == 8) {
@@ -183,14 +190,14 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         });
     }
 
-    private void cartAdd(String goods_id,String goods_sku_id,int goods_num) {
+    private void cartAdd(String goods_id, String goods_sku_id, int goods_num) {
         ViewLoading.show(mContext);
         Map<String, String> map = new HashMap<>();
         map.put("s", "/api/cart/add");
-        map.put("wxapp_id","10001");
+        map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("goods_id", goods_id);
-        map.put("goods_num",goods_num+"" );
+        map.put("goods_num", goods_num + "");
         map.put("goods_sku_id", goods_sku_id);
         dataRepository.cartAdd(map, new RemotDataSource.getCallback() {
             @Override
@@ -201,8 +208,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             @Override
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(mContext);
-                StatusModel statusModel = (StatusModel)data;
-                if(statusModel.getCode()==1){
+                StatusModel statusModel = (StatusModel) data;
+                if (statusModel.getCode() == 1) {
                 }
                 ToastUtils.showToast(statusModel.getMsg());
 
@@ -225,6 +232,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private void initBanner() {
         banner.isAutoLoop(true)
+                .setIndicator(new CircleIndicator(getContext()))
                 .setBannerRound(BannerUtils.dp2px(10))
                 .setAdapter(new BannerImageAdapter<HomeModel.DataBeanX.ItemsBean.DataBean>(bannerList) {
                     @Override
@@ -234,7 +242,16 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                                 .load(data.getImgUrl())
                                 .into(holder.imageView);
                         holder.itemView.setOnClickListener(v -> {
-                            ToastUtils.showToast(data.getLinkUrl());
+                            if (position == 0) {
+                                ActivityUtils.startActivity(getActivity(), AdoptActivity.class);
+                            } else if (position == 1) {
+                            } else if (position == 2) {
+                                Intent intent1 = new Intent(getContext(), ArticleActivity.class);
+                                intent1.putExtra("id", Integer.parseInt(data.getLinkUrl().replace("\"", "").split("=")[1]));
+                                startActivity(intent1);
+                            } else if (position == 3) {
+                                ActivityUtils.startActivity(getActivity(), AdoptActivity.class);
+                            }
                         });
                     }
                 });
@@ -247,17 +264,17 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         adapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<HomeModel.DataBeanX.ItemsBean.DataBean>() {
             @Override
             public void onItemViewClick(View view, int position, HomeModel.DataBeanX.ItemsBean.DataBean o) {
-                cartAdd(o.getGoods_sku().getGoods_id()+"", o.getGoods_sku().getSpec_sku_id(),1);
+                cartAdd(o.getGoods_sku().getGoods_id() + "", o.getGoods_sku().getSpec_sku_id(), 1);
                 EventBus.getDefault().post("cart_refresh");
             }
         });
     }
 
-    private void initJzVideo() {
+    private void initJzVideo(String image) {
         jzVideo.setUp("http://1251316161.vod2.myqcloud.com/5f6ddb64vodsh1251316161/ece2c7df5285890812999168943/mKHguCyn6gIA.mp4"
-                , "饺子闭眼睛");
+                , "");
         Glide.with(getContext())
-                .load("http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640")
+                .load(image)
                 .into(jzVideo.posterImageView);
         jzVideo.fullscreenButton.setOnClickListener(v -> {
             ActivityUtils.startActivity(getContext(), VideoActivity.class);
@@ -279,7 +296,37 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position == 0) {
+            ActivityUtils.startActivity(getActivity(), AdoptActivity.class);
+        }else if (position == 3) {
+            vipIntro();
+        }
+    }
 
+    private void vipIntro() {
+        ViewLoading.show(getContext());
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/goods/vip_intro");
+        map.put("wxapp_id", "10001");
+        map.put("token", FastData.getToken());
+        dataRepository.vipIntro(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                VipIntroModel vipIntroModel = (VipIntroModel) data;
+                if (vipIntroModel.getCode() == 1) {
+                    Intent intent1 = new Intent(getContext(), AdoptionAgreementActivity.class);
+                    intent1.putExtra("content", vipIntroModel.getData().getVip_intro());
+                    intent1.putExtra("title", "兵团优选");
+                    startActivity(intent1);
+                }
+            }
+        });
     }
 
     @OnClick({R.id.ed_search})

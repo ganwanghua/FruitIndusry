@@ -79,6 +79,8 @@ public interface RemotDataSource {
 
     void collect(Map<String, String> queryMap, getCallback callback);
 
+    void vipIntro(Map<String, String> queryMap, getCallback callback);
+
     void addressAdd(String s, String wxapp_id, String token
             , String name, String phone, String detail, String region, getCallback callback);
 }

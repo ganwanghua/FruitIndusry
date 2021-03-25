@@ -21,6 +21,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserTreesModel;
+import com.pinnoocle.fruitindustryoptimization.bean.VipIntroModel;
 import com.pinnoocle.fruitindustryoptimization.bean.WalletModel;
 
 import java.util.Map;
@@ -171,7 +172,11 @@ public interface RetrofitService {
     @POST("index.php")
     Observable<MyBalanceModel> myBalance(@QueryMap Map<String, String> queryMap);
 
-    //认养返利
+    //收藏
     @POST("index.php")
     Observable<CollectModel> collect(@QueryMap Map<String, String> queryMap);
+
+    //会员权益
+    @POST("index.php")
+    Observable<VipIntroModel> vipIntro(@QueryMap Map<String, String> queryMap);
 }

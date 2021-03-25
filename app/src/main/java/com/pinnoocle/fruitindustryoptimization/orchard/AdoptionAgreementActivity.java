@@ -22,6 +22,8 @@ public class AdoptionAgreementActivity extends BaseActivity {
     RelativeLayout rlTitle;
     @BindView(R.id.tv_content)
     TextView tvContent;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class AdoptionAgreementActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adoption_agreement);
         ButterKnife.bind(this);
-
+        tvTitle.setText(getIntent().getStringExtra("title"));
         RichText.from(getIntent().getStringExtra("content")).bind(this)
                 .showBorder(false)
                 .autoPlay(false)
