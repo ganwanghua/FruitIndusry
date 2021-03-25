@@ -181,4 +181,14 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.geneTreeOrder(queryMap, callback);
     }
 
+    @Override
+    public void myBalance(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.myBalance(queryMap, callback);
+    }
+
+    @Override
+    public void collect(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.collect(queryMap, callback);
+    }
+
 }

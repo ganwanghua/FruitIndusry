@@ -1,4 +1,4 @@
-package com.pinnoocle.royalstarshop.adapter;
+package com.pinnoocle.fruitindustryoptimization.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,17 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.pinnoocle.royalstarshop.R;
-import com.pinnoocle.royalstarshop.bean.CollectListModel;
-import com.pinnoocle.royalstarshop.common.BaseAdapter;
-import com.pinnoocle.royalstarshop.widget.GlideRoundTransform;
+import com.pinnoocle.fruitindustryoptimization.R;
+import com.pinnoocle.fruitindustryoptimization.bean.CollectModel;
+import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
+import com.pinnoocle.fruitindustryoptimization.widget.GlideRoundTransform;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
-public class CollectionAdapter extends BaseAdapter<CollectListModel.DataBeanX.ListBean.DataBean, CollectionAdapter.VH> {
+public class CollectionAdapter extends BaseAdapter<CollectModel.DataBean.ListBean, CollectionAdapter.VH> {
 
     public CollectionAdapter(Context mContext) {
         super(mContext);
@@ -40,10 +40,10 @@ public class CollectionAdapter extends BaseAdapter<CollectListModel.DataBeanX.Li
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        Glide.with(mContext).load(mDatas.get(position).getGoods().getGoods_image()).apply(bitmapTransform(new GlideRoundTransform(mContext))).into(holder.ivPicture);
+        Glide.with(mContext).load(mDatas.get(position).getGoods().getImage().get(0).getFile_path()).apply(bitmapTransform(new GlideRoundTransform(mContext))).into(holder.ivPicture);
         holder.tvName.setText(mDatas.get(position).getGoods().getGoods_name());
-        holder.tvSpec.setText(mDatas.get(position).getGoods().getGoods_sku().getGoods_attr());
-        holder.tvMoney.setText("￥" + mDatas.get(position).getGoods().getGoods_sku().getGoods_price());
+        holder.tvSpec.setText("已售"+mDatas.get(position).getGoods().getSku().get(0).getGoods_sales()+"件");
+        holder.tvMoney.setText("￥" + mDatas.get(position).getGoods().getSku().get(0).getGoods_price());
     }
 
     static class VH extends RecyclerView.ViewHolder {

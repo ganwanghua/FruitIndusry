@@ -83,4 +83,5 @@ dependencies {
     implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
     implementation 'com.android.support:design:30.0.2'
     implementation 'com.github.yuruiyin:AppbarLayoutBehavior:v1.0.2'
+    implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
 }

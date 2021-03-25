@@ -6,10 +6,12 @@ import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
+import com.pinnoocle.fruitindustryoptimization.bean.CollectModel;
 import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
+import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
@@ -160,9 +162,16 @@ public interface RetrofitService {
     //下单-认养果树
     @GET("index.php")
     Observable<GeneTreeOrderModel> geneTreeOrder(@QueryMap Map<String, String> queryMap);
+
     //编辑地址
     @POST("index.php")
     Observable<StatusModel> addressEdit(@QueryMap Map<String, String> queryMap);
 
+    //认养返利
+    @POST("index.php")
+    Observable<MyBalanceModel> myBalance(@QueryMap Map<String, String> queryMap);
 
+    //认养返利
+    @POST("index.php")
+    Observable<CollectModel> collect(@QueryMap Map<String, String> queryMap);
 }

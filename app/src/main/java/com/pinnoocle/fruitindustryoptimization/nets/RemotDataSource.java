@@ -75,6 +75,10 @@ public interface RemotDataSource {
 
     void geneTreeOrder(Map<String, String> queryMap, getCallback callback);
 
+    void myBalance(Map<String, String> queryMap, getCallback callback);
+
+    void collect(Map<String, String> queryMap, getCallback callback);
+
     void addressAdd(String s, String wxapp_id, String token
             , String name, String phone, String detail, String region, getCallback callback);
 }

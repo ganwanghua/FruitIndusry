@@ -18,7 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".orchard.AdoptionAgreementActivity"></activity>
+        <activity android:name=".mine.CollectionActivity"></activity>
+        <activity android:name=".mine.RebateActivity" />
+        <activity android:name=".orchard.AdoptionAgreementActivity" />
         <activity android:name=".home.ArticleActivity" />
         <activity android:name=".mine.WithdrawalActivity" />
         <activity android:name=".mine.RechargeActivity" />
