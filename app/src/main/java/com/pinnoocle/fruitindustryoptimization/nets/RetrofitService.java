@@ -11,10 +11,13 @@ import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsSearchModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkListModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
+import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
@@ -189,4 +192,16 @@ public interface RetrofitService {
     //商品列表
     @POST("index.php")
     Observable<GoodsSearchModel> goodsSearch(@QueryMap Map<String, String> queryMap);
+
+    //我的秒杀助力
+    @POST("index.php")
+    Observable<SeckillModel> seckill(@QueryMap Map<String, String> queryMap);
+
+    //拼团首页
+    @POST("index.php")
+    Observable<GroupWorkModel> groupWork(@QueryMap Map<String, String> queryMap);
+
+    //拼团商品列表
+    @POST("index.php")
+    Observable<GroupWorkListModel> groupWorkList(@QueryMap Map<String, String> queryMap);
 }

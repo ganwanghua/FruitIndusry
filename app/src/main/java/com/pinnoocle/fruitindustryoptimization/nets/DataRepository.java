@@ -206,4 +206,19 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.goodsSearch(queryMap, callback);
     }
 
+    @Override
+    public void seckill(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.seckill(queryMap, callback);
+    }
+
+    @Override
+    public void groupWork(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.groupWork(queryMap, callback);
+    }
+
+    @Override
+    public void groupWorkList(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.groupWorkList(queryMap, callback);
+    }
+
 }

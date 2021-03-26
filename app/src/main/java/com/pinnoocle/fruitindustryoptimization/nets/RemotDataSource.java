@@ -85,6 +85,12 @@ public interface RemotDataSource {
 
     void goodsSearch(Map<String, String> queryMap, getCallback callback);
 
+    void seckill(Map<String, String> queryMap, getCallback callback);
+
+    void groupWork(Map<String, String> queryMap, getCallback callback);
+
+    void groupWorkList(Map<String, String> queryMap, getCallback callback);
+
     void addressAdd(String s, String wxapp_id, String token
             , String name, String phone, String detail, String region, getCallback callback);
 }

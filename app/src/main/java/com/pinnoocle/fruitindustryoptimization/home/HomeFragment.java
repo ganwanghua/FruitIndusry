@@ -309,6 +309,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             ActivityUtils.startActivity(getActivity(), AdoptActivity.class);
         }else if (position == 3) {
             vipIntro();
+        }else if (position == 1) {
+            ActivityUtils.startActivity(getActivity(), SeckillActivity.class);
+        }else if (position == 2) {
+            ActivityUtils.startActivity(getActivity(), GroupWorkActivity.class);
         }
     }
 
