@@ -261,6 +261,15 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         recycleView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapter = new GoodListAdapter(getContext());
         recycleView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemViewClick(View view, int position) {
+                Intent intent1 = new Intent(getContext(), GoodsDetailsActivity.class);
+                intent1.putExtra("goods_id", dataBeans.get(position).getGoods_id());
+                startActivity(intent1);
+            }
+        });
+
         adapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<HomeModel.DataBeanX.ItemsBean.DataBean>() {
             @Override
             public void onItemViewClick(View view, int position, HomeModel.DataBeanX.ItemsBean.DataBean o) {
@@ -335,7 +344,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             case R.id.ed_search:
                 ActivityUtils.startActivity(getContext(), SearchActivity.class);
                 break;
-
         }
     }
 }

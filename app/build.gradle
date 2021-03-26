@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 30
@@ -23,6 +24,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    greendao {
+        schemaVersion 1 //当前数据库版本
+        daoPackage 'com.pinnoocle.fruitindustryoptimization.greendao'//设置DaoMaster、DaoSession、Dao包名
+        targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
     }
 }
 
@@ -58,7 +65,8 @@ dependencies {
 
     implementation 'com.sunfusheng:MarqueeView:1.4.1'
 
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     //顶部导航栏
     implementation 'com.androidkun:XTabLayout:1.1.5'
     //购物车加减
@@ -84,4 +92,7 @@ dependencies {
     implementation 'com.android.support:design:30.0.2'
     implementation 'com.github.yuruiyin:AppbarLayoutBehavior:v1.0.2'
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+    implementation 'com.to.aboomy:banner:3.0.6-x'
+    implementation 'org.greenrobot:greendao:3.3.0'
+    implementation 'com.github.LRH1993:AutoFlowLayout:1.0.5'
 }

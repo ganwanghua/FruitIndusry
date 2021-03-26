@@ -356,7 +356,16 @@ public class HomeModel {
                 private String goods_name;
                 private String goods_image;
                 private String goods_price;
+                private String goods_id;
                 private GoodsSkuBean goods_sku;
+
+                public String getGoods_id() {
+                    return goods_id;
+                }
+
+                public void setGoods_id(String goods_id) {
+                    this.goods_id = goods_id;
+                }
 
                 public GoodsSkuBean getGoods_sku() {
                     return goods_sku;
