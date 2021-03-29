@@ -7,6 +7,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CollectModel;
+import com.pinnoocle.fruitindustryoptimization.bean.CouponListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
@@ -207,4 +208,8 @@ public interface RetrofitService {
     //会员商品
     @GET("index.php")
     Observable<VipListsModel> vipLists(@QueryMap Map<String, String> queryMap);
+
+    //优惠券列表
+    @GET("index.php")
+    Observable<CouponListsModel> couponLists(@QueryMap Map<String, String> queryMap);
 }

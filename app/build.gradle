@@ -95,4 +95,5 @@ dependencies {
     implementation 'com.to.aboomy:banner:3.0.6-x'
     implementation 'org.greenrobot:greendao:3.3.0'
     implementation 'com.github.LRH1993:AutoFlowLayout:1.0.5'
+    implementation 'com.haozhang.libary:android-slanted-textview:1.2'
 }

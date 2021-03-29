@@ -225,4 +225,9 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.vipLists(queryMap, callback);
     }
 
+    @Override
+    public void couponLists(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.couponLists(queryMap, callback);
+    }
+
 }
