@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F6F6F6"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
     tools:context=".mine.InvitationPosterActivity">
 
     <RelativeLayout
@@ -32,6 +31,23 @@
     <ImageView
         android:id="@+id/iv_poster"
         android:layout_width="match_parent"
-        android:scaleType="fitXY"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_title"
+        android:layout_marginBottom="50dp"
+        android:layout_above="@id/tv_invitation"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tv_invitation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/light_red"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="邀请好友"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+</RelativeLayout>
