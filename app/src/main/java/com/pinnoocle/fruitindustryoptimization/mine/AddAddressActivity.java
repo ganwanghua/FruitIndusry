@@ -88,25 +88,24 @@ public class AddAddressActivity extends BaseActivity {
         map.put("detail", edAddress.getText().toString().trim());
         map.put("region", provinceName + "," + cityName + "," + districtName);
 
-        dataRepository.addressAdd("/api/address/add", "10001", FastData.getToken(), edName.getText().toString().trim(),
-                edPhone.getText().toString().trim(), edAddress.getText().toString().trim(), provinceName + "," + cityName + "," + districtName, new RemotDataSource.getCallback() {
-                    @Override
-                    public void onFailure(String info) {
-                        ViewLoading.dismiss(AddAddressActivity.this);
-                    }
+        dataRepository.addressAdd(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(AddAddressActivity.this);
+            }
 
-                    @Override
-                    public void onSuccess(Object data) {
-                        ViewLoading.dismiss(AddAddressActivity.this);
-                        StatusModel resultModel = (StatusModel) data;
-                        if (resultModel.getCode() == 1) {
-                            ToastUtils.showToast(resultModel.getMsg());
-                            EventBus.getDefault().post(new AddAddressEvent());
-                            finish();
-                        }
-                        ToastUtils.showToast(resultModel.getMsg());
-                    }
-                });
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(AddAddressActivity.this);
+                StatusModel resultModel = (StatusModel) data;
+                if (resultModel.getCode() == 1) {
+                    ToastUtils.showToast(resultModel.getMsg());
+                    EventBus.getDefault().post(new AddAddressEvent());
+                    finish();
+                }
+                ToastUtils.showToast(resultModel.getMsg());
+            }
+        });
     }
 
     @OnClick({R.id.iv_back, R.id.ed_area, R.id.tv_save})

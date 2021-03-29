@@ -151,9 +151,8 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
-    public void addressAdd(String s, String wxapp_id, String token
-            , String name, String phone, String detail, String region, getCallback callback) {
-        mRemoteDataSource.addressAdd(s, wxapp_id, token, name, phone, detail, region, callback);
+    public void addressAdd(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.addressAdd(queryMap, callback);
     }
 
     @Override

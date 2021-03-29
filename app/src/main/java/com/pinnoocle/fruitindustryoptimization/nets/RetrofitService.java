@@ -72,7 +72,7 @@ public interface RetrofitService {
 
     //修改昵称
     @POST("index.php")
-    Observable<StatusModel> modify1(@Body Map<String, String> queryMap);
+    Observable<StatusModel> modify1(@QueryMap Map<String, String> queryMap);
 
     //修改手机号
     @POST("index.php")
@@ -152,10 +152,8 @@ public interface RetrofitService {
     Observable<StatusModel> addressDelete(@QueryMap Map<String, String> queryMap);
 
     //添加地址
-    @FormUrlEncoded
     @POST("index.php")
-    Observable<StatusModel> addressAdd(@Field("s") String s, @Field("wxapp_id") String wxapp_id, @Field("token") String token
-            , @Field("name") String name, @Field("phone") String phone, @Field("detail") String detail, @Field("region") String region);
+    Observable<StatusModel> addressAdd(@QueryMap Map<String, String> queryMap);
 
     //图片视频信息 （按照地块获取）
     @POST("index.php")

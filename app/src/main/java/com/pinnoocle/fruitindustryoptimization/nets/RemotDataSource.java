@@ -91,6 +91,5 @@ public interface RemotDataSource {
 
     void groupWorkList(Map<String, String> queryMap, getCallback callback);
 
-    void addressAdd(String s, String wxapp_id, String token
-            , String name, String phone, String detail, String region, getCallback callback);
+    void addressAdd(Map<String, String> queryMap, getCallback callback);
 }

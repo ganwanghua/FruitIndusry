@@ -588,9 +588,8 @@ public class RemotDataSourceImpl implements RemotDataSource {
     }
 
     @Override
-    public void addressAdd(String s, String wxapp_id, String token
-            , String name, String phone, String detail, String region, getCallback callback) {
-        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().addressAdd(s, wxapp_id, token, name, phone, detail, region);
+    public void addressAdd(Map<String, String> queryMap, getCallback callback) {
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().addressAdd(queryMap);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<StatusModel>() {
                     @Override
