@@ -92,4 +92,6 @@ public interface RemotDataSource {
     void groupWorkList(Map<String, String> queryMap, getCallback callback);
 
     void addressAdd(Map<String, String> queryMap, getCallback callback);
+
+    void vipLists(Map<String, String> queryMap, getCallback callback);
 }

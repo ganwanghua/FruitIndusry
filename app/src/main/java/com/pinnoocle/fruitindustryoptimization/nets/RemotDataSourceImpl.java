@@ -30,6 +30,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserTreesModel;
 import com.pinnoocle.fruitindustryoptimization.bean.VipIntroModel;
+import com.pinnoocle.fruitindustryoptimization.bean.VipListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.WalletModel;
 
 import java.util.Map;
@@ -890,6 +891,28 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(GroupWorkListModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void vipLists(Map<String, String> queryMap, getCallback callback) {
+        Observable<VipListsModel> observable = RetrofitHelper.getInstance(mContext).getServer().vipLists(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<VipListsModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(VipListsModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });

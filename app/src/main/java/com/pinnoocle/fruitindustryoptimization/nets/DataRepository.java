@@ -220,4 +220,9 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.groupWorkList(queryMap, callback);
     }
 
+    @Override
+    public void vipLists(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.vipLists(queryMap, callback);
+    }
+
 }

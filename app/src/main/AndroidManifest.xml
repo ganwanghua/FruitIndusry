@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".home.GroupWorkActivity"></activity>
+        <activity android:name=".mine.VipActivity"></activity>
+        <activity android:name=".home.GroupWorkActivity" />
         <activity android:name=".home.SeckillActivity" />
         <activity android:name=".home.GoodsDetailsActivity" />
         <activity android:name=".mine.CollectionActivity" />

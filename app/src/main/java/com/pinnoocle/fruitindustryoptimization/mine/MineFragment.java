@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -29,6 +30,10 @@ import com.pinnoocle.fruitindustryoptimization.widget.GlideCircleTransform;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.timmy.tdialog.TDialog;
+import com.timmy.tdialog.base.BindViewHolder;
+import com.timmy.tdialog.listener.OnBindViewListener;
+import com.timmy.tdialog.listener.OnViewClickListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -190,9 +195,41 @@ public class MineFragment extends BaseFragment {
                     startActivity(new Intent(getContext(), InvitationPosterActivity.class));
                 } else if (position == 1) {
                     EventBus.getDefault().post("2");
+                } else if (position == 0) {
+                    showAddressDeleteDialog();
                 }
             }
         });
+    }
+
+    private void showAddressDeleteDialog() {
+        new TDialog.Builder(getFragmentManager())
+                .setLayoutRes(R.layout.vip_dialog)
+                .setScreenWidthAspect(getContext(), 0.8f)
+                .setGravity(Gravity.CENTER)
+                .setCancelableOutside(false)
+                .addOnClickListener(R.id.tv_cancel, R.id.tv_sure)
+                .setOnBindViewListener(new OnBindViewListener() {
+                    @Override
+                    public void bindView(BindViewHolder viewHolder) {
+                    }
+                })
+                .setOnViewClickListener(new OnViewClickListener() {
+                    @Override
+                    public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+                        switch (view.getId()) {
+                            case R.id.tv_cancel:
+                                tDialog.dismiss();
+                                break;
+                            case R.id.tv_sure:
+                                tDialog.dismiss();
+                                startActivity(new Intent(getContext(), VipActivity.class));
+                                break;
+                        }
+                    }
+                })
+                .create()
+                .show();
     }
 
     private List<Map<String, Object>> getData1() {

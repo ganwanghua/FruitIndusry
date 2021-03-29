@@ -27,6 +27,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserTreesModel;
 import com.pinnoocle.fruitindustryoptimization.bean.VipIntroModel;
+import com.pinnoocle.fruitindustryoptimization.bean.VipListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.WalletModel;
 
 import java.util.Map;
@@ -202,4 +203,8 @@ public interface RetrofitService {
     //拼团商品列表
     @POST("index.php")
     Observable<GroupWorkListModel> groupWorkList(@QueryMap Map<String, String> queryMap);
+
+    //会员商品
+    @GET("index.php")
+    Observable<VipListsModel> vipLists(@QueryMap Map<String, String> queryMap);
 }
