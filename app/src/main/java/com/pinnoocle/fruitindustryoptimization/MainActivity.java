@@ -201,6 +201,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     public void onEvent(String event) {
         if (event.equals("2")) {
             bottomNavigationBar.selectTab(2);
+        }else if(event.equals("to_shop_cart")){
+            bottomNavigationBar.selectTab(3);
         }
     }
 

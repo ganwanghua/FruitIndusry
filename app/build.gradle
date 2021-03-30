@@ -95,4 +95,11 @@ dependencies {
     implementation 'com.to.aboomy:banner:3.0.6-x'
     implementation 'org.greenrobot:greendao:3.3.0'
     implementation 'com.github.LRH1993:AutoFlowLayout:1.0.5'
+
+    implementation 'com.lxj:xpopup-ext:0.0.3'
+//由于扩展库依赖XPopup才能正常使用，所以还必须添加XPopup依赖
+    implementation 'com.lxj:xpopup:2.0.2'
+
+    implementation 'com.github.chrisbanes:PhotoView:2.1.3'
+
 }

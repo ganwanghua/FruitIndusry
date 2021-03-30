@@ -421,11 +421,13 @@
             android:padding="10dp">
 
             <ImageView
+                android:id="@+id/iv_collection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/iv_collection" />
 
             <TextView
+                android:id="@+id/tv_collection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="收藏"
@@ -463,24 +465,26 @@
             android:gravity="center">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_add_cart"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_yellow_left"
-                android:paddingLeft="20dp"
                 android:paddingTop="10dp"
-                android:paddingRight="20dp"
                 android:paddingBottom="10dp"
                 android:text="加入购物车"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_buy"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_red_left"
-                android:paddingLeft="20dp"
                 android:paddingTop="10dp"
-                android:paddingRight="20dp"
                 android:paddingBottom="10dp"
                 android:text="立即购买"
                 android:textColor="@color/white"

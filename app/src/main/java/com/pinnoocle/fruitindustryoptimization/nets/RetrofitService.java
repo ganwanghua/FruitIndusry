@@ -207,4 +207,8 @@ public interface RetrofitService {
     //会员商品
     @GET("index.php")
     Observable<VipListsModel> vipLists(@QueryMap Map<String, String> queryMap);
+    //收藏/取消收藏商品
+    @POST("index.php")
+    Observable<StatusModel> userCollect(@QueryMap Map<String, String> queryMap);
+
 }

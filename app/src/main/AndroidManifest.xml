@@ -59,6 +59,7 @@
         <activity android:name=".mine.AddressActivity" />
         <activity android:name=".mine.AddAddressActivity" />
         <activity android:name=".mine.EditAddressActivity" />
+        <activity android:name=".home.TaskBigImgActivity" />
     </application>
 
 </manifest>
