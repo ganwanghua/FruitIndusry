@@ -94,6 +94,10 @@ public class MineFragment extends BaseFragment {
     RelativeLayout rlAddresss;
     @BindView(R.id.rl_collection)
     RelativeLayout rlCollection;
+    @BindView(R.id.ll_coupon)
+    LinearLayout llCoupon;
+    @BindView(R.id.tv_coupon)
+    TextView tvCoupon;
     private int[] icon = {R.mipmap.paid, R.mipmap.delivered, R.mipmap.received, R.mipmap.evaluated, R.mipmap.after_sales};
     private int[] icon1 = {R.mipmap.membership, R.mipmap.my_fruit_tree, R.mipmap.adoption, R.mipmap.registration};
     private String[] iconName = {"待付款", "待发货", "待收货", "待评价", "退款/售后"};
@@ -171,6 +175,7 @@ public class MineFragment extends BaseFragment {
                         tvPhone.setText(sb.toString());
                         tvMoney.setText(userInfoModel.getData().getUserInfo().getBalance());
                         tvRebate.setText(userInfoModel.getData().getTm() + "");
+                        tvCoupon.setText(userInfoModel.getData().getCouponCount() + "");
                     }
                 }
             }
@@ -265,9 +270,12 @@ public class MineFragment extends BaseFragment {
         return data_list;
     }
 
-    @OnClick({R.id.iv_setting, R.id.rl_adoption_order, R.id.ll_balance, R.id.rl_addresss, R.id.ll_rebate, R.id.rl_collection})
+    @OnClick({R.id.iv_setting, R.id.rl_adoption_order, R.id.ll_balance, R.id.rl_addresss, R.id.ll_rebate, R.id.rl_collection, R.id.ll_coupon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ll_coupon:
+                startActivity(new Intent(getContext(), CouponActivity.class));
+                break;
             case R.id.iv_setting:
                 startActivity(new Intent(getContext(), SettingActivity.class));
                 break;

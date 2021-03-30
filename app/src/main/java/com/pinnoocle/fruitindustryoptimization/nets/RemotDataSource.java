@@ -96,4 +96,6 @@ public interface RemotDataSource {
     void vipLists(Map<String, String> queryMap, getCallback callback);
     void userCollect(Map<String, String> queryMap, getCallback callback);
 
+
+    void couponLists(Map<String, String> queryMap, getCallback callback);
 }
