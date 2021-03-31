@@ -13,12 +13,16 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.OrderConfirmAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BuyNowModel;
+import com.pinnoocle.fruitindustryoptimization.bean.LoginModel;
+import com.pinnoocle.fruitindustryoptimization.bean.RightBuyModel;
+import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.mine.AddressActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
@@ -106,7 +110,7 @@ public class OrderConfirmActivity extends BaseActivity {
         dataRepository = Injection.dataRepository(mContext);
         if (!TextUtils.isEmpty(getIntent().getStringExtra("cart_ids"))) {
             orderCart();
-        }else {
+        } else {
             buyNow();
         }
     }
@@ -118,7 +122,7 @@ public class OrderConfirmActivity extends BaseActivity {
         map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("delivery", "0");
-        map.put("pay_type",pay_type);
+        map.put("pay_type", pay_type);
         map.put("goods_num", getIntent().getStringExtra("goods_num"));
         map.put("goods_id", getIntent().getStringExtra("goods_id"));
         map.put("goods_sku_id", getIntent().getStringExtra("goods_sku_id"));
@@ -162,7 +166,7 @@ public class OrderConfirmActivity extends BaseActivity {
         map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("delivery", "0");
-        map.put("pay_type",pay_type);
+        map.put("pay_type", pay_type);
         map.put("goods_num", getIntent().getStringExtra("goods_num"));
         map.put("goods_id", getIntent().getStringExtra("goods_id"));
         map.put("goods_sku_id", getIntent().getStringExtra("goods_sku_id"));
@@ -176,7 +180,12 @@ public class OrderConfirmActivity extends BaseActivity {
             @Override
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(mContext);
-                BuyNowModel buyNowModel = (BuyNowModel) data;
+                StatusModel statusModel = (StatusModel) data;
+                if (statusModel.getCode() == 1) {
+                    RightBuyModel rightBuyModel = new Gson().fromJson(statusModel.getData(), RightBuyModel.class);
+                } else {
+                    ToastUtils.showToast(statusModel.getMsg());
+                }
             }
         });
     }
@@ -188,8 +197,8 @@ public class OrderConfirmActivity extends BaseActivity {
         map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("delivery", "0");
-        map.put("pay_type",pay_type);
-        map.put("cart_ids",getIntent().getStringExtra("cart_ids"));
+        map.put("pay_type", pay_type);
+        map.put("cart_ids", getIntent().getStringExtra("cart_ids"));
 
 
         dataRepository.orderCart(map, new RemotDataSource.getCallback() {
@@ -225,8 +234,6 @@ public class OrderConfirmActivity extends BaseActivity {
     }
 
 
-
-
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 9 && resultCode == RESULT_OK) {
@@ -236,7 +243,7 @@ public class OrderConfirmActivity extends BaseActivity {
                 AddressListModel.DataBean.ListBean userShipBean = (AddressListModel.DataBean.ListBean) result;
                 if (userShipBean == null) {
                     buyNow();
-                }else {
+                } else {
                     rlName.setVisibility(View.VISIBLE);
                     address_id = userShipBean.getAddress_id() + "";
                     tvName.setText(userShipBean.getName());
@@ -252,7 +259,7 @@ public class OrderConfirmActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.iv_back, R.id.rl_address,R.id.tv_go_buy})
+    @OnClick({R.id.iv_back, R.id.rl_address, R.id.tv_go_buy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -274,7 +281,7 @@ public class OrderConfirmActivity extends BaseActivity {
 //                if (getIntent().getStringExtra("cart_ids") != null) {
 //                    buyNowCart(getIntent().getStringExtra("cart_ids"));
 //                } else {
-                    rightBuy();
+                rightBuy();
 //                }
 
                 break;

@@ -659,9 +659,9 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
     @Override
     public void rightBuy(Map<String, String> queryMap, getCallback callback) {
-        Observable<RightBuyModel> observable = RetrofitHelper.getInstance(mContext).getServer().rightBuy(queryMap);
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().rightBuy(queryMap);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<RightBuyModel>() {
+                .subscribe(new Observer<StatusModel>() {
                     @Override
                     public void onCompleted() { // 完成请求后
 
@@ -673,7 +673,7 @@ public class RemotDataSourceImpl implements RemotDataSource {
                     }
 
                     @Override
-                    public void onNext(RightBuyModel s) { // 请求成功
+                    public void onNext(StatusModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });

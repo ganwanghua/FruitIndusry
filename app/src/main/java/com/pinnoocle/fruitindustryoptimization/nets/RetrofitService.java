@@ -222,7 +222,7 @@ public interface RetrofitService {
 
     //立即购买
     @POST("index.php")
-    Observable<RightBuyModel> rightBuy(@QueryMap Map<String, String> queryMap);
+    Observable<StatusModel> rightBuy(@QueryMap Map<String, String> queryMap);
 
     //预结算
     @GET("index.php")
