@@ -56,7 +56,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
-
     }
 
     private void initView() {
