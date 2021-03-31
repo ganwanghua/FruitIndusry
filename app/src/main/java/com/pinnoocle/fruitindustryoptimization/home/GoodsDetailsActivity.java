@@ -1,6 +1,7 @@
 package com.pinnoocle.fruitindustryoptimization.home;
 
 import android.content.Context;
+import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -136,9 +137,10 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
                     initBanner();
                     tvMoney.setText(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price());
                     tvName.setText(goodsDetailModel.getData().getDetail().getGoods_name());
-                    tvOldMoney.setText("￥" + Double.parseDouble(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price()) * 0.9);
+                    DecimalFormat decimalFormat =new DecimalFormat("0.00");
+                    tvOldMoney.setText("￥" + decimalFormat.format(Double.parseDouble(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price()) * 0.9));
                     tvLineMoney.setText("￥" + goodsDetailModel.getData().getDetail().getGoods_sku().getLine_price());
-                    tvMoney1.setText("" + Double.parseDouble(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price()) * 0.1);
+                    tvMoney1.setText("" + decimalFormat.format(Double.parseDouble(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price()) * 0.1));
                     tvSellingPoint.setText(goodsDetailModel.getData().getDetail().getSelling_point());
                     tvNum.setText("剩余:" + goodsDetailModel.getData().getDetail().getGoods_sku().getStock_num() + "件");
 
