@@ -1,5 +1,6 @@
 package com.pinnoocle.fruitindustryoptimization.shoppingcart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -22,6 +23,7 @@ import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.event.CanSettlement;
 import com.pinnoocle.fruitindustryoptimization.event.CartAllCheckedEvent;
+import com.pinnoocle.fruitindustryoptimization.home.OrderConfirmActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
@@ -208,7 +210,7 @@ public class ShoppingCartFragment extends BaseFragment {
 
                 StatusModel statusModel = (StatusModel)data;
                 if(statusModel.getCode()==1){
-
+                    updateTotalPrice();
                 }
 
 
@@ -236,7 +238,7 @@ public class ShoppingCartFragment extends BaseFragment {
 
                 StatusModel statusModel = (StatusModel)data;
                 if(statusModel.getCode()==1){
-
+                    updateTotalPrice();
                 }
 
 
@@ -279,7 +281,7 @@ public class ShoppingCartFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.ll_del, R.id.tv_settlement})
+    @OnClick({R.id.ll_del, R.id.tv_settlement, R.id.ll_all_select})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_del:
@@ -301,13 +303,25 @@ public class ShoppingCartFragment extends BaseFragment {
                         cartDelete(cartIds);
                     }
                 } else {
-//                    if (cartIdList.size() == 0) {
-//                        ToastUtils.showToast("请选择需要购买的数据");
-//                    } else {
-//                        String cartIds = dealCartIdList();
-//                        orderCart(cartIds);
-//                    }
+                    if (cartIdList.size() == 0) {
+                        ToastUtils.showToast("请选择需要购买的数据");
+                    } else {
+                        String cart_ids = dealCartIdList();
+                        Intent intent = new Intent(mContext, OrderConfirmActivity.class);
+                        intent.putExtra("cart_ids",cart_ids);
+                        startActivity(intent);
+                    }
                 }
+                break;
+            case R.id.ll_all_select:
+                checkbox.setChecked(!checkbox.isChecked());
+                for (CartListsModel.DataBean.GoodsListBean listBean :
+                        adapter.getData()) {
+                    listBean.setIs_select(checkbox.isChecked());
+                }
+                EventBus.getDefault().post(new CartAllCheckedEvent(checkbox.isChecked()));
+                EventBus.getDefault().post(new CanSettlement(checkbox.isChecked()));
+                adapter.notifyDataSetChanged();
                 break;
         }
     }

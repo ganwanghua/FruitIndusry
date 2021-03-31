@@ -42,6 +42,7 @@ public class ShoppingCartAdapter extends BaseAdapter<CartListsModel.DataBean.Goo
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
+        holder.mCheckedCb.setChecked(mDatas.get(position).isIs_select());
         Glide.with(mContext).load(mDatas.get(position).getGoods_image()).centerCrop().into(holder.mGoodsIconIv);
         holder.mGoodsPriceTv.setText(mDatas.get(position).getGoods_sku().getGoods_price());
         holder.mGoodsDescTv.setText(mDatas.get(position).getGoods_name());

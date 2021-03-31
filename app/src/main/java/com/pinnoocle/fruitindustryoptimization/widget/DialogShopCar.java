@@ -17,9 +17,14 @@ import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
+import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.home.OrderConfirmActivity;
 import com.pinnoocle.fruitindustryoptimization.home.TaskBigImgActivity;
+import com.pinnoocle.fruitindustryoptimization.login.LoginActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
+import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
+import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,6 +58,7 @@ public class DialogShopCar extends BottomPopupView implements View.OnClickListen
     private String item_id;
 
     private int goods_sku_id;
+    private TextView tvAddCart;
 
 
     public DialogShopCar(@NonNull Context context, FragmentManager fm, GoodsDetailModel.DataBean dataBean) {
@@ -110,6 +116,7 @@ public class DialogShopCar extends BottomPopupView implements View.OnClickListen
         ivClose.setOnClickListener(this);
         ivShop.setOnClickListener(this);
         tvBuy.setOnClickListener(this);
+        tvAddCart.setOnClickListener(this);
 
     }
 
@@ -122,6 +129,7 @@ public class DialogShopCar extends BottomPopupView implements View.OnClickListen
         mSkuView = findViewById(R.id.mSkuView);
         numberButton = findViewById(R.id.number_button);
         tvBuy = findViewById(R.id.tv_buy);
+        tvAddCart = findViewById(R.id.tv_add_cart);
 
         initData();
     }
@@ -220,7 +228,7 @@ public class DialogShopCar extends BottomPopupView implements View.OnClickListen
 //                    if (type.equals("add_shop_cart")) {
 //                        cartAdd();
 //                    } else {
-//                        sureOrder();
+                sureOrder();
 //                    }
 //
 //                }
@@ -232,81 +240,60 @@ public class DialogShopCar extends BottomPopupView implements View.OnClickListen
             case R.id.iv_shop:
                 viewPluImg(imageList, 0);
                 break;
+            case R.id.tv_add_cart:
+                cartAdd();
+                break;
         }
     }
 
-//    private void sureOrder() {
-//        if (TextUtils.isEmpty(FastData.getToken())) {
-//            Intent intent = new Intent(getContext(), LoginActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//            getContext().startActivity(intent);
-//            return;
-//        }
-//
-//        Map<String, String> map = new HashMap<>();
-//        map.put("wxapp_id", "10001");
-//        map.put("token", FastData.getToken());
-//        map.put("goods_id", dataBean.getDetail().getGoods_id() + "");
-//        map.put("goods_sku_id", goods_sku_id + "");
-//        map.put("goods_num", numberButton.getNumber() + "");
-//        ViewLoading.show(context);
-//        dataRepository.sureOrder(map, new RemotDataSource.getCallback() {
-//            @Override
-//            public void onFailure(String info) {
-//                ViewLoading.dismiss(context);
-//            }
-//
-//            @Override
-//            public void onSuccess(Object data) {
-//                ViewLoading.dismiss(context);
-//                SureOrderModel sureOrderModel = (SureOrderModel) data;
-//                if (sureOrderModel.getCode() == 1) {
-//                    EventBus.getDefault().post(new ShopCartRefreshEvent());
-//                    Intent intent = new Intent(context, OrderConfirmActivity.class);
-//                    intent.putExtra("sureOrderData", sureOrderModel.getData());
-//                    intent.putExtra("goods_id", dataBean.getDetail().getGoods_id() + "");
-//                    intent.putExtra("goods_sku_id", goods_sku_id + "");
-//                    intent.putExtra("goods_num", numberButton.getNumber() + "");
-//                    context.startActivity(intent);
-//
-//                }
-////                ToastUtils.showToast(sureOrderModel.getMsg());
-//            }
-//        });
-//    }
+    private void sureOrder() {
+        if (TextUtils.isEmpty(FastData.getToken())) {
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            getContext().startActivity(intent);
+            return;
+        }
+        Intent intent = new Intent(context, OrderConfirmActivity.class);
+        intent.putExtra("goods_id", dataBean.getDetail().getGoods_id() + "");
+        intent.putExtra("goods_sku_id", goods_sku_id + "");
+        intent.putExtra("goods_num", numberButton.getNumber() + "");
+        context.startActivity(intent);
+        dismiss();
+    }
 
-//    private void cartAdd() {
-//        if (TextUtils.isEmpty(FastData.getToken())) {
-//            Intent intent = new Intent(getContext(), LoginActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//            getContext().startActivity(intent);
-//            return;
-//        }
-//
-//        ViewLoading.show(getContext());
-//        LoginBean loginBean = new LoginBean();
-//        loginBean.wxapp_id = "10001";
-//        loginBean.token = FastData.getToken();
-//        loginBean.goods_id = dataBean.getDetail().getGoods_id() + "";
-//        loginBean.goods_sku_id = goods_sku_id + "";
-//        loginBean.goods_num = numberButton.getNumber() + "";
-//        dataRepository.cartAdd(loginBean, new RemotDataSource.getCallback() {
-//            @Override
-//            public void onFailure(String info) {
-//                ViewLoading.dismiss(getContext());
-//            }
-//
-//            @Override
-//            public void onSuccess(Object data) {
-//                ViewLoading.dismiss(getContext());
-//                CartAddModel cartAddModel = (CartAddModel) data;
-//                if (cartAddModel.getCode() == 1) {
-//                    EventBus.getDefault().post(new ShopCartRefreshEvent());
-//                }
-//                ToastUtils.showToast(cartAddModel.getMsg());
-//            }
-//        });
-//    }
+    private void cartAdd() {
+        if (TextUtils.isEmpty(FastData.getToken())) {
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            getContext().startActivity(intent);
+            return;
+        }
+        ViewLoading.show(context);
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/cart/add");
+        map.put("wxapp_id", "10001");
+        map.put("token", FastData.getToken());
+        map.put("goods_id", dataBean.getDetail().getGoods_id() + "");
+        map.put("goods_sku_id", goods_sku_id + "");
+        map.put("goods_num", numberButton.getNumber() + "");
+        dataRepository.cartAdd(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(context);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(context);
+                StatusModel statusModel = (StatusModel) data;
+                if (statusModel.getCode() == 1) {
+                    dismiss();
+                }
+                ToastUtils.showToast(statusModel.getMsg());
+
+            }
+        });
+    }
 
 
     private void viewPluImg(ArrayList<String> list, int index) {

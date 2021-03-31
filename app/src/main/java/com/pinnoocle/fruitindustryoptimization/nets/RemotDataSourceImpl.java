@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BeforeBuyModel;
+import com.pinnoocle.fruitindustryoptimization.bean.BuyNowModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
@@ -21,6 +22,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
+import com.pinnoocle.fruitindustryoptimization.bean.RightBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
@@ -503,9 +505,9 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
     @Override
     public void orderCart(Map<String, String> queryMap, getCallback callback) {
-        Observable<OrderCartModel> observable = RetrofitHelper.getInstance(mContext).getServer().orderCart(queryMap);
+        Observable<BuyNowModel> observable = RetrofitHelper.getInstance(mContext).getServer().orderCart(queryMap);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<OrderCartModel>() {
+                .subscribe(new Observer<BuyNowModel>() {
                     @Override
                     public void onCompleted() { // 完成请求后
 
@@ -517,7 +519,7 @@ public class RemotDataSourceImpl implements RemotDataSource {
                     }
 
                     @Override
-                    public void onNext(OrderCartModel s) { // 请求成功
+                    public void onNext(BuyNowModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });
@@ -628,6 +630,50 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(StatusModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void buyNow(Map<String, String> queryMap, getCallback callback) {
+        Observable<BuyNowModel> observable = RetrofitHelper.getInstance(mContext).getServer().buyNow(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BuyNowModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BuyNowModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void rightBuy(Map<String, String> queryMap, getCallback callback) {
+        Observable<RightBuyModel> observable = RetrofitHelper.getInstance(mContext).getServer().rightBuy(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RightBuyModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(RightBuyModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });

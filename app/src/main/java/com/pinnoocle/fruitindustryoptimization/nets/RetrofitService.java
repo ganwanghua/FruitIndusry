@@ -2,6 +2,7 @@ package com.pinnoocle.fruitindustryoptimization.nets;
 
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BeforeBuyModel;
+import com.pinnoocle.fruitindustryoptimization.bean.BuyNowModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
@@ -18,6 +19,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
+import com.pinnoocle.fruitindustryoptimization.bean.RightBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
@@ -137,10 +139,6 @@ public interface RetrofitService {
     @GET("index.php")
     Observable<TreesDetailModel> treesDetail(@QueryMap Map<String, String> queryMap);
 
-    //预结算
-    @GET("index.php")
-    Observable<OrderCartModel> orderCart(@QueryMap Map<String, String> queryMap);
-
     //地址列表
     @GET("index.php")
     Observable<AddressListModel> addressList(@QueryMap Map<String, String> queryMap);
@@ -208,6 +206,7 @@ public interface RetrofitService {
     //会员商品
     @GET("index.php")
     Observable<VipListsModel> vipLists(@QueryMap Map<String, String> queryMap);
+
     //收藏/取消收藏商品
     @POST("index.php")
     Observable<StatusModel> userCollect(@QueryMap Map<String, String> queryMap);
@@ -216,4 +215,16 @@ public interface RetrofitService {
     //优惠券列表
     @GET("index.php")
     Observable<CouponListsModel> couponLists(@QueryMap Map<String, String> queryMap);
+
+    //立即购买-预购买
+    @GET("index.php")
+    Observable<BuyNowModel> buyNow(@QueryMap Map<String, String> queryMap);
+
+    //立即购买
+    @POST("index.php")
+    Observable<RightBuyModel> rightBuy(@QueryMap Map<String, String> queryMap);
+
+    //预结算
+    @GET("index.php")
+    Observable<BuyNowModel> orderCart(@QueryMap Map<String, String> queryMap);
 }

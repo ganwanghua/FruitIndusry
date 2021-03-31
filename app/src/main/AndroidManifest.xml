@@ -61,6 +61,9 @@
         <activity android:name=".mine.AddAddressActivity" />
         <activity android:name=".mine.EditAddressActivity" />
         <activity android:name=".home.TaskBigImgActivity" />
+        <activity android:name=".home.OrderConfirmActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            />
     </application>
 
 </manifest>
