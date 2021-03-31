@@ -136,22 +136,22 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
                     initBanner();
                     tvMoney.setText(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price());
                     tvName.setText(goodsDetailModel.getData().getDetail().getGoods_name());
-                    tvOldMoney.setText("￥" + goodsDetailModel.getData().getDetail().getGoods_sku().getBalance_price());
+                    tvOldMoney.setText("￥" + Double.parseDouble(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price()) * 0.9);
                     tvLineMoney.setText("￥" + goodsDetailModel.getData().getDetail().getGoods_sku().getLine_price());
-                    tvMoney1.setText(goodsDetailModel.getData().getDetail().getFirst_money());
+                    tvMoney1.setText("" + Double.parseDouble(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price()) * 0.1);
                     tvSellingPoint.setText(goodsDetailModel.getData().getDetail().getSelling_point());
                     tvNum.setText("剩余:" + goodsDetailModel.getData().getDetail().getGoods_sku().getStock_num() + "件");
 
                     if (goodsDetailModel.getData().getDetail().getCollect() == 1) {
                         tvCollection.setText("已收藏");
-                    }else {
+                    } else {
                         tvCollection.setText("收藏");
                     }
-                        RichText.from(translation(goodsDetailModel.getData().getDetail().getContent())).bind(this)
-                                .showBorder(false)
-                                .autoPlay(false)
-                                .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
-                                .into(tvContent);
+                    RichText.from(translation(goodsDetailModel.getData().getDetail().getContent())).bind(this)
+                            .showBorder(false)
+                            .autoPlay(false)
+                            .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
+                            .into(tvContent);
 
                 }
             }
@@ -175,7 +175,7 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
             public void onSuccess(Object data) {
                 StatusModel statusModel = (StatusModel) data;
                 if (statusModel.getCode() == 1) {
-                        goodsDetail();
+                    goodsDetail();
                 }
             }
         });
