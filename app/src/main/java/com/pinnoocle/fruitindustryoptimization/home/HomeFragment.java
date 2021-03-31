@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -61,8 +62,8 @@ import cn.jzvd.Jzvd;
 import cn.jzvd.JzvdStd;
 
 public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener {
-    @BindView(R.id.ed_search)
-    TextView edSearch;
+    @BindView(R.id.ll_search)
+    LinearLayout llSearch;
     @BindView(R.id.rl_search)
     RelativeLayout rlSearch;
     @BindView(R.id.banner)
@@ -342,10 +343,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         });
     }
 
-    @OnClick({R.id.ed_search})
+    @OnClick({R.id.ll_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ed_search:
+            case R.id.ll_search:
                 ActivityUtils.startActivity(getContext(), SearchActivity.class);
                 break;
         }

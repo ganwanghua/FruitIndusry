@@ -3,6 +3,7 @@ package com.pinnoocle.fruitindustryoptimization.classification;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,8 +42,8 @@ public class ClassificationFragment extends BaseFragment {
     ImageView ivBack;
     @BindView(R.id.rl_title)
     RelativeLayout rlTitle;
-    @BindView(R.id.ed_search)
-    TextView edSearch;
+    @BindView(R.id.ll_search)
+    LinearLayout llSearch;
     @BindView(R.id.rv_classification)
     RecyclerView rvClassification;
     @BindView(R.id.rv_goods_list)
@@ -156,7 +157,7 @@ public class ClassificationFragment extends BaseFragment {
     }
 
 
-    @OnClick(R.id.ed_search)
+    @OnClick(R.id.ll_search)
     public void onViewClicked() {
         ActivityUtils.startActivity(getContext(), SearchActivity.class);
 
