@@ -258,6 +258,12 @@ public class MineFragment extends BaseFragment {
         //配置适配器
         gridView.setAdapter(sim_adapter);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                
+            }
+        });
     }
 
     private List<Map<String, Object>> getData() {
@@ -270,7 +276,7 @@ public class MineFragment extends BaseFragment {
         return data_list;
     }
 
-    @OnClick({R.id.iv_setting, R.id.rl_adoption_order, R.id.ll_balance, R.id.rl_addresss, R.id.ll_rebate, R.id.rl_collection, R.id.ll_coupon})
+    @OnClick({R.id.iv_setting, R.id.rl_adoption_order, R.id.ll_balance, R.id.rl_addresss, R.id.ll_rebate, R.id.rl_collection, R.id.ll_coupon,R.id.tv_all_order})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_coupon:
@@ -293,6 +299,9 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.rl_collection:
                 startActivity(new Intent(getContext(), CollectionActivity.class));
+                break;
+            case R.id.tv_all_order:
+                startActivity(new Intent(mContext,OrderActivity.class));
                 break;
         }
     }

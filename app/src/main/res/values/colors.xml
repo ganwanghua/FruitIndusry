@@ -13,6 +13,8 @@
     <color name="black_1">#111111</color>
     <color name="grey2">#333333</color>
     <color name="grey3">#E5E5E7</color>
+    <color name="text_color">#505050</color>
+    <color name="line_color">#E5E5E7</color>
     <color name="hint_color">#AAAAAA</color>
     <color name="grey_3">#666666</color>
     <color name="grey_a5">#A5A5A5</color>

@@ -19,6 +19,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
+import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.RightBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
@@ -227,4 +228,7 @@ public interface RetrofitService {
     //预结算
     @GET("index.php")
     Observable<BuyNowModel> orderCart(@QueryMap Map<String, String> queryMap);
+    //我的订单
+    @GET("index.php")
+    Observable<OrderListModel> orderList(@QueryMap Map<String, String> queryMap);
 }

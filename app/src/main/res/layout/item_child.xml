@@ -73,8 +73,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_below="@id/tv_price"
-        android:layout_marginTop="5dp"
+        android:layout_below="@id/iv_goods_pic"
+        android:layout_marginTop="6dp"
         android:background="#ECECEC"/>
 
 
