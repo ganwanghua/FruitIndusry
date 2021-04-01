@@ -44,6 +44,15 @@ public class CollectionAdapter extends BaseAdapter<CollectModel.DataBean.ListBea
         holder.tvName.setText(mDatas.get(position).getGoods().getGoods_name());
         holder.tvSpec.setText("已售"+mDatas.get(position).getGoods().getSku().get(0).getGoods_sales()+"件");
         holder.tvMoney.setText("￥" + mDatas.get(position).getGoods().getSku().get(0).getGoods_price());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemDataClickListener != null) {
+                    mOnItemDataClickListener.onItemViewClick(v, position, mDatas.get(position));
+                }
+            }
+        });
     }
 
     static class VH extends RecyclerView.ViewHolder {

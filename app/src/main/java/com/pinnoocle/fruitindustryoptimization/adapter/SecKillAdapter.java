@@ -53,8 +53,7 @@ public class SecKillAdapter extends RecyclerView.Adapter<SecKillAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-//        return mShowItems == null ? 0 : mShowItems.size();
-        return 3;
+        return mShowItems == null ? 0 : mShowItems.size();
     }
 
     public void setData(List<SeckillModel.DataBeanX.MyListBean.DataBean> dataBeans) {

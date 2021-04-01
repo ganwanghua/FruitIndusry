@@ -25,7 +25,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -47,7 +49,7 @@ public class SeckillActivity extends BaseActivity implements SecKillAdapter.OnIt
     SecKillAdapter secKillAdapter;
     private DataRepository dataRepository;
     private int page = 1;
-
+    private List<SeckillModel.DataBeanX.MyListBean.DataBean> mShowItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,16 +79,25 @@ public class SeckillActivity extends BaseActivity implements SecKillAdapter.OnIt
         dataRepository.seckill(map, new RemotDataSource.getCallback() {
             @Override
             public void onFailure(String info) {
+                refresh.finishRefresh();
+                refresh.finishLoadMore();
                 ViewLoading.dismiss(mContext);
             }
 
             @Override
             public void onSuccess(Object data) {
+                refresh.finishRefresh();
                 ViewLoading.dismiss(mContext);
                 SeckillModel seckillModel = (SeckillModel) data;
-//                if (seckillModel.getCode() == 1) {
-//                    adoptionOrderAdapter.setData(treeOrderModel.getData().getOrders());
-//                }
+                if (seckillModel.getCode() == 1) {
+                    if (seckillModel.getData().getMyList().getCurrent_page() == seckillModel.getData().getMyList().getLast_page()) {
+                        refresh.finishLoadMoreWithNoMoreData();
+                    } else {
+                        refresh.finishLoadMore();
+                    }
+                    mShowItems.addAll(seckillModel.getData().getMyList().getData());
+                    secKillAdapter.setData(mShowItems);
+                }
             }
         });
     }
@@ -109,6 +120,8 @@ public class SeckillActivity extends BaseActivity implements SecKillAdapter.OnIt
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-
+        page = 1;
+        mShowItems.clear();
+        seckill(page);
     }
 }

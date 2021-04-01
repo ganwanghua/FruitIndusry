@@ -1,7 +1,9 @@
 package com.pinnoocle.fruitindustryoptimization.mine;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -14,7 +16,10 @@ import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.CollectionAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.CollectModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
+import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
+import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
+import com.pinnoocle.fruitindustryoptimization.home.GoodsDetailsActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
@@ -34,7 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CollectionActivity extends BaseActivity {
+public class CollectionActivity extends BaseActivity implements BaseAdapter.OnItemDataClickListener {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -44,6 +49,7 @@ public class CollectionActivity extends BaseActivity {
     SwipeMenuRecyclerView recycleView;
     private CollectionAdapter collectionAdapter;
     private DataRepository dataRepository;
+    private CollectModel collectModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +78,7 @@ public class CollectionActivity extends BaseActivity {
             @Override
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(mContext);
-                CollectModel collectModel = (CollectModel) data;
+                collectModel = (CollectModel) data;
                 if (collectModel.getCode() == 1) {
                     collectionAdapter.setData(collectModel.getData().getList());
                 }
@@ -130,6 +136,24 @@ public class CollectionActivity extends BaseActivity {
                 int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
                 int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
                 int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
+                if (menuPosition == 0 || menuPosition == 1) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(80);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            Intent intent1 = new Intent(CollectionActivity.this, GoodsDetailsActivity.class);
+                            intent1.putExtra("goods_id", collectModel.getData().getList().get(adapterPosition).getGoods_id() + "");
+                            startActivity(intent1);
+                        }
+                    }).start();
+
+                } else {
+                    userCollect(collectModel.getData().getList().get(adapterPosition).getGoods_id() + "");
+                }
             }
         };
 
@@ -138,10 +162,43 @@ public class CollectionActivity extends BaseActivity {
 
         // 必须 最后执行
         recycleView.setAdapter(collectionAdapter);
+
+        collectionAdapter.setmOnItemDataClickListener(this);
+    }
+
+    private void userCollect(String goods_id) {
+        ViewLoading.show(this);
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/user/collect");
+        map.put("wxapp_id", "10001");
+        map.put("goods_id", goods_id);
+        map.put("token", FastData.getToken());
+        dataRepository.userCollect(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                StatusModel statusModel = (StatusModel) data;
+                if (statusModel.getCode() == 1) {
+                    collect();
+                }
+            }
+        });
+
     }
 
     @OnClick(R.id.iv_back)
     public void onViewClicked() {
         finish();
+    }
+
+    @Override
+    public void onItemViewClick(View view, int position, Object o) {
+        Intent intent1 = new Intent(this, GoodsDetailsActivity.class);
+        intent1.putExtra("goods_id", collectModel.getData().getList().get(position).getGoods_id() + "");
+        startActivity(intent1);
     }
 }
