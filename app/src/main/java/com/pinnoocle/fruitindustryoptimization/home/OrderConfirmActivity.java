@@ -125,7 +125,7 @@ public class OrderConfirmActivity extends BaseActivity {
         map.put("pay_type", pay_type);
         map.put("goods_num", getIntent().getStringExtra("goods_num"));
         map.put("goods_id", getIntent().getStringExtra("goods_id"));
-        map.put("goods_sku_id", getIntent().getStringExtra("goods_sku_id"));
+        map.put("goods_sku_id", "0");
 
         dataRepository.buyNow(map, new RemotDataSource.getCallback() {
             @Override
@@ -169,7 +169,7 @@ public class OrderConfirmActivity extends BaseActivity {
         map.put("pay_type", pay_type);
         map.put("goods_num", getIntent().getStringExtra("goods_num"));
         map.put("goods_id", getIntent().getStringExtra("goods_id"));
-        map.put("goods_sku_id", getIntent().getStringExtra("goods_sku_id"));
+        map.put("goods_sku_id", "0");
 
         dataRepository.rightBuy(map, new RemotDataSource.getCallback() {
             @Override
