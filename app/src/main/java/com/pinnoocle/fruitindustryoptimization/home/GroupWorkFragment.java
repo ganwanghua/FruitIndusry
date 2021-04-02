@@ -1,5 +1,8 @@
 package com.pinnoocle.fruitindustryoptimization.home;
 
+import android.content.Intent;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +15,7 @@ import com.pinnoocle.fruitindustryoptimization.adapter.SecKillAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsSearchModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
+import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
@@ -56,8 +60,16 @@ public class GroupWorkFragment extends BaseFragment implements OnRefreshLoadMore
         recycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         groupWorkListAdapter = new GroupWorkListAdapter(getActivity());
         recycleView.setAdapter(groupWorkListAdapter);
-
+        groupWorkListAdapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<GroupWorkListModel.DataBeanX.ListBean.DataBean>() {
+            @Override
+            public void onItemViewClick(View view, int position, GroupWorkListModel.DataBeanX.ListBean.DataBean o) {
+                Intent intent = new Intent(mContext, GroupGoodsDetailsActivity.class);
+                intent.putExtra("goods_id", o.getGoods_id() + "");
+                startActivity(intent);
+            }
+        });
         refresh.setOnRefreshLoadMoreListener(this);
+
     }
 
     @Override

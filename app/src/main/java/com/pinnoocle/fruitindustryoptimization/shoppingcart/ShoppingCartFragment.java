@@ -28,7 +28,6 @@ import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
-import com.pinnoocle.fruitindustryoptimization.widget.NumberButtonExt;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -103,7 +102,7 @@ public class ShoppingCartFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ShoppingCartAdapter(getContext());
         recyclerView.setAdapter(adapter);
-        adapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<CartListsModel.DataBean.GoodsListBean>() {
+        adapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<CartListsModel.DataBean.GoodsListBean>() {
             @Override
             public void onItemViewClick(View view, int position, CartListsModel.DataBean.GoodsListBean o) {
                 switch (view.getId()){

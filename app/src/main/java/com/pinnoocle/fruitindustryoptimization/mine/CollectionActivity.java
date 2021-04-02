@@ -8,14 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.CollectionAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.CollectModel;
-import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
@@ -24,7 +22,6 @@ import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
-import com.pinnoocle.fruitindustryoptimization.widget.CommItemDecoration;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
@@ -163,7 +160,7 @@ public class CollectionActivity extends BaseActivity implements BaseAdapter.OnIt
         // 必须 最后执行
         recycleView.setAdapter(collectionAdapter);
 
-        collectionAdapter.setmOnItemDataClickListener(this);
+        collectionAdapter.setOnItemDataClickListener(this);
     }
 
     private void userCollect(String goods_id) {

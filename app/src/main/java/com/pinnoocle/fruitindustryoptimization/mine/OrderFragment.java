@@ -1,6 +1,5 @@
 package com.pinnoocle.fruitindustryoptimization.mine;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -90,7 +89,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
         orderAdapter = new OrderAdapter(getContext());
         recycleView.setAdapter(orderAdapter);
         refresh.setOnRefreshLoadMoreListener(this);
-        orderAdapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<OrderListModel.DataBeanX.ListBean.DataBean>() {
+        orderAdapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<OrderListModel.DataBeanX.ListBean.DataBean>() {
             @Override
             public void onItemViewClick(View view, int position, OrderListModel.DataBeanX.ListBean.DataBean o) {
                 switch (view.getId()) {

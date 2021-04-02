@@ -16,8 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.dd.ShadowLayout;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
@@ -26,7 +24,6 @@ import com.pinnoocle.fruitindustryoptimization.adapter.GoodListAdapter;
 import com.pinnoocle.fruitindustryoptimization.adapter.GridViewAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
-import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
 import com.pinnoocle.fruitindustryoptimization.bean.VipIntroModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
@@ -35,7 +32,6 @@ import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.orchard.AdoptActivity;
 import com.pinnoocle.fruitindustryoptimization.orchard.AdoptionAgreementActivity;
-import com.pinnoocle.fruitindustryoptimization.orchard.ConfirmOrderActivity;
 import com.pinnoocle.fruitindustryoptimization.utils.ActivityUtils;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.pinnoocle.fruitindustryoptimization.widget.GridViewInScrollView;
@@ -271,7 +267,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             }
         });
 
-        adapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<HomeModel.DataBeanX.ItemsBean.DataBean>() {
+        adapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<HomeModel.DataBeanX.ItemsBean.DataBean>() {
             @Override
             public void onItemViewClick(View view, int position, HomeModel.DataBeanX.ItemsBean.DataBean o) {
                 cartAdd(o.getGoods_sku().getGoods_id() + "", o.getGoods_sku().getSpec_sku_id(), 1);

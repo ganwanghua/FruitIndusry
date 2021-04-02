@@ -66,6 +66,7 @@
             android:name=".home.OrderConfirmActivity"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity android:name=".mine.OrderActivity" />
+        <activity android:name=".home.GroupGoodsDetailsActivity" />
     </application>
 
 </manifest>

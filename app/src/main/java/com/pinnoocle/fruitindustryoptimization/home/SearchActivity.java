@@ -140,7 +140,7 @@ public class SearchActivity extends BaseActivity implements AutoFlowLayout.OnIte
         recycleView.setAdapter(goodsAdapter);
         refresh.setOnRefreshLoadMoreListener(this);
 
-        goodsAdapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<GoodsSearchModel.DataBeanX.ListBean.DataBean>() {
+        goodsAdapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<GoodsSearchModel.DataBeanX.ListBean.DataBean>() {
             @Override
             public void onItemViewClick(View view, int position, GoodsSearchModel.DataBeanX.ListBean.DataBean o) {
                 switch (view.getId()) {

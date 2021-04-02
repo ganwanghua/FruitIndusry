@@ -25,7 +25,6 @@ import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
-import com.pinnoocle.fruitindustryoptimization.utils.StatusBarUtil;
 import com.timmy.tdialog.TDialog;
 import com.timmy.tdialog.base.BindViewHolder;
 import com.timmy.tdialog.listener.OnBindViewListener;
@@ -73,7 +72,7 @@ public class AddressActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        adapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<AddressListModel.DataBean.ListBean>() {
+        adapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<AddressListModel.DataBean.ListBean>() {
             @Override
             public void onItemViewClick(View view, int position, AddressListModel.DataBean.ListBean dataBean) {
                 switch (view.getId()) {

@@ -23,7 +23,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
     protected OnItemClickListener mOnItemClickListener;
     protected OnItemDataClickListener mOnItemDataClickListener;
 
-    public void setmOnItemDataClickListener(OnItemDataClickListener mOnItemDataClickListener) {
+    public void setOnItemDataClickListener(OnItemDataClickListener mOnItemDataClickListener) {
         this.mOnItemDataClickListener = mOnItemDataClickListener;
     }
 

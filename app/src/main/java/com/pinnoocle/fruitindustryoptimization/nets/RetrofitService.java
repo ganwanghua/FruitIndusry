@@ -13,6 +13,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsSearchModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GroupRuleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
@@ -22,6 +23,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.RightBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
+import com.pinnoocle.fruitindustryoptimization.bean.SharingGoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
@@ -228,7 +230,17 @@ public interface RetrofitService {
     //预结算
     @GET("index.php")
     Observable<BuyNowModel> orderCart(@QueryMap Map<String, String> queryMap);
+
     //我的订单
     @GET("index.php")
     Observable<OrderListModel> orderList(@QueryMap Map<String, String> queryMap);
+
+    //拼团详情
+    @GET("index.php")
+    Observable<SharingGoodsDetailModel> sharingGoodsDetail(@QueryMap Map<String, String> queryMap);
+    //拼团规则
+    @GET("index.php")
+    Observable<GroupRuleModel> groupRule(@QueryMap Map<String, String> queryMap);
+
+
 }

@@ -1,7 +1,9 @@
 package com.pinnoocle.fruitindustryoptimization.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,22 +11,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
+import com.pinnoocle.fruitindustryoptimization.MainActivity;
 import com.pinnoocle.fruitindustryoptimization.R;
-import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
-import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GroupRuleModel;
+import com.pinnoocle.fruitindustryoptimization.bean.SharingGoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
-import com.pinnoocle.fruitindustryoptimization.widget.DialogShopCar;
+import com.pinnoocle.fruitindustryoptimization.widget.DrawLineTextView;
+import com.pinnoocle.fruitindustryoptimization.widget.GroupDialogShopCar;
 import com.pinnoocle.fruitindustryoptimization.widget.VerticalMarqueeLayout;
+import com.timmy.tdialog.TDialog;
+import com.timmy.tdialog.base.BindViewHolder;
+import com.timmy.tdialog.listener.OnBindViewListener;
+import com.timmy.tdialog.listener.OnViewClickListener;
 import com.to.aboomy.banner.Banner;
 import com.to.aboomy.banner.HolderCreator;
 import com.zzhoujay.richtext.ImageHolder;
@@ -53,72 +62,72 @@ public class GroupGoodsDetailsActivity extends BaseActivity implements ViewPager
     VerticalMarqueeLayout marqueeRoot;
     @BindView(R.id.banner_indicator)
     TextView bannerIndicator;
+    @BindView(R.id.ic_money)
+    TextView icMoney;
     @BindView(R.id.tv_money)
     TextView tvMoney;
-    @BindView(R.id.tv_old_money)
-    TextView tvOldMoney;
+    @BindView(R.id.ll_one)
+    LinearLayout llOne;
+    @BindView(R.id.tv_line_money)
+    DrawLineTextView tvLineMoney;
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_share)
     TextView tvShare;
-    @BindView(R.id.tv_line_money)
-    TextView tvLineMoney;
-    @BindView(R.id.iv_discount)
-    ImageView ivDiscount;
-    @BindView(R.id.tv_money1)
-    TextView tvMoney1;
-    @BindView(R.id.tv_num)
-    TextView tvNum;
-    @BindView(R.id.tv_selling_point)
-    TextView tvSellingPoint;
-    @BindView(R.id.tv_discount)
-    TextView tvDiscount;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    @BindView(R.id.tv_rule_content)
+    TextView tvRuleContent;
+    @BindView(R.id.tv_rule)
+    TextView tvRule;
     @BindView(R.id.tv_service)
     TextView tvService;
     @BindView(R.id.tv_content)
     TextView tvContent;
     @BindView(R.id.ll_message)
     LinearLayout llMessage;
-    @BindView(R.id.ll_collection)
-    LinearLayout llCollection;
     @BindView(R.id.ll_shop)
     LinearLayout llShop;
-    @BindView(R.id.tv_add_cart)
-    TextView tvAddCart;
+    @BindView(R.id.tv_price)
+    TextView tvPrice;
     @BindView(R.id.tv_buy)
     TextView tvBuy;
+    @BindView(R.id.tv_group_price)
+    TextView tvGroupPrice;
+    @BindView(R.id.tv_group_buy)
+    TextView tvGroupBuy;
     @BindView(R.id.rl_buy)
     RelativeLayout rlBuy;
-    @BindView(R.id.iv_collection)
-    ImageView ivCollection;
-    @BindView(R.id.tv_collection)
-    TextView tvCollection;
+    @BindView(R.id.ll_group)
+    LinearLayout llGroup;
+    @BindView(R.id.ll_buy)
+    LinearLayout llBuy;
+    @BindView(R.id.ll_group_buy)
+    LinearLayout llGroupBuy;
     private DataRepository dataRepository;
     private List<String> imagesBeans = new ArrayList<>();
-    private GoodsDetailModel.DataBean dataBean;
+    private SharingGoodsDetailModel.DataBean dataBean;
     private BasePopupView selectDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initWhite();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_goods_details);
+        setContentView(R.layout.activity_goods_group_details);
         ButterKnife.bind(this);
         dataRepository = Injection.dataRepository(this);
 
-        goodsDetail();
+        sharingGoodsDetail();
     }
 
-    private void goodsDetail() {
+    private void sharingGoodsDetail() {
         ViewLoading.show(this);
         Map<String, String> map = new HashMap<>();
-        map.put("s", "/api/goods/detail");
+        map.put("s", "/api/sharing.goods/detail");
         map.put("wxapp_id", "10001");
         map.put("goods_id", getIntent().getStringExtra("goods_id"));
-//        map.put("is_rush", );
-//        map.put("activity_id", );
         map.put("token", FastData.getToken());
-        dataRepository.goodsDetail(map, new RemotDataSource.getCallback() {
+        dataRepository.sharingGoodsDetail(map, new RemotDataSource.getCallback() {
             @Override
             public void onFailure(String info) {
                 ViewLoading.dismiss(mContext);
@@ -127,60 +136,58 @@ public class GroupGoodsDetailsActivity extends BaseActivity implements ViewPager
             @Override
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(mContext);
-                GoodsDetailModel goodsDetailModel = (GoodsDetailModel) data;
-                if (goodsDetailModel.getCode() == 1) {
-                    dataBean = goodsDetailModel.getData();
-                    for (int i = 0; i < goodsDetailModel.getData().getImages().size(); i++) {
-                        imagesBeans.add(goodsDetailModel.getData().getImages().get(i).getFile_path());
+                SharingGoodsDetailModel sharingGoodsDetailModel = (SharingGoodsDetailModel) data;
+                if (sharingGoodsDetailModel.getCode() == 1) {
+                    dataBean = sharingGoodsDetailModel.getData();
+                    for (int i = 0; i < sharingGoodsDetailModel.getData().getDetail().getImage().size(); i++) {
+                        imagesBeans.add(sharingGoodsDetailModel.getData().getDetail().getImage().get(i).getFile_path());
                     }
                     initBanner();
-                    tvMoney.setText(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price());
-                    tvName.setText(goodsDetailModel.getData().getDetail().getGoods_name());
-                    tvOldMoney.setText("￥" + goodsDetailModel.getData().getDetail().getGoods_sku().getBalance_price());
-                    tvLineMoney.setText("￥" + goodsDetailModel.getData().getDetail().getGoods_sku().getLine_price());
-                    tvMoney1.setText(goodsDetailModel.getData().getDetail().getFirst_money());
-                    tvSellingPoint.setText(goodsDetailModel.getData().getDetail().getSelling_point());
-                    tvNum.setText("剩余:" + goodsDetailModel.getData().getDetail().getGoods_sku().getStock_num() + "件");
+                    tvMoney.setText(sharingGoodsDetailModel.getData().getDetail().getGoods_sku().getSharing_price());
+                    tvPrice.setText(sharingGoodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price());
+                    tvGroupPrice.setText(sharingGoodsDetailModel.getData().getDetail().getGoods_sku().getSharing_price());
+                    tvName.setText(sharingGoodsDetailModel.getData().getDetail().getGoods_name());
 
-                    if (goodsDetailModel.getData().getDetail().getCollect() == 1) {
-                        tvCollection.setText("已收藏");
-                    }else {
-                        tvCollection.setText("收藏");
-                    }
-                        RichText.from(translation(goodsDetailModel.getData().getDetail().getContent())).bind(this)
-                                .showBorder(false)
-                                .autoPlay(false)
-                                .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
-                                .into(tvContent);
+                    tvLineMoney.setText("￥" + sharingGoodsDetailModel.getData().getDetail().getGoods_sku().getLine_price());
+                    llGroup.setVisibility(View.GONE);
+
+                    RichText.from(translation(sharingGoodsDetailModel.getData().getDetail().getContent())).bind(this)
+                            .showBorder(false)
+                            .autoPlay(false)
+                            .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
+                            .into(tvContent);
 
                 }
             }
         });
     }
 
-    private void userCollect() {
-        ViewLoading.show(this);
+
+    private void groupRule() {
+
         Map<String, String> map = new HashMap<>();
-        map.put("s", "/api/user/collect");
+        map.put("s", "/api/sharing.setting/getAll");
         map.put("wxapp_id", "10001");
-        map.put("goods_id", getIntent().getStringExtra("goods_id"));
         map.put("token", FastData.getToken());
-        dataRepository.userCollect(map, new RemotDataSource.getCallback() {
+        dataRepository.groupRule(map, new RemotDataSource.getCallback() {
             @Override
             public void onFailure(String info) {
-                ViewLoading.dismiss(mContext);
+
             }
 
             @Override
             public void onSuccess(Object data) {
-                StatusModel statusModel = (StatusModel) data;
-                if (statusModel.getCode() == 1) {
-                        goodsDetail();
+                GroupRuleModel groupRuleModel = (GroupRuleModel) data;
+                if(groupRuleModel.getCode()==1){
+                    String content = groupRuleModel.getData().getSetting().getBasic().getRule_detail();
+                    showRuleDialog(content);
                 }
+
+
             }
         });
-
     }
+
 
 
     private String translation(String content) {
@@ -191,18 +198,18 @@ public class GroupGoodsDetailsActivity extends BaseActivity implements ViewPager
         return replace3.replace("&copy;", "©");
     }
 
-    private void showSelectDialog() {
+    private void showSelectDialog(int i) {
         if (dataBean != null) {
             selectDialog = new XPopup.Builder(this)
                     .enableDrag(false)
-                    .asCustom(new DialogShopCar(this, getSupportFragmentManager(), dataBean));
+                    .asCustom(new GroupDialogShopCar(this, getSupportFragmentManager(), dataBean, i));
             selectDialog.show();
 
         }
     }
 
 
-    @OnClick({R.id.iv_back, R.id.ll_message, R.id.ll_collection, R.id.ll_shop, R.id.tv_add_cart, R.id.tv_buy})
+    @OnClick({R.id.iv_back, R.id.ll_message, R.id.ll_shop, R.id.ll_buy, R.id.ll_group_buy,R.id.rl_rule})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -210,19 +217,55 @@ public class GroupGoodsDetailsActivity extends BaseActivity implements ViewPager
                 break;
             case R.id.ll_message:
                 break;
-            case R.id.ll_collection:
-                userCollect();
-                break;
+
             case R.id.ll_shop:
-                finish();
+                startActivity(new Intent(mContext, MainActivity.class));
                 EventBus.getDefault().post("to_shop_cart");
+                finish();
                 break;
-            case R.id.tv_add_cart:
-            case R.id.tv_buy:
-                showSelectDialog();
+            case R.id.ll_buy:
+                showSelectDialog(0);
                 break;
+            case R.id.ll_group_buy:
+                showSelectDialog(1);
+                break;
+            case R.id.rl_rule:
+                groupRule();
+                break;
+
+
         }
     }
+
+    private void showRuleDialog(String content) {
+        TDialog tDialog = new TDialog.Builder(getSupportFragmentManager())
+                .setLayoutRes(R.layout.dialog_rule)
+                //设置弹窗展示的xml布局
+                .setCancelableOutside(false)
+                .setScreenWidthAspect(this, 0.7f)
+                .setGravity(Gravity.CENTER)     //设置弹窗展示位置
+                .setOnBindViewListener(new OnBindViewListener() {
+                    @Override
+                    public void bindView(BindViewHolder viewHolder) {
+                        TextView tv_content = viewHolder.itemView.findViewById(R.id.tv_content);
+                        tv_content.setText(content);
+                    }
+                })
+                .addOnClickListener(R.id.close)
+                .setOnViewClickListener(new OnViewClickListener() {
+                    @Override
+                    public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+                        switch (view.getId()){
+                            case R.id.close:
+                                tDialog.dismiss();
+                                break;
+                        }
+                    }
+                })
+                .create()   //创建TDialog
+                .show();//展示
+    }
+
 
     //举个栗子
     public class ImageHolderCreator implements HolderCreator {

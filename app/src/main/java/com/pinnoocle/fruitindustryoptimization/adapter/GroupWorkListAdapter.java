@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkListModel;
+import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,12 @@ public class GroupWorkListAdapter extends RecyclerView.Adapter<GroupWorkListAdap
         mInflater = LayoutInflater.from(context);
     }
 
+    protected BaseAdapter.OnItemDataClickListener mOnItemDataClickListener;
+
+    public void setOnItemDataClickListener(BaseAdapter.OnItemDataClickListener mOnItemDataClickListener) {
+        this.mOnItemDataClickListener = mOnItemDataClickListener;
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -51,6 +58,11 @@ public class GroupWorkListAdapter extends RecyclerView.Adapter<GroupWorkListAdap
         holder.tvTitle.setText(mShowItems.get(position).getGoods_name());
         holder.tvNum.setText(mShowItems.get(position).getPeople() + "人团");
         holder.tvMoney.setText("￥" + mShowItems.get(position).getGoods_min_price());
+        holder.itemView.setOnClickListener(v -> {
+            if (mOnItemDataClickListener != null) {
+                mOnItemDataClickListener.onItemViewClick(v, position, mShowItems.get(position));
+            }
+        });
     }
 
     @Override

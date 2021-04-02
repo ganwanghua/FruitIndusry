@@ -64,7 +64,7 @@ public class ClassificationFragment extends BaseFragment {
         rvClassification.setLayoutManager(new LinearLayoutManager(mContext));
         classificationAdapter = new ClassificationAdapter(mContext);
         rvClassification.setAdapter(classificationAdapter);
-        classificationAdapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<CategoryIndexModel.DataBeanX.ListBean>() {
+        classificationAdapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<CategoryIndexModel.DataBeanX.ListBean>() {
             @Override
             public void onItemViewClick(View view, int position, CategoryIndexModel.DataBeanX.ListBean o) {
                 classificationAdapter.setPos(position);
@@ -75,7 +75,7 @@ public class ClassificationFragment extends BaseFragment {
         rvGoodsList.setLayoutManager(new LinearLayoutManager(mContext));
         childAdapter = new ChildAdapter(mContext);
         rvGoodsList.setAdapter(childAdapter);
-        childAdapter.setmOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<CategoryIndexModel.DataBeanX.ListBean.GoodsBean.DataBean>() {
+        childAdapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<CategoryIndexModel.DataBeanX.ListBean.GoodsBean.DataBean>() {
             @Override
             public void onItemViewClick(View view, int position, CategoryIndexModel.DataBeanX.ListBean.GoodsBean.DataBean o) {
                 if (view.getId() == R.id.iv_add_cart) {
