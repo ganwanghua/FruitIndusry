@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mine.CouponActivity"></activity>
+        <activity android:name=".mine.VipGoodsDetailActivity"></activity>
+        <activity android:name=".mine.CouponActivity" />
         <activity android:name=".mine.VipActivity" />
         <activity android:name=".home.GroupWorkActivity" />
         <activity android:name=".home.SeckillActivity" />
@@ -61,9 +62,9 @@
         <activity android:name=".mine.AddAddressActivity" />
         <activity android:name=".mine.EditAddressActivity" />
         <activity android:name=".home.TaskBigImgActivity" />
-        <activity android:name=".home.OrderConfirmActivity"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
-            />
+        <activity
+            android:name=".home.OrderConfirmActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity android:name=".mine.OrderActivity" />
     </application>
 

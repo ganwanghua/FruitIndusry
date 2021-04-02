@@ -51,6 +51,14 @@ public class VipAdapter extends RecyclerView.Adapter<VipAdapter.ViewHolder> {
         holder.tvTitle.setText(mShowItems.get(position).getGoods_name());
         holder.tvPrice.setText("￥" + mShowItems.get(position).getGoods_sku().getGoods_old_price());
         holder.tvLineMoney.setText("￥" + mShowItems.get(position).getGoods_sku().getBalance_price());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(position);
+                }
+            }
+        });
     }
 
     @Override

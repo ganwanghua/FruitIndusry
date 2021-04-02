@@ -1,5 +1,6 @@
 package com.pinnoocle.fruitindustryoptimization.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -75,6 +76,13 @@ public class VipActivity extends BaseActivity implements OnRefreshLoadMoreListen
         recycleView1.addItemDecoration(new CommItemDecoration(this, DividerItemDecoration.VERTICAL, getResources().getColor(R.color.transparent), 30));
         vipAdapter = new VipAdapter(this);
         recycleView1.setAdapter(vipAdapter);
+        vipAdapter.setOnItemClickListener(new VipAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                startActivity(new Intent(VipActivity.this, VipGoodsDetailActivity.class).putExtra("goods_id", dataBeans.get(position).getGoods_id() + ""));
+            }
+        });
 
         refresh.setOnRefreshLoadMoreListener(this);
         vip(page);
