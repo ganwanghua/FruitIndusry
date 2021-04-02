@@ -13,6 +13,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsSearchModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GroupBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupRuleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkModel;
@@ -241,6 +242,13 @@ public interface RetrofitService {
     //拼团规则
     @GET("index.php")
     Observable<GroupRuleModel> groupRule(@QueryMap Map<String, String> queryMap);
+    //预开团
+    @GET("index.php")
+    Observable<BuyNowModel> groupBuy(@QueryMap Map<String, String> queryMap);
+    //开团
+    @POST("index.php")
+    Observable<StatusModel> groupRightBuy(@QueryMap Map<String, String> queryMap);
+
 
 
 }

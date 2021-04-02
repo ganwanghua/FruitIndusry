@@ -19,6 +19,7 @@ import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SharingGoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.home.GroupOrderConfirmActivity;
 import com.pinnoocle.fruitindustryoptimization.home.OrderConfirmActivity;
 import com.pinnoocle.fruitindustryoptimization.home.TaskBigImgActivity;
 import com.pinnoocle.fruitindustryoptimization.login.LoginActivity;
@@ -36,7 +37,7 @@ import ren.qinc.numberbutton.NumberButton;
 
 public class GroupDialogShopCar extends BottomPopupView implements View.OnClickListener {
 
-    private  int type = 0;
+    private  int type = 10;
     private SharingGoodsDetailModel.DataBean dataBean;
     private String spec_sku_id;
     //    private GoodsDetailModel.DataBean.SpecDataBean specData;
@@ -149,7 +150,7 @@ public class GroupDialogShopCar extends BottomPopupView implements View.OnClickL
         }
         tvStock.setText("库存" + goods_sku.getStock_num() + "件");
 
-        if(type==0) {
+        if(type==10) {
             tvPrice.setText("￥" + goods_sku.getGoods_price());
         }else {
             tvPrice.setText("￥" + goods_sku.getSharing_price());
@@ -256,9 +257,9 @@ public class GroupDialogShopCar extends BottomPopupView implements View.OnClickL
             getContext().startActivity(intent);
             return;
         }
-        Intent intent = new Intent(context, OrderConfirmActivity.class);
+        Intent intent = new Intent(context, GroupOrderConfirmActivity.class);
         intent.putExtra("goods_id", dataBean.getDetail().getGoods_id() + "");
-//        intent.putExtra("goods_sku_id", goods_sku_id + "");
+        intent.putExtra("order_type", type + "");
         intent.putExtra("goods_num", numberButton.getNumber() + "");
         context.startActivity(intent);
         dismiss();

@@ -224,10 +224,10 @@ public class GroupGoodsDetailsActivity extends BaseActivity implements ViewPager
                 finish();
                 break;
             case R.id.ll_buy:
-                showSelectDialog(0);
+                showSelectDialog(10);
                 break;
             case R.id.ll_group_buy:
-                showSelectDialog(1);
+                showSelectDialog(20);
                 break;
             case R.id.rl_rule:
                 groupRule();

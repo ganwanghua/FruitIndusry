@@ -107,6 +107,10 @@ public interface RemotDataSource {
 
     void groupRule(Map<String, String> queryMap, getCallback callback);
 
+    void groupBuy(Map<String, String> queryMap, getCallback callback);
+
+    void groupRightBuy(Map<String, String> queryMap, getCallback callback);
+
 
     void couponLists(Map<String, String> queryMap, getCallback callback);
 }

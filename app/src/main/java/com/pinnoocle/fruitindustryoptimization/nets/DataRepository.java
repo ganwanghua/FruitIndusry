@@ -186,6 +186,16 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
+    public void groupBuy(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.groupBuy(queryMap, callback);
+    }
+
+    @Override
+    public void groupRightBuy(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.groupRightBuy(queryMap, callback);
+    }
+
+    @Override
     public void cartSub(Map<String, String> queryMap, getCallback callback) {
         mRemoteDataSource.cartSub(queryMap, callback);
     }

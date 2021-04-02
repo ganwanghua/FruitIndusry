@@ -16,6 +16,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsSearchModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GroupBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupRuleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkModel;
@@ -743,6 +744,50 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(GroupRuleModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void groupBuy(Map<String, String> queryMap, getCallback callback) {
+        Observable<BuyNowModel> observable = RetrofitHelper.getInstance(mContext).getServer().groupBuy(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BuyNowModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BuyNowModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void groupRightBuy(Map<String, String> queryMap, getCallback callback) {
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().groupRightBuy(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<StatusModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(StatusModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });
