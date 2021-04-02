@@ -229,9 +229,9 @@
                         android:layout_centerVertical="true"
                         android:background="@color/white"
                         android:gravity="end"
+                        android:hint="请为您的果树命名（选填）"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:hint="请为您的果树命名（选填）"
                         android:textColor="#111111"
                         android:textColorHint="#A5A5A5"
                         android:textSize="14sp" />
@@ -260,33 +260,73 @@
                     android:background="#F1F1F1" />
 
                 <RelativeLayout
+                    android:id="@+id/rl_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp">
 
                     <ImageView
-                        android:id="@+id/iv_location"
+                        android:id="@+id/iv_gps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/location" />
+                        android:src="@mipmap/gps" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:id="@+id/rl_name"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/iv_location"
-                        android:text="请选择配送地址"
-                        android:textColor="#666666"
-                        android:textSize="14sp" />
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@id/iv_gps">
 
-                    <ImageView
-                        android:id="@+id/iv_right1"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toStartOf="@id/tv_phone1"
+                            android:textColor="@color/black_1"
+                            android:textSize="16sp"
+                            tools:text="李小猫" />
+
+                        <TextView
+                            android:id="@+id/tv_phone1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="5dp"
+                            android:textColor="@color/black_1"
+                            android:textSize="16sp"
+                            tools:text="139****0255" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_baseline_chevron_right_24" />
+                        android:layout_below="@id/rl_name"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@id/iv_gps">
+
+                        <TextView
+                            android:id="@+id/tv_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/iv_arrow"
+                            android:textColor="@color/grey_3"
+                            android:textSize="14sp"
+                            tools:text="包河区南二环与宿松路交口紫竹园23栋" />
+
+                        <ImageView
+                            android:id="@+id/iv_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:src="@mipmap/arrow_right" />
+
+                    </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>
 

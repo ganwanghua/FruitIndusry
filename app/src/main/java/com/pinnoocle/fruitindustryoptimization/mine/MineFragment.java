@@ -98,6 +98,10 @@ public class MineFragment extends BaseFragment {
     LinearLayout llCoupon;
     @BindView(R.id.tv_coupon)
     TextView tvCoupon;
+    @BindView(R.id.rl_setting)
+    RelativeLayout rlSetting;
+    @BindView(R.id.tv_all_order)
+    TextView tvAllOrder;
     private int[] icon = {R.mipmap.paid, R.mipmap.delivered, R.mipmap.received, R.mipmap.evaluated, R.mipmap.after_sales};
     private int[] icon1 = {R.mipmap.membership, R.mipmap.my_fruit_tree, R.mipmap.adoption, R.mipmap.registration};
     private String[] iconName = {"待付款", "待发货", "待收货", "待评价", "退款/售后"};
@@ -261,7 +265,7 @@ public class MineFragment extends BaseFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
+
             }
         });
     }
@@ -276,13 +280,13 @@ public class MineFragment extends BaseFragment {
         return data_list;
     }
 
-    @OnClick({R.id.iv_setting, R.id.rl_adoption_order, R.id.ll_balance, R.id.rl_addresss, R.id.ll_rebate, R.id.rl_collection, R.id.ll_coupon,R.id.tv_all_order})
+    @OnClick({R.id.rl_setting, R.id.rl_adoption_order, R.id.ll_balance, R.id.rl_addresss, R.id.ll_rebate, R.id.rl_collection, R.id.ll_coupon, R.id.tv_all_order})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_coupon:
                 startActivity(new Intent(getContext(), CouponActivity.class));
                 break;
-            case R.id.iv_setting:
+            case R.id.rl_setting:
                 startActivity(new Intent(getContext(), SettingActivity.class));
                 break;
             case R.id.rl_adoption_order:
@@ -301,7 +305,7 @@ public class MineFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), CollectionActivity.class));
                 break;
             case R.id.tv_all_order:
-                startActivity(new Intent(mContext,OrderActivity.class));
+                startActivity(new Intent(mContext, OrderActivity.class));
                 break;
         }
     }

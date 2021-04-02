@@ -28,6 +28,7 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/rl_setting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#DA251D"

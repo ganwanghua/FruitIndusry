@@ -13,18 +13,23 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
+import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BeforeBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.common.AppManager;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
+import com.pinnoocle.fruitindustryoptimization.mine.AddressActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.pinnoocle.fruitindustryoptimization.widget.NumberButton1;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,10 +47,6 @@ public class ConfirmOrderActivity extends BaseActivity {
     ImageView ivImage;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.iv_location)
-    ImageView ivLocation;
-    @BindView(R.id.iv_right1)
-    ImageView ivRight1;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
     @BindView(R.id.tv_adoption_agreement)
@@ -78,10 +79,25 @@ public class ConfirmOrderActivity extends BaseActivity {
     EditText edTreeName;
     @BindView(R.id.ed_wish)
     EditText edWish;
+    @BindView(R.id.rl_address)
+    RelativeLayout rlAddress;
+    @BindView(R.id.iv_gps)
+    ImageView ivGps;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_phone1)
+    TextView tvPhone1;
+    @BindView(R.id.rl_name)
+    RelativeLayout rlName;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
+    @BindView(R.id.iv_arrow)
+    ImageView ivArrow;
     private DataRepository dataRepository;
     private BeforeBuyModel beforeBuyModel;
     private int num = 1;
     private boolean isSelect = true;
+    private String address_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,14 +177,52 @@ public class ConfirmOrderActivity extends BaseActivity {
                         tvRemissionMoney.setVisibility(View.VISIBLE);
                         tvRemissionMoney.setText("待减免金额：￥" + beforeBuyModel.getData().getTree().getDiscount_price());
                     }
+                    if (beforeBuyModel.getData().getUser().getAddress() != null) {
+                        rlName.setVisibility(View.VISIBLE);
+                        tvName.setText(beforeBuyModel.getData().getUser().getAddress().getName());
+                        tvAddress.setText(beforeBuyModel.getData().getUser().getAddress().getRegion().getProvince() + beforeBuyModel.getData().getUser().getAddress().getRegion().getCity() + beforeBuyModel.getData().getUser().getAddress().getRegion().getRegion() + beforeBuyModel.getData().getUser().getAddress().getDetail());
+                        tvPhone1.setText(beforeBuyModel.getData().getUser().getAddress().getPhone());
+                        address_id = beforeBuyModel.getData().getUser().getAddress().getAddress_id() + "";
+                    } else {
+                        rlName.setVisibility(View.GONE);
+                        tvAddress.setText("请选择配送地址");
+                    }
                 }
             }
         });
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_buy, R.id.iv_select})
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 9 && resultCode == RESULT_OK) {
+            if (data.getSerializableExtra("result") != null) {
+                Serializable result = data.getSerializableExtra("result");
+                AddressListModel.DataBean.ListBean userShipBean = (AddressListModel.DataBean.ListBean) result;
+                if (userShipBean == null) {
+                    beforeBuy(numberButton.getNumber());
+                } else {
+                    rlName.setVisibility(View.VISIBLE);
+                    address_id = userShipBean.getAddress_id() + "";
+                    tvName.setText(userShipBean.getName());
+                    String phone = userShipBean.getPhone().replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+                    tvPhone1.setText(phone);
+                    tvAddress.setText(userShipBean.getRegion().getProvince() + userShipBean.getRegion().getCity() + userShipBean.getRegion().getRegion());
+                }
+            }
+        }
+        if (requestCode == 9 && resultCode == 1001) {
+            beforeBuy(numberButton.getNumber());
+        }
+    }
+
+    @OnClick({R.id.iv_back, R.id.tv_buy, R.id.iv_select, R.id.rl_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rl_address:
+                Intent intent = new Intent(this, AddressActivity.class);
+                intent.putExtra("from", "from");
+                startActivityForResult(intent, 9);
+                break;
             case R.id.iv_back:
                 finish();
                 break;
@@ -202,7 +256,7 @@ public class ConfirmOrderActivity extends BaseActivity {
         map.put("land_id", beforeBuyModel.getData().getTree().getLand_id() + "");
         map.put("name", edName.getText().toString());
         map.put("phone", edPhone.getText().toString());
-        map.put("address_id", "13409");
+        map.put("address_id", beforeBuyModel.getData().getUser().getAddress().getAddress_id() + "");
         map.put("tree_name", edTreeName.getText().toString());
         map.put("share_id", FastData.getUserId());
         map.put("wish", edWish.getText().toString());
