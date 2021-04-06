@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
+import com.pinnoocle.fruitindustryoptimization.MyApp;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.OrderConfirmAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
@@ -29,6 +30,8 @@ import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -37,6 +40,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.pinnoocle.fruitindustryoptimization.MyApp.mWxApi;
 
 public class OrderConfirmActivity extends BaseActivity {
 
@@ -170,6 +175,7 @@ public class OrderConfirmActivity extends BaseActivity {
         map.put("goods_num", getIntent().getStringExtra("goods_num"));
         map.put("goods_id", getIntent().getStringExtra("goods_id"));
         map.put("goods_sku_id", "0");
+        map.put("from", "app");
 
         dataRepository.rightBuy(map, new RemotDataSource.getCallback() {
             @Override
@@ -281,10 +287,11 @@ public class OrderConfirmActivity extends BaseActivity {
 //                if (getIntent().getStringExtra("cart_ids") != null) {
 //                    buyNowCart(getIntent().getStringExtra("cart_ids"));
 //                } else {
-                rightBuy();
-//                }
 
+//                }
+                rightBuy();
                 break;
         }
     }
+
 }

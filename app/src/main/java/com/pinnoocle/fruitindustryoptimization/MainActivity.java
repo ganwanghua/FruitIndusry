@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 .setInactiveIconResource(R.mipmap.shopcart_unselect)
                 .setActiveColorResource(R.color.light_red)
                 .setInActiveColorResource(R.color.grey);
-        shopCartItem.setBadgeItem(new TextBadgeItem().setText("99"));
+//        shopCartItem.setBadgeItem(new TextBadgeItem().setText("99"));
         bottomNavigationBar
                 .addItem(new BottomNavigationItem(R.mipmap.home_select, "首页")
                         .setInactiveIconResource(R.mipmap.home_unselect)
