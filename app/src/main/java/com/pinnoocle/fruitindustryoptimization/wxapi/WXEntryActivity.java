@@ -71,7 +71,6 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
             default:
                 result = "发送返回";
 
-
                 finish();
                 break;
         }

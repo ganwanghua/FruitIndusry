@@ -175,7 +175,7 @@ public class OrderConfirmActivity extends BaseActivity {
         map.put("goods_num", getIntent().getStringExtra("goods_num"));
         map.put("goods_id", getIntent().getStringExtra("goods_id"));
         map.put("goods_sku_id", "0");
-        map.put("from", "app");
+        map.put("platform", "app");
 
         dataRepository.rightBuy(map, new RemotDataSource.getCallback() {
             @Override
