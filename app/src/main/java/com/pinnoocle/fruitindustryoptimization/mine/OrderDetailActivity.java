@@ -8,10 +8,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
+import com.pinnoocle.fruitindustryoptimization.adapter.OrderDetailAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderDetailModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
@@ -20,6 +22,7 @@ import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -86,7 +89,16 @@ public class OrderDetailActivity extends BaseActivity {
     TextView tvBuy;
     @BindView(R.id.rl_panel)
     RelativeLayout rlPanel;
+    @BindView(R.id.tv_order_code)
+    TextView tvOrderCode;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_total_num)
+    TextView tvTotalNum;
+    @BindView(R.id.tv_pay_money)
+    TextView tvPayMoney;
     private DataRepository dataRepository;
+    private OrderDetailAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +111,9 @@ public class OrderDetailActivity extends BaseActivity {
     }
 
     private void initView() {
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new OrderDetailAdapter(this);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initData() {
@@ -142,6 +156,9 @@ public class OrderDetailActivity extends BaseActivity {
                         tvReceivingGoods.setTextColor(0x99ffffff);
                         tvMessageFill.setTextColor(0x99ffffff);
                         tvHint.setText("您的订单已提交，请在2小时内完成支付~");
+
+                        tvCancel.setText("取消订单");
+                        tvBuy.setText("去付款");
                     } else if (orderDetailModel.getData().getOrder().getState_text().equals("已付款，待发货")) {
                         view1.setBackgroundResource(R.color.light_white);
                         view2.setBackgroundResource(R.color.light_white);
@@ -152,14 +169,23 @@ public class OrderDetailActivity extends BaseActivity {
                         tvReceivingGoods.setTextColor(0x99ffffff);
                         tvMessageFill.setTextColor(0x99ffffff);
                         tvHint.setText("您的订单正在备货中~");
+
+                        tvBuy.setText("确认收货");
+                        tvCancel.setText("订单跟踪");
                     } else if (orderDetailModel.getData().getOrder().getState_text().equals("已发货，待收货")) {
                         view2.setBackgroundResource(R.color.light_white);
                         ivMessageFill.setBackgroundResource(R.drawable.bg_light_white_stroke);
                         ivMessageFill.setImageResource(R.mipmap.message_fill_no);
                         tvMessageFill.setTextColor(0x99ffffff);
                         tvHint.setText("您的订单已发货，请这注意查收~");
+
+                        tvBuy.setText("确认收货");
+                        tvCancel.setText("订单跟踪");
                     } else if (orderDetailModel.getData().getOrder().getState_text().equals("已完成")) {
                         tvHint.setText("您的订单已完成，期待您的好评~");
+
+                        tvCancel.setVisibility(View.GONE);
+                        tvBuy.setText("去好评");
                     }
                     tvName.setText(orderDetailModel.getData().getOrder().getAddress().getName());
                     if (!TextUtils.isEmpty(orderDetailModel.getData().getOrder().getAddress().getPhone()) && orderDetailModel.getData().getOrder().getAddress().getPhone().length() > 6) {
@@ -174,6 +200,7 @@ public class OrderDetailActivity extends BaseActivity {
                         }
                         tvPhone.setText(sb.toString());
                     }
+
                     tvAddress.setText(orderDetailModel.getData().getOrder().getAddress().getRegion().getProvince() + orderDetailModel.getData().getOrder().getAddress().getRegion().getCity()
                             + orderDetailModel.getData().getOrder().getAddress().getRegion().getRegion() + orderDetailModel.getData().getOrder().getAddress().getDetail());
                     tvTotalMoney.setText("¥" + orderDetailModel.getData().getOrder().getTotal_price());
@@ -181,6 +208,13 @@ public class OrderDetailActivity extends BaseActivity {
                     tvTotalMerchandise.setText("¥" + orderDetailModel.getData().getOrder().getOrder_price());
                     tvOrder.setText(orderDetailModel.getData().getOrder().getOrder_no());
                     tvUpdateTime.setText(orderDetailModel.getData().getOrder().getCreate_time());
+                    List<OrderDetailModel.DataBean.OrderBean.GoodsBeanX> goods = orderDetailModel.getData().getOrder().getGoods();
+                    adapter.setData(goods);
+
+                    tvOrderCode.setText("订单号：" + orderDetailModel.getData().getOrder().getOrder_no());
+                    tvTime.setText(orderDetailModel.getData().getOrder().getCreate_time());
+                    tvTotalNum.setText("共" + orderDetailModel.getData().getOrder().getGoods().size() + "件商品，实付:");
+                    tvPayMoney.setText("￥" + orderDetailModel.getData().getOrder().getPay_price());
                 }
             }
         });

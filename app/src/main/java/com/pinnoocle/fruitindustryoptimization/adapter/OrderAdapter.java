@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.DataBean, OrderAdapter.VH> {
 
 
+
     public OrderAdapter(Context mContext) {
         super(mContext);
     }
@@ -38,6 +39,8 @@ public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
+        holder.tvOrderCode.setText("订单号：" + mDatas.get(position).getOrder_no());
+        holder.tvTime.setText(mDatas.get(position).getCreate_time());
         holder.tvStatus.setText(mDatas.get(position).getState_text());
         holder.tvTotalNum.setText("共" + mDatas.get(position).getGoods().size() + "件商品，实付:");
 //        if(mDatas.get(position).getIs_vip_order()==1){
@@ -62,7 +65,7 @@ public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.
             case "已付款，待发货":
                 holder.rlPanel.setVisibility(View.GONE);
                 break;
-            case "待收货":
+            case "已发货，待收货":
                 holder.rlPanel.setVisibility(View.VISIBLE);
                 holder.tvCancel.setText("联系客服");
                 holder.tvPay.setText("确认收货");
@@ -99,12 +102,12 @@ public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.
         holder.itemView.setOnClickListener(v ->
         {
             Intent intent = new Intent(mContext, OrderDetailActivity.class);
-            intent.putExtra("order_id", mDatas.get(position).getOrder_id()+"");
+            intent.putExtra("order_id", mDatas.get(position).getOrder_id() + "");
             mContext.startActivity(intent);
         });
         adapter.setOnItemClickListener((v, pos) -> {
             Intent intent = new Intent(mContext, OrderDetailActivity.class);
-            intent.putExtra("order_id", mDatas.get(position).getOrder_id()+"");
+            intent.putExtra("order_id", mDatas.get(position).getOrder_id() + "");
             mContext.startActivity(intent);
 
         });
@@ -126,10 +129,12 @@ public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.
         TextView tvType;
         @BindView(R.id.tv_status)
         TextView tvStatus;
-        @BindView(R.id.recyclerView)
-        RecyclerView recyclerView;
+        @BindView(R.id.tv_order_code)
+        TextView tvOrderCode;
         @BindView(R.id.tv_time)
         TextView tvTime;
+        @BindView(R.id.recyclerView)
+        RecyclerView recyclerView;
         @BindView(R.id.tv_total_num)
         TextView tvTotalNum;
         @BindView(R.id.tv_pay_money)

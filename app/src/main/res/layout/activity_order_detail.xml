@@ -237,14 +237,69 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/color_line" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <LinearLayout
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:overScrollMode="never"
-                android:padding="10dp" />
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_order_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="商品列表"
+                        android:textColor="@color/grey"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:textColor="@color/grey"
+                        android:textSize="10sp"
+                        tools:text="2012-1-1" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/line_color" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:overScrollMode="never" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_toStartOf="@id/tv_pay_money"
+                        android:id="@+id/tv_total_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black_1"
+                        tools:text="共2件商品，实付:"/>
+                    <TextView
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/tv_pay_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black_1"
+                        tools:text="￥22.00"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -393,16 +448,16 @@
         android:padding="5dp">
 
         <LinearLayout
-            android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/kefu_2"/>
+                android:src="@mipmap/kefu_2" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -445,6 +500,7 @@
             android:text="去付款"
             android:textColor="@color/white"
             android:textSize="14sp" />
+
     </RelativeLayout>
 
 </RelativeLayout>

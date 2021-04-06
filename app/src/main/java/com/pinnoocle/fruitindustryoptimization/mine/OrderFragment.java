@@ -178,7 +178,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
     private void orderCancel(String order_ids) {
         Map<String, String> map = new HashMap<>();
         map.put("s","/api/user.order/cancel");
-        map.put("wxapp_id ", "10001");
+        map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("order_id", order_ids);
         ViewLoading.show(getContext());
@@ -204,7 +204,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
     private void orderReceipt(String order_ids,String order_no) {
         Map<String, String> map = new HashMap<>();
         map.put("s","/api/user.order/receipt");
-        map.put("wxapp_id ", "10001");
+        map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("order_id", order_ids);
         ViewLoading.show(getContext());
