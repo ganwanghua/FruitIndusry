@@ -92,7 +92,7 @@ public class OrderConfirmActivity extends BaseActivity {
     private DataRepository dataRepository;
     private OrderConfirmAdapter adapter;
     private String address_id;
-    private String pay_type = "20";
+    private String pay_type = "10";//余额支付
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -239,6 +239,35 @@ public class OrderConfirmActivity extends BaseActivity {
         });
     }
 
+    private void rightBuyCart() {
+        ViewLoading.show(mContext);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("s", "/api/order/cart");
+        map.put("wxapp_id", "10001");
+        map.put("token", FastData.getToken());
+        map.put("cart_ids", getIntent().getStringExtra("cart_ids"));
+        map.put("pay_type", pay_type);
+        map.put("platform", "app");
+
+        dataRepository.rightBuyCart(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                StatusModel statusModel = (StatusModel) data;
+                if (statusModel.getCode() == 1) {
+                    RightBuyModel rightBuyModel = new Gson().fromJson(statusModel.getData(), RightBuyModel.class);
+                } else {
+                    ToastUtils.showToast(statusModel.getMsg());
+                }
+            }
+        });
+    }
+
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -289,7 +318,11 @@ public class OrderConfirmActivity extends BaseActivity {
 //                } else {
 
 //                }
-                rightBuy();
+                if (!TextUtils.isEmpty(getIntent().getStringExtra("cart_ids"))) {
+                    rightBuyCart();
+                } else {
+                    rightBuy();
+                }
                 break;
         }
     }

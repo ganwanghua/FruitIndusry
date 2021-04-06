@@ -265,6 +265,34 @@ public class MineFragment extends BaseFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+
+                    case 0: //待付款
+                        Intent intent1 = new Intent(getContext(), OrderActivity.class);
+                        intent1.putExtra("type", 1);
+                        startActivity(intent1);
+                        break;
+                    case 1: //待发货
+                        Intent intent2 = new Intent(getContext(), OrderActivity.class);
+                        intent2.putExtra("type", 2);
+                        startActivity(intent2);
+                        break;
+                    case 2: //收货
+                        Intent intent4 = new Intent(getContext(), OrderActivity.class);
+                        intent4.putExtra("type", 3);
+                        startActivity(intent4);
+                        break;
+                    case 3: //待评价
+                        Intent intent3 = new Intent(getContext(), OrderActivity.class);
+                        intent3.putExtra("type", 4);
+                        startActivity(intent3);
+                        break;
+                    case 4: //退换
+//                        startActivity(new Intent(getContext(), AfterSalesListActivity.class));
+                        break;
+                    default:
+                        break;
+                }
 
             }
         });

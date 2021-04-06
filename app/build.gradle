@@ -18,35 +18,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     signingConfigs {
         release {
 //            storeFile file('D:\\pinuoke\\royalstarshop\\gsyp.jks')
             storeFile file('D:\\workspace\\FruitIndusry\\app\\btyx.jks')
-            storePassword '123456'
-            keyAlias 'key0'
-            keyPassword '123456'
-        }
-    }
-
-    buildTypes {
-        buildTypes {
-            debug {
-                signingConfig signingConfigs.release
-                renderscriptDebuggable true
-            }
-            release {
-                minifyEnabled false
-                shrinkResources false
-                signingConfig signingConfigs.release
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            }
-        }
-    }
-
-    signingConfigs {
-        release {
-//            storeFile file('D:\\pinuoke\\royalstarshop\\gsyp.jks')
-            storeFile file('D:\\pinuoke\\FruitIndusry\\app\\btyx.jks')
             storePassword '123456'
             keyAlias 'key0'
             keyPassword '123456'

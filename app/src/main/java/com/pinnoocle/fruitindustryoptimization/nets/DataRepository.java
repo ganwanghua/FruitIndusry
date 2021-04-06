@@ -171,6 +171,11 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
+    public void rightBuyCart(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.rightBuyCart(queryMap, callback);
+    }
+
+    @Override
     public void orderList(Map<String, String> queryMap, getCallback callback) {
         mRemoteDataSource.orderList(queryMap, callback);
     }
@@ -193,6 +198,21 @@ public class DataRepository implements RemotDataSource {
     @Override
     public void groupRightBuy(Map<String, String> queryMap, getCallback callback) {
         mRemoteDataSource.groupRightBuy(queryMap, callback);
+    }
+
+    @Override
+    public void orderCancel(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.orderCancel(queryMap, callback);
+    }
+
+    @Override
+    public void orderReceipt(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.orderReceipt(queryMap, callback);
+    }
+
+    @Override
+    public void orderDetail(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.orderDetail(queryMap, callback);
     }
 
     @Override

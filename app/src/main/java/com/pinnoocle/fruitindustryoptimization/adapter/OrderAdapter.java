@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
+import com.pinnoocle.fruitindustryoptimization.mine.OrderDetailActivity;
 
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.
 //        }else {
         holder.tvPayMoney.setText("￥" + mDatas.get(position).getPay_price());
 //        }
+
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         List<OrderListModel.DataBeanX.ListBean.DataBean.GoodsBean> goods = mDatas.get(position).getGoods();
         InnerOrderAdapter adapter = new InnerOrderAdapter(mContext);
@@ -54,36 +56,32 @@ public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.
         switch (mDatas.get(position).getState_text()) {
             case "待付款":
                 holder.rlPanel.setVisibility(View.VISIBLE);
-                holder.tvStatus.setTextColor(0xffFF5126);
                 holder.tvCancel.setText("取消");
                 holder.tvPay.setText("去付款");
                 break;
-            case "待发货":
+            case "已付款，待发货":
                 holder.rlPanel.setVisibility(View.GONE);
-                holder.tvStatus.setTextColor(0xff00D572);
                 break;
             case "待收货":
                 holder.rlPanel.setVisibility(View.VISIBLE);
-                holder.tvStatus.setTextColor(0xffFFB400);
                 holder.tvCancel.setText("联系客服");
                 holder.tvPay.setText("确认收货");
                 break;
             case "已完成":
                 if (mDatas.get(position).getIs_comment() == 0) {
                     holder.rlPanel.setVisibility(View.VISIBLE);
-                    holder.tvStatus.setTextColor(0xff666666);
+
                     holder.tvCancel.setVisibility(View.GONE);
                     holder.tvPay.setText("去评价");
                 } else {
                     holder.rlPanel.setVisibility(View.GONE);
-                    holder.tvStatus.setTextColor(0xff666666);
+
                 }
 
                 break;
             case "已评价":
             case "已取消":
                 holder.rlPanel.setVisibility(View.GONE);
-                holder.tvStatus.setTextColor(0xff666666);
                 break;
 
         }
@@ -98,18 +96,18 @@ public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.
             }
         });
 
-//        holder.itemView.setOnClickListener(v ->
-//        {
-//            Intent intent = new Intent(mContext, OrderDetailActivity.class);
-//            intent.putExtra("order_id", mDatas.get(position).getOrder_id());
-//            mContext.startActivity(intent);
-//        });
-//        adapter.setOnItemClickListener((v, pos) -> {
-//            Intent intent = new Intent(mContext, OrderDetailActivity.class);
-//            intent.putExtra("order_id", mDatas.get(position).getOrder_id());
-//            mContext.startActivity(intent);
-//
-//        });
+        holder.itemView.setOnClickListener(v ->
+        {
+            Intent intent = new Intent(mContext, OrderDetailActivity.class);
+            intent.putExtra("order_id", mDatas.get(position).getOrder_id()+"");
+            mContext.startActivity(intent);
+        });
+        adapter.setOnItemClickListener((v, pos) -> {
+            Intent intent = new Intent(mContext, OrderDetailActivity.class);
+            intent.putExtra("order_id", mDatas.get(position).getOrder_id()+"");
+            mContext.startActivity(intent);
+
+        });
 
     }
 

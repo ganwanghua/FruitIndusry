@@ -18,5 +18,6 @@
     <color name="hint_color">#AAAAAA</color>
     <color name="grey_3">#666666</color>
     <color name="grey_a5">#A5A5A5</color>
+    <color name="light_white">#FFD1CF</color>
 
 </resources>

@@ -14,6 +14,7 @@ import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.OrderAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
+import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
@@ -76,7 +77,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = false) //在ui线程执行，优先级为100
     public void onEvent(String event) {
-        if(event.equals("order_refresh")){
+        if (event.equals("order_refresh")) {
             page = 1;
             dataBeanList.clear();
             orderList();
@@ -135,11 +136,11 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
 
     private void orderList() {
         Map<String, String> map = new HashMap<>();
-        map.put("s", "api/user.order/lists");
-        map.put("wxapp_id","10001");
+        map.put("s", "/api/user.order/lists");
+        map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("dataType", type);
-        map.put("page", page+"");
+        map.put("page", page + "");
         ViewLoading.show(getContext());
         dataRepository.orderList(map, new RemotDataSource.getCallback() {
             @Override
@@ -174,56 +175,58 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
         });
     }
 
-//    private void orderCancel(String order_ids) {
-//        LoginBean loginBean = new LoginBean();
-//        loginBean.wxapp_id = "10001";
-//        loginBean.token = FastData.getToken();
-//        loginBean.order_id	 = order_ids;
-//        ViewLoading.show(getContext());
-//        dataRepository.orderCancel(loginBean, new RemotDataSource.getCallback() {
-//            @Override
-//            public void onFailure(String info) {
-//                ViewLoading.dismiss(getContext());
-//            }
-//
-//            @Override
-//            public void onSuccess(Object data) {
-//                ViewLoading.dismiss(getContext());
-//                StatusModel statusModel = (StatusModel) data;
-//                refresh.finishRefresh();
-//                if (statusModel.getCode() == 1) {
-//                   EventBus.getDefault().post("order_refresh");
-//                }
-//            }
-//
-//        });
-//    }
+    private void orderCancel(String order_ids) {
+        Map<String, String> map = new HashMap<>();
+        map.put("s","/api/user.order/cancel");
+        map.put("wxapp_id ", "10001");
+        map.put("token", FastData.getToken());
+        map.put("order_id", order_ids);
+        ViewLoading.show(getContext());
+        dataRepository.orderCancel(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(getContext());
+            }
 
-//    private void orderReceipt(String order_ids,String order_no) {
-//        LoginBean loginBean = new LoginBean();
-//        loginBean.wxapp_id = "10001";
-//        loginBean.token = FastData.getToken();
-//        loginBean.order_id = order_ids;
-//        ViewLoading.show(getContext());
-//        dataRepository.orderReceipt(loginBean, new RemotDataSource.getCallback() {
-//            @Override
-//            public void onFailure(String info) {
-//                ViewLoading.dismiss(getContext());
-//            }
-//
-//            @Override
-//            public void onSuccess(Object data) {
-//                ViewLoading.dismiss(getContext());
-//                StatusModel statusModel = (StatusModel) data;
-//                refresh.finishRefresh();
-//                if (statusModel.getCode() == 1) {
-//                    EventBus.getDefault().post("order_refresh");
-////                    showOrderCommentDialog(order_ids,order_no);
-//                }
-//            }
-//
-//        });
-//    }
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(getContext());
+                StatusModel statusModel = (StatusModel) data;
+                refresh.finishRefresh();
+                if (statusModel.getCode() == 1) {
+                    EventBus.getDefault().post("order_refresh");
+                }
+            }
+
+        });
+    }
+
+    private void orderReceipt(String order_ids,String order_no) {
+        Map<String, String> map = new HashMap<>();
+        map.put("s","/api/user.order/receipt");
+        map.put("wxapp_id ", "10001");
+        map.put("token", FastData.getToken());
+        map.put("order_id", order_ids);
+        ViewLoading.show(getContext());
+        dataRepository.orderReceipt(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(getContext());
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(getContext());
+                StatusModel statusModel = (StatusModel) data;
+                refresh.finishRefresh();
+                if (statusModel.getCode() == 1) {
+                    EventBus.getDefault().post("order_refresh");
+//                    showOrderCommentDialog(order_ids,order_no);
+                }
+            }
+
+        });
+    }
 
 
     private void showOrderCancelDialog(String order_ids) {
@@ -246,7 +249,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
                                 tDialog.dismiss();
                                 break;
                             case R.id.tv_sure:
-//                                orderCancel(order_ids);
+                                orderCancel(order_ids);
                                 tDialog.dismiss();
 
                                 break;
@@ -257,7 +260,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
                 .show();
     }
 
-    private void showOrderConfirmDialog(String order_ids,String order_no) {
+    private void showOrderConfirmDialog(String order_ids, String order_no) {
         new TDialog.Builder(getActivity().getSupportFragmentManager())
                 .setLayoutRes(R.layout.order_confirm_dialog)
                 .setScreenWidthAspect(getContext(), 0.7f)
@@ -279,7 +282,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
                                 tDialog.dismiss();
                                 break;
                             case R.id.tv_sure:
-//                                orderReceipt(order_ids,order_no);
+                                orderReceipt(order_ids,order_no);
                                 tDialog.dismiss();
                                 break;
                         }
@@ -289,7 +292,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
                 .show();
     }
 
-    private void showOrderCommentDialog(String order_ids,String order_no) {
+    private void showOrderCommentDialog(String order_ids, String order_no) {
         new TDialog.Builder(getActivity().getSupportFragmentManager())
                 .setLayoutRes(R.layout.order_comment_dialog)
                 .setScreenWidthAspect(getContext(), 0.7f)
@@ -322,7 +325,6 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
                 .create()
                 .show();
     }
-
 
 
     @Override

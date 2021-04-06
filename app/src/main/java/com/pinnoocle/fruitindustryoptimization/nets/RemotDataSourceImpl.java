@@ -24,6 +24,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
+import com.pinnoocle.fruitindustryoptimization.bean.OrderDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.RightBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
@@ -684,6 +685,28 @@ public class RemotDataSourceImpl implements RemotDataSource {
     }
 
     @Override
+    public void rightBuyCart(Map<String, String> queryMap, getCallback callback) {
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().rightBuyCart(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<StatusModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(StatusModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
     public void orderList(Map<String, String> queryMap, getCallback callback) {
         Observable<OrderListModel> observable = RetrofitHelper.getInstance(mContext).getServer().orderList(queryMap);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -788,6 +811,72 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(StatusModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void orderCancel(Map<String, String> queryMap, getCallback callback) {
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().orderCancel(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<StatusModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(StatusModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void orderReceipt(Map<String, String> queryMap, getCallback callback) {
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().orderReceipt(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<StatusModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(StatusModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void orderDetail(Map<String, String> queryMap, getCallback callback) {
+        Observable<OrderDetailModel> observable = RetrofitHelper.getInstance(mContext).getServer().orderDetail(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<OrderDetailModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(OrderDetailModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });
