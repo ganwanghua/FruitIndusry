@@ -204,7 +204,7 @@ public class WateringFruitTreesActivity extends BaseActivity {
                         .setScreenWidthAspect(this, 0.8f)
                         .setGravity(Gravity.CENTER)
                         .setCancelableOutside(true)
-                        .addOnClickListener(R.id.tv_save)
+                        .addOnClickListener(R.id.tv_save, R.id.rl_adoption_certificate)
                         .setOnBindViewListener(new OnBindViewListener() {
                             @Override
                             public void bindView(BindViewHolder viewHolder) {
@@ -225,6 +225,13 @@ public class WateringFruitTreesActivity extends BaseActivity {
                                 switch (view.getId()) {
                                     case R.id.tv_save:
                                         tDialog.dismiss();
+                                        break;
+                                    case R.id.rl_adoption_certificate:
+                                        Intent intent = new Intent(WateringFruitTreesActivity.this, ECertActivity.class);
+                                        intent.putExtra("order_no", "");
+                                        intent.putExtra("pos", "1");
+                                        intent.putExtra("tree_id", userTreeDetailModel.getData().getUser_tree().getUser_tree_id() + "");
+                                        startActivity(intent);
                                         break;
                                 }
                             }

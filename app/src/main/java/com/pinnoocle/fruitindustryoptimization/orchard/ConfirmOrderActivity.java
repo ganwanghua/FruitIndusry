@@ -274,6 +274,7 @@ public class ConfirmOrderActivity extends BaseActivity {
                     Intent intent = new Intent(ConfirmOrderActivity.this, ECertActivity.class);
                     intent.putExtra("order_no",geneTreeOrderModel.getData().getOrder_no());
                     intent.putExtra("tree_id",getIntent().getStringExtra("id"));
+                    intent.putExtra("pos", "2");
                     startActivity(intent);
                 }
             }

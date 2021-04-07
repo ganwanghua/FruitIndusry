@@ -90,11 +90,29 @@ public class ECertActivity extends BaseActivity {
 
     @OnClick(R.id.iv_back)
     public void onViewClicked() {
-        EventBus.getDefault().post("11");
-        Intent intent4 = new Intent(ECertActivity.this, MainActivity.class);
-        intent4.putExtra("pos", 1);
-        intent4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent4);
-        finish();
+        if (getIntent().getStringExtra("pos").equals("1")) {
+            finish();
+        }else if (getIntent().getStringExtra("pos").equals("2")) {
+            EventBus.getDefault().post("11");
+            Intent intent4 = new Intent(ECertActivity.this, MainActivity.class);
+            intent4.putExtra("pos", 1);
+            intent4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent4);
+            finish();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getIntent().getStringExtra("pos").equals("1")) {
+            finish();
+        }else if (getIntent().getStringExtra("pos").equals("2")) {
+            EventBus.getDefault().post("11");
+            Intent intent4 = new Intent(ECertActivity.this, MainActivity.class);
+            intent4.putExtra("pos", 1);
+            intent4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent4);
+            finish();
+        }
     }
 }
