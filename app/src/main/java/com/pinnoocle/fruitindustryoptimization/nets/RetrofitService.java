@@ -1,11 +1,11 @@
 package com.pinnoocle.fruitindustryoptimization.nets;
 
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
+import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
+import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BeforeBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BuyNowModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
-import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
-import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CertificateDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CollectModel;
@@ -14,19 +14,14 @@ import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsSearchModel;
-import com.pinnoocle.fruitindustryoptimization.bean.GroupBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupRuleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkModel;
-import com.pinnoocle.fruitindustryoptimization.bean.GrowModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
-import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyPushModel;
-import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
-import com.pinnoocle.fruitindustryoptimization.bean.RightBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SharingGoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
@@ -46,9 +41,6 @@ import com.pinnoocle.fruitindustryoptimization.bean.WalletModel;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
-import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -293,12 +285,8 @@ public interface RetrofitService {
     //推广订单
     @POST("index.php")
     Observable<MyPushModel> myPush(@QueryMap Map<String, String> queryMap);
+
     //付款
     @POST("index.php")
     Observable<StatusModel> orderPay(@QueryMap Map<String, String> queryMap);
-
-
-
-
-
 }

@@ -319,5 +319,4 @@ public class DataRepository implements RemotDataSource {
     public void myPush(Map<String, String> queryMap, getCallback callback) {
         mRemoteDataSource.myPush(queryMap, callback);
     }
-
 }
