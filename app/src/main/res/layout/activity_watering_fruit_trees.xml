@@ -103,14 +103,17 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:textColor="#00A23B"
+                android:text="299"
                 android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_day"
-                android:layout_toRightOf="@id/tv_day"
                 android:text="天"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="5dp"
                 android:textColor="#00A23B"
                 android:textSize="9dp" />
         </RelativeLayout>

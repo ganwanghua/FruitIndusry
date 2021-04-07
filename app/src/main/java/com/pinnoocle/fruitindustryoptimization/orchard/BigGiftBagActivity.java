@@ -27,6 +27,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class BigGiftBagActivity extends BaseActivity implements BigGiftBagAdapter.OnItemClickListener {
 
@@ -87,5 +88,10 @@ public class BigGiftBagActivity extends BaseActivity implements BigGiftBagAdapte
         Intent intent = new Intent(this, GoodsDetailsActivity.class);
         intent.putExtra("goods_id", treePacketModel.getData().getGoods().get(position).getGoods_id() + "");
         startActivity(intent);
+    }
+
+    @OnClick(R.id.iv_back)
+    public void onViewClicked() {
+        finish();
     }
 }
