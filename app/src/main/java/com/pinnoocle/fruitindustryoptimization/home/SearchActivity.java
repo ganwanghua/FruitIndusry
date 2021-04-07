@@ -14,41 +14,24 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.library.AutoFlowLayout;
 import com.example.library.FlowAdapter;
-import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.MyApp;
 import com.pinnoocle.fruitindustryoptimization.R;
-import com.pinnoocle.fruitindustryoptimization.adapter.GoodsAdapter;
-import com.pinnoocle.fruitindustryoptimization.bean.GoodsSearchModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HistoryBean;
-import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
-import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.greendao.HistoryBeanDao;
-import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
-import com.pinnoocle.fruitindustryoptimization.nets.Injection;
-import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
-import com.pinnoocle.fruitindustryoptimization.utils.FastData;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SearchActivity extends BaseActivity implements AutoFlowLayout.OnItemClickListener, OnRefreshLoadMoreListener {
+public class SearchActivity extends BaseActivity implements AutoFlowLayout.OnItemClickListener {
 
     @BindView(R.id.go_back)
     ImageView goBack;
@@ -70,21 +53,7 @@ public class SearchActivity extends BaseActivity implements AutoFlowLayout.OnIte
     TextView tvHint;
     @BindView(R.id.ll_history)
     LinearLayout llHistory;
-    @BindView(R.id.recycleView)
-    RecyclerView recycleView;
-    @BindView(R.id.refresh)
-    SmartRefreshLayout refresh;
-    @BindView(R.id.iv_empty)
-    ImageView ivEmpty;
-    @BindView(R.id.rl_empty)
-    RelativeLayout rlEmpty;
-    @BindView(R.id.rl_goods)
-    RelativeLayout rlGoods;
     private List<HistoryBean> historyList = new ArrayList<>();
-    private DataRepository dataRepository;
-    private int page = 1;
-    private GoodsAdapter goodsAdapter;
-    private List<GoodsSearchModel.DataBeanX.ListBean.DataBean> dataBeanList = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
         initWhite();
@@ -96,7 +65,6 @@ public class SearchActivity extends BaseActivity implements AutoFlowLayout.OnIte
     }
 
     private void initView() {
-        dataRepository = Injection.dataRepository(this);
         historyList = MyApp.getInstance().getDaoSession().getHistoryBeanDao().queryBuilder().orderDesc(HistoryBeanDao.Properties.Id).list();
         if (historyList != null && historyList.size() > 0) {
             flowLayout.setVisibility(View.VISIBLE);
@@ -134,66 +102,24 @@ public class SearchActivity extends BaseActivity implements AutoFlowLayout.OnIte
                 }
             }
         });
-
-        recycleView.setLayoutManager(new GridLayoutManager(this, 2));
-        goodsAdapter = new GoodsAdapter(this);
-        recycleView.setAdapter(goodsAdapter);
-        refresh.setOnRefreshLoadMoreListener(this);
-
-        goodsAdapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<GoodsSearchModel.DataBeanX.ListBean.DataBean>() {
-            @Override
-            public void onItemViewClick(View view, int position, GoodsSearchModel.DataBeanX.ListBean.DataBean o) {
-                switch (view.getId()) {
-                    case R.id.iv_shop_car:
-                        cartAdd(o.getGoods_sku().getGoods_id() + "", o.getGoods_sku().getSpec_sku_id(), 1);
-                        break;
-                    default:
-                        Intent intent = new Intent(SearchActivity.this, GoodsDetailsActivity.class);
-                        intent.putExtra("goods_id", o.getGoods_sku().getGoods_id() + "");
-                        startActivity(intent);
-                        break;
-                }
-            }
-        });
-    }
-
-    private void cartAdd(String goods_id, String goods_sku_id, int goods_num) {
-        ViewLoading.show(mContext);
-        Map<String, String> map = new HashMap<>();
-        map.put("s", "/api/cart/add");
-        map.put("wxapp_id", "10001");
-        map.put("token", FastData.getToken());
-        map.put("goods_id", goods_id);
-        map.put("goods_num", goods_num + "");
-        map.put("goods_sku_id", goods_sku_id);
-        dataRepository.cartAdd(map, new RemotDataSource.getCallback() {
-            @Override
-            public void onFailure(String info) {
-                ViewLoading.dismiss(mContext);
-            }
-
-            @Override
-            public void onSuccess(Object data) {
-                ViewLoading.dismiss(mContext);
-                StatusModel statusModel = (StatusModel) data;
-                if (statusModel.getCode() == 1) {
-                }
-                ToastUtils.showToast(statusModel.getMsg());
-
-            }
-        });
     }
 
     @Override
     public void onItemClick(int i, View view) {
-        etHomeSearch.setText(historyList.get(i).getName());
         MyApp.getInstance().getDaoSession().getHistoryBeanDao().queryBuilder().where(HistoryBeanDao.Properties.Name.eq(etHomeSearch.getText().toString())).buildDelete().executeDeleteWithoutDetachingEntities();
         HistoryBean history = new HistoryBean();
         history.setName(etHomeSearch.getText().toString());
         MyApp.getInstance().getDaoSession().getHistoryBeanDao().insert(history);
-        llHistory.setVisibility(View.GONE);
-        rlGoods.setVisibility(View.VISIBLE);
-        goodsSearch(page, etHomeSearch.getText().toString());
+        if (getIntent().getIntExtra("pos", -1) == 1) {
+            Intent intent = new Intent();
+            intent.putExtra("search", historyList.get(i).getName());
+            setResult(1001, intent);
+            finish();
+        } else {
+            Intent intent = new Intent(this, GoodsListActivity.class);
+            intent.putExtra("search", historyList.get(i).getName());
+            startActivity(intent);
+        }
     }
 
     @OnClick({R.id.go_back, R.id.tv_search, R.id.iv_close, R.id.iv_delete})
@@ -214,9 +140,16 @@ public class SearchActivity extends BaseActivity implements AutoFlowLayout.OnIte
                     HistoryBean history = new HistoryBean();
                     history.setName(etHomeSearch.getText().toString());
                     MyApp.getInstance().getDaoSession().getHistoryBeanDao().insert(history);
-                    llHistory.setVisibility(View.GONE);
-                    rlGoods.setVisibility(View.VISIBLE);
-                    goodsSearch(page, etHomeSearch.getText().toString());
+                    if (getIntent().getIntExtra("pos", -1) == 1) {
+                        Intent intent = new Intent();
+                        intent.putExtra("search", etHomeSearch.getText().toString());
+                        setResult(1001, intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(this, GoodsListActivity.class);
+                        intent.putExtra("search", etHomeSearch.getText().toString());
+                        startActivity(intent);
+                    }
                 }
                 break;
             case R.id.iv_close:
@@ -230,59 +163,5 @@ public class SearchActivity extends BaseActivity implements AutoFlowLayout.OnIte
                 ivDelete.setVisibility(View.GONE);
                 break;
         }
-    }
-
-    private void goodsSearch(int page, String content) {
-        ViewLoading.show(this);
-        Map<String, String> map = new HashMap<>();
-        map.put("s", "/api/goods/lists");
-        map.put("wxapp_id", "10001");
-        map.put("token", FastData.getToken());
-        map.put("page", page + "");
-        map.put("sortType", "all");
-        map.put("search", content);
-        dataRepository.goodsSearch(map, new RemotDataSource.getCallback() {
-            @Override
-            public void onFailure(String info) {
-                refresh.finishRefresh();
-                refresh.finishLoadMore();
-                ViewLoading.dismiss(mContext);
-            }
-
-            @Override
-            public void onSuccess(Object data) {
-                refresh.finishRefresh();
-                refresh.finishLoadMore();
-                ViewLoading.dismiss(mContext);
-                GoodsSearchModel goodsSearchModel = (GoodsSearchModel) data;
-                if (goodsSearchModel.getCode() == 1) {
-                    if (goodsSearchModel.getData().getList().getCurrent_page() == goodsSearchModel.getData().getList().getLast_page()) {
-                        refresh.finishLoadMoreWithNoMoreData();
-                    } else {
-                        refresh.finishLoadMore();
-                    }
-                    if (dataBeanList.size() == 0 && goodsSearchModel.getData().getList().getData().size() == 0) {
-                        rlEmpty.setVisibility(View.VISIBLE);
-                    } else {
-                        rlEmpty.setVisibility(View.GONE);
-                        dataBeanList.addAll(goodsSearchModel.getData().getList().getData());
-                        goodsAdapter.setData(dataBeanList);
-                    }
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        page++;
-        goodsSearch(page, etHomeSearch.getText().toString());
-    }
-
-    @Override
-    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        page = 1;
-        dataBeanList.clear();
-        goodsSearch(page, etHomeSearch.getText().toString());
     }
 }

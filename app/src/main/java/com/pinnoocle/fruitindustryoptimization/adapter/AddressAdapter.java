@@ -60,7 +60,7 @@ public class AddressAdapter extends BaseAdapter<AddressListModel.DataBean.ListBe
             holder.tvCheck.setTextColor(mContext.getResources().getColor(R.color.grey_3));
 
         }
-        holder.tvAddress.setText(mDatas.get(position).getRegion().getProvince() + mDatas.get(position).getRegion().getCity() + mDatas.get(position).getRegion().getRegion());
+        holder.tvAddress.setText(mDatas.get(position).getRegion().getProvince() + mDatas.get(position).getRegion().getCity() + mDatas.get(position).getRegion().getRegion() + mDatas.get(position).getDetail());
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

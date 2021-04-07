@@ -66,8 +66,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:background="@color/white"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:text="续费"
                 android:textColor="#00A23B"
                 android:textSize="14sp" />

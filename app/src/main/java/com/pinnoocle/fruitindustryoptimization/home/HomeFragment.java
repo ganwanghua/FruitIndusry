@@ -265,6 +265,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                             if (position == 0) {
                                 ActivityUtils.startActivity(getActivity(), AdoptActivity.class);
                             } else if (position == 1) {
+                                Intent intent = new Intent(getContext(), GoodsListActivity.class);
+                                intent.putExtra("search", "");
+                                intent.putExtra("pos", 1);
+                                startActivity(intent);
                             } else if (position == 2) {
                                 Intent intent1 = new Intent(getContext(), ArticleActivity.class);
                                 intent1.putExtra("id", Integer.parseInt(data.getLinkUrl().replace("\"", "").split("=")[1]));
@@ -327,11 +331,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0) {
             ActivityUtils.startActivity(getActivity(), AdoptActivity.class);
-        }else if (position == 3) {
+        } else if (position == 3) {
             vipIntro();
-        }else if (position == 1) {
+        } else if (position == 1) {
             ActivityUtils.startActivity(getActivity(), SeckillActivity.class);
-        }else if (position == 2) {
+        } else if (position == 2) {
             ActivityUtils.startActivity(getActivity(), GroupWorkActivity.class);
         }
     }

@@ -130,4 +130,6 @@ public interface RemotDataSource {
     void treePacket(Map<String, String> queryMap, getCallback callback);
 
     void certificateDetail(Map<String, String> queryMap, getCallback callback);
+
+    void myPush(Map<String, String> queryMap, getCallback callback);
 }

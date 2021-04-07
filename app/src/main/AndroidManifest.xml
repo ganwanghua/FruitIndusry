@@ -18,7 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mine.VipGoodsDetailActivity"></activity>
+        <activity android:name=".home.GoodsListActivity"></activity>
+        <activity android:name=".mine.MyPushActivity" />
+        <activity android:name=".mine.VipGoodsDetailActivity" />
         <activity android:name=".mine.CouponActivity" />
         <activity android:name=".mine.VipActivity" />
         <activity android:name=".home.GroupWorkActivity" />
@@ -78,6 +80,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"

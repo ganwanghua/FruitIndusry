@@ -4,37 +4,31 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.AdoptionOrderAdapter;
+import com.pinnoocle.fruitindustryoptimization.adapter.MyPushAdapter;
+import com.pinnoocle.fruitindustryoptimization.bean.MyPushModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
-import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.pinnoocle.fruitindustryoptimization.widget.CommItemDecoration;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AdoptionOrderActivity extends BaseActivity{
+public class MyPushActivity extends BaseActivity {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -42,33 +36,32 @@ public class AdoptionOrderActivity extends BaseActivity{
     RelativeLayout rlTitle;
     @BindView(R.id.recycleView)
     RecyclerView recycleView;
-    AdoptionOrderAdapter adoptionOrderAdapter;
+    MyPushAdapter myPushAdapter;
     private DataRepository dataRepository;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initWhite();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adoption_order);
+        setContentView(R.layout.activity_my_push);
         ButterKnife.bind(this);
         dataRepository = Injection.dataRepository(this);
 
         recycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recycleView.addItemDecoration(new CommItemDecoration(this, DividerItemDecoration.VERTICAL, getResources().getColor(R.color.transparent), 30));
-        adoptionOrderAdapter = new AdoptionOrderAdapter(this);
-        recycleView.setAdapter(adoptionOrderAdapter);
+        myPushAdapter = new MyPushAdapter(this);
+        recycleView.setAdapter(myPushAdapter);
 
-        treeOrder();
+        myPush();
     }
 
-    private void treeOrder() {
+    private void myPush() {
         ViewLoading.show(this);
         Map<String, String> map = new HashMap<>();
-        map.put("s", "/api/tree/get_tree_order");
+        map.put("s", "/api/user/my_push");
         map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
-        dataRepository.treeOrder(map, new RemotDataSource.getCallback() {
+        dataRepository.myPush(map, new RemotDataSource.getCallback() {
             @Override
             public void onFailure(String info) {
                 ViewLoading.dismiss(mContext);
@@ -77,9 +70,9 @@ public class AdoptionOrderActivity extends BaseActivity{
             @Override
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(mContext);
-                TreeOrderModel treeOrderModel = (TreeOrderModel) data;
-                if (treeOrderModel.getCode() == 1) {
-                    adoptionOrderAdapter.setData(treeOrderModel.getData().getOrders());
+                MyPushModel myPushModel = (MyPushModel) data;
+                if (myPushModel.getCode() == 1) {
+                    myPushAdapter.setData(myPushModel.getData().getArr());
                 }
             }
         });

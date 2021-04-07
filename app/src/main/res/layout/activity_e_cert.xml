@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:text="NO.20998266CV025"
             android:textColor="#00A23B"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

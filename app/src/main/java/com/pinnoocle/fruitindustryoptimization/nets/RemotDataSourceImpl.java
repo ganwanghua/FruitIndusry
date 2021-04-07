@@ -25,6 +25,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.GrowModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
+import com.pinnoocle.fruitindustryoptimization.bean.MyPushModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
@@ -1321,6 +1322,28 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(CertificateDetailModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void myPush(Map<String, String> queryMap, getCallback callback) {
+        Observable<MyPushModel> observable = RetrofitHelper.getInstance(mContext).getServer().myPush(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MyPushModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(MyPushModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });

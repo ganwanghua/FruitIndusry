@@ -22,6 +22,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.GrowModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
+import com.pinnoocle.fruitindustryoptimization.bean.MyPushModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderCartModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
@@ -260,17 +261,18 @@ public interface RetrofitService {
     //开团
     @POST("index.php")
     Observable<StatusModel> groupRightBuy(@QueryMap Map<String, String> queryMap);
+
     //取消订单
     @POST("index.php")
     Observable<StatusModel> orderCancel(@QueryMap Map<String, String> queryMap);
+
     //确认收货
     @POST("index.php")
     Observable<StatusModel> orderReceipt(@QueryMap Map<String, String> queryMap);
+
     //订单详情
     @GET("index.php")
     Observable<OrderDetailModel> orderDetail(@QueryMap Map<String, String> queryMap);
-
-
 
     //用户果树详情
     @POST("index.php")
@@ -288,6 +290,9 @@ public interface RetrofitService {
     @POST("index.php")
     Observable<CertificateDetailModel> certificateDetail(@QueryMap Map<String, String> queryMap);
 
+    //推广订单
+    @POST("index.php")
+    Observable<MyPushModel> myPush(@QueryMap Map<String, String> queryMap);
     //付款
     @POST("index.php")
     Observable<StatusModel> orderPay(@QueryMap Map<String, String> queryMap);

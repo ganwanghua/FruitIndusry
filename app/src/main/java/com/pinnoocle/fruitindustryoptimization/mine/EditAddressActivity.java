@@ -82,12 +82,12 @@ public class EditAddressActivity extends BaseActivity {
         dataBean = (AddressListModel.DataBean.ListBean) serializableExtra;
         edName.setText(dataBean.getName().trim());
         edPhone.setText(dataBean.getPhone().trim());
-        edArea.setText(dataBean.getRegion().toString().trim());
         edAddress.setText(dataBean.getDetail().trim());
         address_id = String.valueOf(dataBean.getAddress_id());
         provinceName = dataBean.getRegion().getProvince();
         cityName = dataBean.getRegion().getCity();
         districtName = dataBean.getRegion().getRegion();
+        edArea.setText(provinceName + cityName + districtName);
 
 
     }
@@ -103,13 +103,14 @@ public class EditAddressActivity extends BaseActivity {
         }
         ViewLoading.show(this);
         HashMap<String, String> map = new HashMap<>();
-        map.put("wxapp_id" ,"10001");
+        map.put("s", "/api/address/edit");
+        map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
-        map.put("address_id ", address_id);
-        map.put("name ", edName.getText().toString().trim());
+        map.put("address_id", address_id);
+        map.put("name", edName.getText().toString().trim());
         map.put("phone", edPhone.getText().toString().trim());
-        map.put("region ", provinceName + "," + cityName + "," + districtName);
-        map.put("detail ", edAddress.getText().toString().trim());
+        map.put("region", provinceName + "," + cityName + "," + districtName);
+        map.put("detail", edAddress.getText().toString().trim());
 
         dataRepository.addressEdit(map, new RemotDataSource.getCallback() {
             @Override
@@ -126,8 +127,6 @@ public class EditAddressActivity extends BaseActivity {
                     finish();
                 }
                 ToastUtils.showToast(resultModel.getMsg());
-
-
             }
         });
     }

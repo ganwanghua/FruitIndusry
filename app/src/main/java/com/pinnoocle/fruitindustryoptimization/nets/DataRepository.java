@@ -315,4 +315,9 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.certificateDetail(queryMap, callback);
     }
 
+    @Override
+    public void myPush(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.myPush(queryMap, callback);
+    }
+
 }
