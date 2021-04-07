@@ -216,6 +216,11 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
+    public void orderPay(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.orderPay(queryMap, callback);
+    }
+
+    @Override
     public void cartSub(Map<String, String> queryMap, getCallback callback) {
         mRemoteDataSource.cartSub(queryMap, callback);
     }

@@ -33,6 +33,8 @@ import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -92,7 +94,7 @@ public class OrderConfirmActivity extends BaseActivity {
     private DataRepository dataRepository;
     private OrderConfirmAdapter adapter;
     private String address_id;
-    private String pay_type = "10";//余额支付
+    private String pay_type = "20";//余额支付10
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,6 +190,7 @@ public class OrderConfirmActivity extends BaseActivity {
                 ViewLoading.dismiss(mContext);
                 StatusModel statusModel = (StatusModel) data;
                 if (statusModel.getCode() == 1) {
+                    EventBus.getDefault().post("cart_refresh");
                     RightBuyModel rightBuyModel = new Gson().fromJson(statusModel.getData(), RightBuyModel.class);
                 } else {
                     ToastUtils.showToast(statusModel.getMsg());
@@ -260,6 +263,7 @@ public class OrderConfirmActivity extends BaseActivity {
                 ViewLoading.dismiss(mContext);
                 StatusModel statusModel = (StatusModel) data;
                 if (statusModel.getCode() == 1) {
+                    EventBus.getDefault().post("cart_refresh");
                     RightBuyModel rightBuyModel = new Gson().fromJson(statusModel.getData(), RightBuyModel.class);
                 } else {
                     ToastUtils.showToast(statusModel.getMsg());

@@ -288,5 +288,12 @@ public interface RetrofitService {
     @POST("index.php")
     Observable<CertificateDetailModel> certificateDetail(@QueryMap Map<String, String> queryMap);
 
+    //付款
+    @POST("index.php")
+    Observable<StatusModel> orderPay(@QueryMap Map<String, String> queryMap);
+
+
+
+
 
 }

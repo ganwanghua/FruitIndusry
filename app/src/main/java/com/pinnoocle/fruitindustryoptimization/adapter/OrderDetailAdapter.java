@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderDetailModel;
-import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
-import com.pinnoocle.fruitindustryoptimization.mine.OrderDetailActivity;
 import com.pinnoocle.fruitindustryoptimization.widget.GlideRoundTransform;
 
 import butterknife.BindView;
@@ -45,8 +43,8 @@ public class OrderDetailAdapter extends BaseAdapter<OrderDetailModel.DataBean.Or
         holder.tvPrice.setText("￥" + mDatas.get(position).getGoods_price());
 
         holder.itemView.setOnClickListener(v -> {
-            if (mOnItemClickListener != null) {
-                mOnItemClickListener.onItemViewClick(v, position);
+            if (mOnItemDataClickListener != null) {
+                mOnItemDataClickListener.onItemViewClick(v, position,mDatas.get(position));
             }
         });
     }

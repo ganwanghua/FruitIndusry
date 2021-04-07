@@ -3,6 +3,7 @@ package com.pinnoocle.fruitindustryoptimization.home;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +48,8 @@ import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.util.BannerUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,6 +103,25 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private List<String> titles = new ArrayList<>();
     private List<Integer> ids = new ArrayList<>();
     private GoodListAdapter adapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = false) //在ui线程执行，优先级为100
+    public void onEvent(String event) {
+        if (event.equals("3")) {
+            scrollview.scrollTo(0, rlSearch.getHeight()+banner.getHeight() + gridView.getHeight() + llMarqueeView.getHeight() + jzVideo.getHeight());
+        }
+    }
 
     @Override
     protected int LayoutId() {

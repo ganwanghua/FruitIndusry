@@ -86,7 +86,7 @@ public class BuyNowModel {
         private boolean intra_region;
         private boolean is_allow_points;
         private int is_use_points;
-        private int points_money;
+        private double points_money;
         private int points_bonus;
         private int pay_type;
         private SettingBean setting;
@@ -96,9 +96,9 @@ public class BuyNowModel {
         private int send_refund_msg;
         private String order_total_price;
         private int coupon_id;
-        private int coupon_money;
+        private double coupon_money;
         private String virtual_code;
-        private int virtual_code_money;
+        private double virtual_code_money;
         private String order_price;
         private String order_pay_price;
         private List<GoodsListBean> goods_list;
@@ -186,11 +186,11 @@ public class BuyNowModel {
             this.is_use_points = is_use_points;
         }
 
-        public int getPoints_money() {
+        public double getPoints_money() {
             return points_money;
         }
 
-        public void setPoints_money(int points_money) {
+        public void setPoints_money(double points_money) {
             this.points_money = points_money;
         }
 
@@ -266,11 +266,11 @@ public class BuyNowModel {
             this.coupon_id = coupon_id;
         }
 
-        public int getCoupon_money() {
+        public double getCoupon_money() {
             return coupon_money;
         }
 
-        public void setCoupon_money(int coupon_money) {
+        public void setCoupon_money(double coupon_money) {
             this.coupon_money = coupon_money;
         }
 
@@ -282,11 +282,11 @@ public class BuyNowModel {
             this.virtual_code = virtual_code;
         }
 
-        public int getVirtual_code_money() {
+        public double getVirtual_code_money() {
             return virtual_code_money;
         }
 
-        public void setVirtual_code_money(int virtual_code_money) {
+        public void setVirtual_code_money(double virtual_code_money) {
             this.virtual_code_money = virtual_code_money;
         }
 
@@ -821,13 +821,13 @@ public class BuyNowModel {
             private String total_need_points_num;
             private String total_need_points_money;
             private boolean is_user_grade;
-            private int grade_ratio;
-            private int grade_goods_price;
-            private int grade_total_money;
-            private int points_money;
+            private double grade_ratio;
+            private double grade_goods_price;
+            private double grade_total_money;
+            private double points_money;
             private int points_num;
-            private int coupon_money;
-            private int virtual_code_money;
+            private double coupon_money;
+            private double virtual_code_money;
             private String total_pay_price;
             private String express_price;
             private int points_bonus;
@@ -1153,35 +1153,35 @@ public class BuyNowModel {
                 this.is_user_grade = is_user_grade;
             }
 
-            public int getGrade_ratio() {
+            public double getGrade_ratio() {
                 return grade_ratio;
             }
 
-            public void setGrade_ratio(int grade_ratio) {
+            public void setGrade_ratio(double grade_ratio) {
                 this.grade_ratio = grade_ratio;
             }
 
-            public int getGrade_goods_price() {
+            public double getGrade_goods_price() {
                 return grade_goods_price;
             }
 
-            public void setGrade_goods_price(int grade_goods_price) {
+            public void setGrade_goods_price(double grade_goods_price) {
                 this.grade_goods_price = grade_goods_price;
             }
 
-            public int getGrade_total_money() {
+            public double getGrade_total_money() {
                 return grade_total_money;
             }
 
-            public void setGrade_total_money(int grade_total_money) {
+            public void setGrade_total_money(double grade_total_money) {
                 this.grade_total_money = grade_total_money;
             }
 
-            public int getPoints_money() {
+            public double getPoints_money() {
                 return points_money;
             }
 
-            public void setPoints_money(int points_money) {
+            public void setPoints_money(double points_money) {
                 this.points_money = points_money;
             }
 
@@ -1193,19 +1193,19 @@ public class BuyNowModel {
                 this.points_num = points_num;
             }
 
-            public int getCoupon_money() {
+            public double getCoupon_money() {
                 return coupon_money;
             }
 
-            public void setCoupon_money(int coupon_money) {
+            public void setCoupon_money(double coupon_money) {
                 this.coupon_money = coupon_money;
             }
 
-            public int getVirtual_code_money() {
+            public double getVirtual_code_money() {
                 return virtual_code_money;
             }
 
-            public void setVirtual_code_money(int virtual_code_money) {
+            public void setVirtual_code_money(double virtual_code_money) {
                 this.virtual_code_money = virtual_code_money;
             }
 

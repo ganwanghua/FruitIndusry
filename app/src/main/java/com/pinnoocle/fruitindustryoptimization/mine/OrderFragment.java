@@ -1,8 +1,10 @@
 package com.pinnoocle.fruitindustryoptimization.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
+import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.OrderAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
@@ -53,6 +56,8 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
     private OrderAdapter orderAdapter;
     private List<OrderListModel.DataBeanX.ListBean.DataBean> dataBeanList = new ArrayList<>();
     private int page = 1;
+    private ImageView iv_ali_mark, iv_wx_mark;
+    private String payType = "20";
 
     public OrderFragment(String type) {
         this.type = type;
@@ -97,28 +102,24 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
                     case R.id.tv_cancel:
                         if (o.getState_text().equals("待付款")) {  //取消
                             showOrderCancelDialog(o.getOrder_id() + "");
-                        } else if (o.getState_text().equals("待付款")) {//联系客服
-
                         }
                         break;
 
-//                    case R.id.tv_pay:
-//                        if (o.getState_text().equals("待付款")) {  //去付款
-//                            Intent intent = new Intent(getContext(), OrderPayActivity.class);
-//                            intent.putExtra("order_id",o.getOrder_id()+"");
-//                            intent.putExtra("order_no",o.getOrder_no()+"");
-//                            intent.putExtra("order_money",o.getOrder_price());
-//                            startActivity(intent);
-//                        } else if (o.getState_text().equals("待收货")) {//确认收货
-//                            showOrderConfirmDialog(o.getOrder_id() + "",o.getOrder_no());
-//                        } else if (o.getState_text().equals("已完成")) {//去评价
+                    case R.id.tv_pay:
+                        if (o.getState_text().equals("待付款")) {  //去付款
+                            showOrderPayDialog(o.getOrder_id() + "", o.getOrder_no());
+                        } else if (o.getState_text().equals("已付款，待发货") || o.getState_text().equals("已发货，待收货")) {
+                            Intent intent = new Intent(mContext, OrderDetailActivity.class);
+                            intent.putExtra("order_id", o.getOrder_id() + "");
+                            startActivity(intent);
+                        } else if (o.getState_text().equals("已完成")) {//去评价
 //                            Intent intent = new Intent(getContext(), OrderCommentActivity.class);
-//                            intent.putExtra("order_id",o.getOrder_id()+"");
+//                            intent.putExtra("order_id", o.getOrder_id() + "");
 //                            startActivity(intent);
-//
-//                        }
-//
-//                        break;
+
+                        }
+
+                        break;
 
 //                    default:
 //                        startActivity(new Intent(getContext(), OrderDetailActivity.class));
@@ -177,7 +178,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
 
     private void orderCancel(String order_ids) {
         Map<String, String> map = new HashMap<>();
-        map.put("s","/api/user.order/cancel");
+        map.put("s", "/api/user.order/cancel");
         map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("order_id", order_ids);
@@ -192,7 +193,6 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(getContext());
                 StatusModel statusModel = (StatusModel) data;
-                refresh.finishRefresh();
                 if (statusModel.getCode() == 1) {
                     EventBus.getDefault().post("order_refresh");
                 }
@@ -201,9 +201,9 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
         });
     }
 
-    private void orderReceipt(String order_ids,String order_no) {
+    private void orderReceipt(String order_ids, String order_no) {
         Map<String, String> map = new HashMap<>();
-        map.put("s","/api/user.order/receipt");
+        map.put("s", "/api/user.order/receipt");
         map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("order_id", order_ids);
@@ -218,10 +218,39 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(getContext());
                 StatusModel statusModel = (StatusModel) data;
-                refresh.finishRefresh();
                 if (statusModel.getCode() == 1) {
                     EventBus.getDefault().post("order_refresh");
 //                    showOrderCommentDialog(order_ids,order_no);
+                }
+            }
+
+        });
+    }
+
+    private void orderPay(String order_ids, String order_no) {
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/user.order/pay");
+        map.put("wxapp_id", "10001");
+        map.put("token", FastData.getToken());
+        map.put("order_id", order_ids);
+        map.put("payType", payType);
+        map.put("platform", "app");
+        ViewLoading.show(getContext());
+        dataRepository.orderPay(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(getContext());
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(getContext());
+                StatusModel statusModel = (StatusModel) data;
+                if (statusModel.getCode() == 1) {
+                    EventBus.getDefault().post("order_refresh");
+                    showOrderCommentDialog(order_ids, order_no);
+                } else {
+                    ToastUtils.showToast(statusModel.getMsg());
                 }
             }
 
@@ -282,7 +311,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
                                 tDialog.dismiss();
                                 break;
                             case R.id.tv_sure:
-                                orderReceipt(order_ids,order_no);
+                                orderReceipt(order_ids, order_no);
                                 tDialog.dismiss();
                                 break;
                         }
@@ -324,6 +353,49 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
                 })
                 .create()
                 .show();
+    }
+
+    private void showOrderPayDialog(String order_ids, String order_no) {
+        new TDialog.Builder(getActivity().getSupportFragmentManager())
+                .setLayoutRes(R.layout.order_pay_dialog)
+                .setScreenWidthAspect(getContext(), 1f)
+                .setGravity(Gravity.BOTTOM)
+                .setCancelableOutside(true)
+                .addOnClickListener(R.id.open_vip, R.id.rl_ali, R.id.rl_wechat)
+                .setOnBindViewListener(new OnBindViewListener() {
+                    @Override
+                    public void bindView(BindViewHolder viewHolder) {
+                        iv_ali_mark = viewHolder.itemView.findViewById(R.id.iv_ali_mark);
+                        iv_wx_mark = viewHolder.itemView.findViewById(R.id.iv_wx_mark);
+                    }
+                })
+                .setOnViewClickListener(new OnViewClickListener() {
+                    @Override
+                    public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+                        switch (view.getId()) {
+                            case R.id.open_vip:
+                                orderPay(order_ids, order_no);
+                                tDialog.dismiss();
+
+                                break;
+                            case R.id.rl_ali:
+                                setPayMode(iv_ali_mark, "ali_pay");
+                                break;
+                            case R.id.rl_wechat:
+                                setPayMode(iv_wx_mark, "wx_pay");
+                                break;
+                        }
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    private void setPayMode(ImageView imageView, String pay_mode) {
+        iv_ali_mark.setImageResource(R.mipmap.grey_circle);
+        iv_wx_mark.setImageResource(R.mipmap.grey_circle);
+        this.payType = pay_mode;
+        imageView.setImageResource(R.mipmap.juice_circle);
     }
 
 

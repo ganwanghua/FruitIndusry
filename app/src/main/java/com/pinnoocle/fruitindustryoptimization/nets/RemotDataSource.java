@@ -100,6 +100,7 @@ public interface RemotDataSource {
     void buyNow(Map<String, String> queryMap, getCallback callback);
 
     void rightBuy(Map<String, String> queryMap, getCallback callback);
+
     void rightBuyCart(Map<String, String> queryMap, getCallback callback);
 
     void orderList(Map<String, String> queryMap, getCallback callback);
@@ -111,9 +112,14 @@ public interface RemotDataSource {
     void groupBuy(Map<String, String> queryMap, getCallback callback);
 
     void groupRightBuy(Map<String, String> queryMap, getCallback callback);
+
     void orderCancel(Map<String, String> queryMap, getCallback callback);
+
     void orderReceipt(Map<String, String> queryMap, getCallback callback);
+
     void orderDetail(Map<String, String> queryMap, getCallback callback);
+
+    void orderPay(Map<String, String> queryMap, getCallback callback);
 
     void couponLists(Map<String, String> queryMap, getCallback callback);
 

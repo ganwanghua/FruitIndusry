@@ -819,15 +819,15 @@ public class CartListsModel {
             private int total_num;
             private String total_price;
             private boolean is_user_grade;
-            private int grade_ratio;
-            private int grade_goods_price;
-            private int grade_total_money;
-            private int points_money;
+            private double grade_ratio;
+            private double grade_goods_price;
+            private double grade_total_money;
+            private double points_money;
             private int points_num;
-            private int coupon_money;
-            private int virtual_code_money;
+            private double coupon_money;
+            private double virtual_code_money;
             private String total_pay_price;
-            private int express_price;
+            private double express_price;
             private int points_bonus;
             private int goods_sales;
 
@@ -1143,35 +1143,35 @@ public class CartListsModel {
                 this.is_user_grade = is_user_grade;
             }
 
-            public int getGrade_ratio() {
+            public double getGrade_ratio() {
                 return grade_ratio;
             }
 
-            public void setGrade_ratio(int grade_ratio) {
+            public void setGrade_ratio(double grade_ratio) {
                 this.grade_ratio = grade_ratio;
             }
 
-            public int getGrade_goods_price() {
+            public double getGrade_goods_price() {
                 return grade_goods_price;
             }
 
-            public void setGrade_goods_price(int grade_goods_price) {
+            public void setGrade_goods_price(double grade_goods_price) {
                 this.grade_goods_price = grade_goods_price;
             }
 
-            public int getGrade_total_money() {
+            public double getGrade_total_money() {
                 return grade_total_money;
             }
 
-            public void setGrade_total_money(int grade_total_money) {
+            public void setGrade_total_money(double grade_total_money) {
                 this.grade_total_money = grade_total_money;
             }
 
-            public int getPoints_money() {
+            public double getPoints_money() {
                 return points_money;
             }
 
-            public void setPoints_money(int points_money) {
+            public void setPoints_money(double points_money) {
                 this.points_money = points_money;
             }
 
@@ -1183,19 +1183,19 @@ public class CartListsModel {
                 this.points_num = points_num;
             }
 
-            public int getCoupon_money() {
+            public double getCoupon_money() {
                 return coupon_money;
             }
 
-            public void setCoupon_money(int coupon_money) {
+            public void setCoupon_money(double coupon_money) {
                 this.coupon_money = coupon_money;
             }
 
-            public int getVirtual_code_money() {
+            public double getVirtual_code_money() {
                 return virtual_code_money;
             }
 
-            public void setVirtual_code_money(int virtual_code_money) {
+            public void setVirtual_code_money(double virtual_code_money) {
                 this.virtual_code_money = virtual_code_money;
             }
 
@@ -1207,11 +1207,11 @@ public class CartListsModel {
                 this.total_pay_price = total_pay_price;
             }
 
-            public int getExpress_price() {
+            public double getExpress_price() {
                 return express_price;
             }
 
-            public void setExpress_price(int express_price) {
+            public void setExpress_price(double express_price) {
                 this.express_price = express_price;
             }
 

@@ -202,6 +202,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
             bottomNavigationBar.selectTab(2);
         }else if(event.equals("to_shop_cart")){
             bottomNavigationBar.selectTab(3);
+        }else if(event.equals("3")){
+            bottomNavigationBar.selectTab(0);
         }
     }
 

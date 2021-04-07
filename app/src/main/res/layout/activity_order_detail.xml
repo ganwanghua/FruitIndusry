@@ -33,6 +33,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/rl_panel"
         android:layout_below="@id/rl_title"
         android:overScrollMode="never">
 
@@ -47,7 +48,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_order_detail"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="20dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -180,6 +182,27 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
+            <RelativeLayout
+                android:id="@+id/ll_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_order_detail"
+                android:gravity="center_vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已取消"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+
             <LinearLayout
                 android:id="@+id/ll_name"
                 android:layout_width="match_parent"
@@ -238,9 +261,9 @@
                 android:src="@mipmap/color_line" />
 
             <LinearLayout
-                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -267,6 +290,7 @@
                         android:textSize="10sp"
                         tools:text="2012-1-1" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
@@ -278,24 +302,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:overScrollMode="never" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp">
+
                     <TextView
-                        android:layout_toStartOf="@id/tv_pay_money"
                         android:id="@+id/tv_total_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_toStartOf="@id/tv_pay_money"
                         android:textColor="@color/black_1"
-                        tools:text="共2件商品，实付:"/>
+                        tools:text="共2件商品，实付:" />
+
                     <TextView
-                        android:layout_alignParentEnd="true"
                         android:id="@+id/tv_pay_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:textColor="@color/black_1"
-                        tools:text="￥22.00"/>
+                        tools:text="￥22.00" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -311,16 +338,17 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="15dp">
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="订单总金额:"
+                        android:text="订单金额:"
                         android:textColor="#111111"
                         android:textSize="14sp" />
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/tv_total_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -338,13 +366,37 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="15dp">
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="商品金额:"
+                        android:textColor="@color/grey"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_goods_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/light_red"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="配送费用:"
-                        android:textColor="#111111"
+                        android:textColor="@color/grey"
                         android:textSize="14sp" />
 
                     <TextView
@@ -352,9 +404,33 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:textColor="#111111"
+                        android:textColor="@color/light_red"
                         android:textSize="14sp" />
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="实付金额:"
+                        android:textColor="@color/grey"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_money_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/light_red"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
             </LinearLayout>
 
             <RelativeLayout
@@ -362,7 +438,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:padding="15dp">
+                android:padding="15dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -385,7 +462,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -452,7 +530,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"

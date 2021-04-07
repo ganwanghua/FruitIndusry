@@ -26,7 +26,6 @@ import butterknife.ButterKnife;
 public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.DataBean, OrderAdapter.VH> {
 
 
-
     public OrderAdapter(Context mContext) {
         super(mContext);
     }
@@ -55,25 +54,27 @@ public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.
         adapter.setData(goods);
         holder.recyclerView.setAdapter(adapter);
         holder.tvCancel.setVisibility(View.VISIBLE);
+        holder.tvAfterSales.setVisibility(View.VISIBLE);
         ;
         switch (mDatas.get(position).getState_text()) {
             case "待付款":
                 holder.rlPanel.setVisibility(View.VISIBLE);
                 holder.tvCancel.setText("取消");
                 holder.tvPay.setText("去付款");
+                holder.tvAfterSales.setVisibility(View.GONE);
                 break;
             case "已付款，待发货":
-                holder.rlPanel.setVisibility(View.GONE);
-                break;
             case "已发货，待收货":
                 holder.rlPanel.setVisibility(View.VISIBLE);
-                holder.tvCancel.setText("联系客服");
-                holder.tvPay.setText("确认收货");
+                holder.tvCancel.setVisibility(View.GONE);
+                holder.tvPay.setText("查看");
+                holder.tvAfterSales.setVisibility(View.GONE);
                 break;
+
             case "已完成":
+                holder.tvAfterSales.setVisibility(View.GONE);
                 if (mDatas.get(position).getIs_comment() == 0) {
                     holder.rlPanel.setVisibility(View.VISIBLE);
-
                     holder.tvCancel.setVisibility(View.GONE);
                     holder.tvPay.setText("去评价");
                 } else {

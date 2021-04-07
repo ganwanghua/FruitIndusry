@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.pinnoocle.fruitindustryoptimization.R;
+import com.pinnoocle.fruitindustryoptimization.adapter.GridOrderAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
@@ -106,9 +107,11 @@ public class MineFragment extends BaseFragment {
     private int[] icon1 = {R.mipmap.membership, R.mipmap.my_fruit_tree, R.mipmap.adoption, R.mipmap.registration};
     private String[] iconName = {"待付款", "待发货", "待收货", "待评价", "退款/售后"};
     private String[] iconName1 = {"会员中心", "我的果树", "邀请认养", "客服"};
-    private SimpleAdapter sim_adapter, sim_adapter1;
+    private SimpleAdapter sim_adapter1;
+    private GridOrderAdapter gridOrderAdapter;
     private ArrayList<Map<String, Object>> data_list, data_list1;
     private DataRepository dataRepository;
+    private List<Integer> orderNums = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -181,6 +184,17 @@ public class MineFragment extends BaseFragment {
                         tvRebate.setText(userInfoModel.getData().getTm() + "");
                         tvCoupon.setText(userInfoModel.getData().getCouponCount() + "");
                     }
+
+                    UserInfoModel.DataBean.OrderCountBean orderCount = userInfoModel.getData().getOrderCount();
+                    orderNums.clear();
+
+                    orderNums.add(orderCount.getPayment());
+                    orderNums.add(orderCount.getDelivery());
+                    orderNums.add(orderCount.getReceived());
+                    orderNums.add(orderCount.getComment());
+
+//                    orderStatusNums.add(saveUserShipBean.getData().getIsAfterSale()); //售后
+                    gridOrderAdapter.setOrderStatusNums(orderNums);
                 }
             }
         });
@@ -258,9 +272,9 @@ public class MineFragment extends BaseFragment {
         //新建适配器
         String[] from = {"image", "text"};
         int[] to = {R.id.image, R.id.text};
-        sim_adapter = new SimpleAdapter(getContext(), data_list, R.layout.item1, from, to);
+        gridOrderAdapter = new GridOrderAdapter(getContext(), data_list);
         //配置适配器
-        gridView.setAdapter(sim_adapter);
+        gridView.setAdapter(gridOrderAdapter);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

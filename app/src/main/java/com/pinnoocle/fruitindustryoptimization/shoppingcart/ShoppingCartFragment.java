@@ -41,6 +41,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import kotlin.jvm.internal.Ref;
 
 public class ShoppingCartFragment extends BaseFragment {
 
@@ -105,17 +106,17 @@ public class ShoppingCartFragment extends BaseFragment {
         adapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<CartListsModel.DataBean.GoodsListBean>() {
             @Override
             public void onItemViewClick(View view, int position, CartListsModel.DataBean.GoodsListBean o) {
-                switch (view.getId()){
+                switch (view.getId()) {
                     case R.id.button_add:
-                        cartAdd(o.getGoods_id()+"", o.getGoods_sku().getSpec_sku_id(),1);
-                        o.setTotal_num(o.getTotal_num()+1);
+                        cartAdd(o.getGoods_id() + "", o.getGoods_sku().getSpec_sku_id(), 1);
+                        o.setTotal_num(o.getTotal_num() + 1);
                         break;
                     case R.id.button_sub:
-                        if(o.getTotal_num()-1<1){
+                        if (o.getTotal_num() - 1 < 1) {
                             return;
                         }
-                        cartSub(o.getGoods_id()+"", o.getGoods_sku().getSpec_sku_id(),1);
-                        o.setTotal_num(o.getTotal_num()-1);
+                        cartSub(o.getGoods_id() + "", o.getGoods_sku().getSpec_sku_id(), 1);
+                        o.setTotal_num(o.getTotal_num() - 1);
                         break;
                 }
             }
@@ -147,7 +148,7 @@ public class ShoppingCartFragment extends BaseFragment {
                 CartListsModel cartListsModel = (CartListsModel) data;
                 if (cartListsModel.getCode() == 1) {
                     List<CartListsModel.DataBean.GoodsListBean> goods_list = cartListsModel.getData().getGoods_list();
-                    if (goods_list==null||goods_list.size() == 0) {
+                    if (goods_list == null || goods_list.size() == 0) {
                         llContent.setVisibility(View.GONE);
                         rlPanel.setVisibility(View.GONE);
                         emptyShopCart.setVisibility(View.VISIBLE);
@@ -189,14 +190,14 @@ public class ShoppingCartFragment extends BaseFragment {
         });
     }
 
-    private void cartAdd(String goods_id,String goods_sku_id,int goods_num) {
+    private void cartAdd(String goods_id, String goods_sku_id, int goods_num) {
 
         Map<String, String> map = new HashMap<>();
         map.put("s", "/api/cart/add");
-        map.put("wxapp_id","10001");
+        map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("goods_id", goods_id);
-        map.put("goods_num",goods_num+"" );
+        map.put("goods_num", goods_num + "");
         map.put("goods_sku_id", goods_sku_id);
         dataRepository.cartAdd(map, new RemotDataSource.getCallback() {
             @Override
@@ -207,8 +208,8 @@ public class ShoppingCartFragment extends BaseFragment {
             @Override
             public void onSuccess(Object data) {
 
-                StatusModel statusModel = (StatusModel)data;
-                if(statusModel.getCode()==1){
+                StatusModel statusModel = (StatusModel) data;
+                if (statusModel.getCode() == 1) {
                     updateTotalPrice();
                 }
 
@@ -217,14 +218,14 @@ public class ShoppingCartFragment extends BaseFragment {
         });
     }
 
-    private void cartSub(String goods_id,String goods_sku_id,int goods_num) {
+    private void cartSub(String goods_id, String goods_sku_id, int goods_num) {
 
         Map<String, String> map = new HashMap<>();
         map.put("s", "/api/cart/sub");
-        map.put("wxapp_id","10001");
+        map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("goods_id", goods_id);
-        map.put("goods_num",goods_num+"" );
+        map.put("goods_num", goods_num + "");
         map.put("goods_sku_id", goods_sku_id);
         dataRepository.cartSub(map, new RemotDataSource.getCallback() {
             @Override
@@ -235,8 +236,8 @@ public class ShoppingCartFragment extends BaseFragment {
             @Override
             public void onSuccess(Object data) {
 
-                StatusModel statusModel = (StatusModel)data;
-                if(statusModel.getCode()==1){
+                StatusModel statusModel = (StatusModel) data;
+                if (statusModel.getCode() == 1) {
                     updateTotalPrice();
                 }
 
@@ -244,8 +245,6 @@ public class ShoppingCartFragment extends BaseFragment {
             }
         });
     }
-
-
 
 
     private void refreshEditStatus() {
@@ -280,7 +279,7 @@ public class ShoppingCartFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.ll_del, R.id.tv_settlement, R.id.ll_all_select})
+    @OnClick({R.id.ll_del, R.id.tv_settlement, R.id.ll_all_select, R.id.tv_go_shop})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_del:
@@ -307,7 +306,7 @@ public class ShoppingCartFragment extends BaseFragment {
                     } else {
                         String cart_ids = dealCartIdList();
                         Intent intent = new Intent(mContext, OrderConfirmActivity.class);
-                        intent.putExtra("cart_ids",cart_ids);
+                        intent.putExtra("cart_ids", cart_ids);
                         startActivity(intent);
                     }
                 }
@@ -322,7 +321,18 @@ public class ShoppingCartFragment extends BaseFragment {
                 EventBus.getDefault().post(new CanSettlement(checkbox.isChecked()));
                 adapter.notifyDataSetChanged();
                 break;
+            case R.id.tv_go_shop:
+                EventBus.getDefault().post("3");
+                break;
         }
+
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        refreshEditStatus();
     }
 
     private void updateTotalPrice() {
@@ -369,8 +379,7 @@ public class ShoppingCartFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = false) //在ui线程执行，优先级为100
     public void onEvent(String event) {
-        if(event.equals("cart_refresh"))
-        {
+        if (event.equals("cart_refresh")) {
             cartList();
         }
     }
