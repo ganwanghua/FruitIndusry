@@ -107,6 +107,8 @@ public class WateringFruitTreesActivity extends BaseActivity {
     ImageView ivFertilizer2;
     @BindView(R.id.iv_fertilizer3)
     ImageView ivFertilizer3;
+    @BindView(R.id.ll_adoption_certificate)
+    LinearLayout llAdoptionCertificate;
     private DataRepository dataRepository;
     private UserTreeDetailModel userTreeDetailModel;
 
@@ -160,9 +162,16 @@ public class WateringFruitTreesActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.tv_name, R.id.iv_back, R.id.iv_wish, R.id.rl_big_gift_bag, R.id.ll_watering, R.id.rl_tree, R.id.ll_tree_info, R.id.rl_collar_tree, R.id.rl_fertilizer})
+    @OnClick({R.id.ll_adoption_certificate, R.id.tv_name, R.id.iv_back, R.id.iv_wish, R.id.rl_big_gift_bag, R.id.ll_watering, R.id.rl_tree, R.id.ll_tree_info, R.id.rl_collar_tree, R.id.rl_fertilizer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ll_adoption_certificate:
+                Intent intent = new Intent(WateringFruitTreesActivity.this, ECertActivity.class);
+                intent.putExtra("order_no", "");
+                intent.putExtra("pos", "1");
+                intent.putExtra("tree_id", userTreeDetailModel.getData().getUser_tree().getUser_tree_id() + "");
+                startActivity(intent);
+                break;
             case R.id.tv_name:
                 new TDialog.Builder(getSupportFragmentManager())
                         .setLayoutRes(R.layout.dialog_name)
@@ -275,9 +284,9 @@ public class WateringFruitTreesActivity extends BaseActivity {
                         .show();
                 break;
             case R.id.rl_big_gift_bag:
-                Intent intent = new Intent(this, BigGiftBagActivity.class);
-                intent.putExtra("tree_id", getIntent().getStringExtra("tree_id"));
-                startActivity(intent);
+                Intent intent1 = new Intent(this, BigGiftBagActivity.class);
+                intent1.putExtra("tree_id", getIntent().getStringExtra("tree_id"));
+                startActivity(intent1);
                 break;
             case R.id.ll_watering:
                 grow("1");
