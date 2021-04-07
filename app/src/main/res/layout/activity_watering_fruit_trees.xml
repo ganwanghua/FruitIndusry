@@ -249,7 +249,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_time"
                 android:layout_centerHorizontal="true"
-                android:text="名字名字"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
@@ -274,6 +273,7 @@
             android:layout_marginBottom="30dp">
 
             <RelativeLayout
+                android:id="@+id/rl_fertilizer"
                 android:layout_width="wrap_content"
                 android:layout_height="46dp"
                 android:layout_marginRight="15dp">
@@ -353,6 +353,46 @@
                 android:src="@mipmap/water_drop"
                 android:visibility="invisible" />
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="50dp">
+
+            <ImageView
+                android:id="@+id/iv_fertilizer"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="10dp"
+                android:src="@mipmap/apply_fertilizer1"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/iv_fertilizer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:src="@mipmap/fertilizer"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/iv_fertilizer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_fertilizer1"
+                android:src="@mipmap/fertilizer"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/iv_fertilizer3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_fertilizer2"
+                android:src="@mipmap/fertilizer"
+                android:visibility="invisible" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <TextView
@@ -360,7 +400,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_tree1"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/bg_yellow_15"
         android:drawableLeft="@mipmap/notice"
         android:drawablePadding="10dp"
@@ -373,7 +415,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_notice"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/bg_green_13"
         android:orientation="vertical"
