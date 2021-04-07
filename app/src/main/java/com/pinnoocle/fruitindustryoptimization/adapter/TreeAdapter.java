@@ -52,7 +52,15 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClick(position);
+                    mOnItemClickListener.onItemClick(v, position);
+                }
+            }
+        });
+        holder.ll_renew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(v, position);
                 }
             }
         });
@@ -71,7 +79,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
 
     //**********************itemClick************************
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(View v, int position);
     }
 
     private OnItemClickListener mOnItemClickListener;
@@ -83,7 +91,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvName, tvVarieties, tvTime;
-        private final LinearLayout llWatering;
+        private final LinearLayout llWatering, ll_renew;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -91,6 +99,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
             tvVarieties = (TextView) itemView.findViewById(R.id.tv_varieties);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
             llWatering = (LinearLayout) itemView.findViewById(R.id.ll_watering);
+            ll_renew = (LinearLayout) itemView.findViewById(R.id.ll_renew);
         }
     }
 }

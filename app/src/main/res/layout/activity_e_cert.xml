@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,96 +29,109 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#2AAF99">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:background="@mipmap/e_cert"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="李小猫"
+            android:textColor="#111111"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.231"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.304" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/e_cert" />
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:text="您于2020年6月15号在新疆生产建设兵团第第1师3团已成功认养1棵核桃树，感谢您为兵团消费扶贫添增一份力量！"
+            android:textColor="#111111"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.468" />
 
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="65dp"
-                    android:layout_marginTop="135dp"
-                    android:text="李小猫"
-                    android:textColor="#111111"
-                    android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tv_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NO.20998266CV025"
+            android:textColor="#00A23B"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.677" />
 
-                <TextView
-                    android:id="@+id/tv_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_name"
-                    android:layout_marginLeft="46dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="46dp"
-                    android:text="您于2020年6月15号在新疆生产建设兵团第第1师3团已成功认养1棵核桃树，感谢您为兵团消费扶贫添增一份力量！"
-                    android:textColor="#111111"
-                    android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tv_order"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="53dp"
-                    android:text="NO.20998266CV025"
-                    android:textColor="#00A23B"
-                    android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tv_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新疆生产建设兵团果业有限公司"
+            android:textColor="#111111"
+            android:textSize="12sp"
+            android:layout_marginLeft="100dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.856" />
 
-                <TextView
-                    android:id="@+id/tv_company"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_order"
-                    android:layout_marginLeft="130dp"
-                    android:layout_marginTop="61dp"
-                    android:text="新疆生产建设兵团果业有限公司"
-                    android:textColor="#111111"
-                    android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2021/06/15到期"
+            android:textColor="#111111"
+            android:textSize="12sp"
+            android:layout_marginLeft="100dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.911" />
 
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_company"
-                    android:layout_marginLeft="130dp"
-                    android:layout_marginTop="9dp"
-                    android:text="2021/06/15到期"
-                    android:textColor="#111111"
-                    android:textSize="12sp" />
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/bg_white_22"
-                android:paddingLeft="50dp"
-                android:paddingTop="10dp"
-                android:paddingRight="50dp"
-                android:paddingBottom="10dp"
-                android:text="保存分享"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_22"
+            android:paddingLeft="50dp"
+            android:paddingTop="10dp"
+            android:paddingRight="50dp"
+            android:paddingBottom="10dp"
+            android:text="保存分享"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.789" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

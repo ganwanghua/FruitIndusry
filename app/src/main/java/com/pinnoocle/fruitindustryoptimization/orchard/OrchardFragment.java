@@ -86,7 +86,7 @@ public class OrchardFragment extends BaseFragment implements TreeAdapter.OnItemC
                     if (mShowItems.size() > 0) {
                         llTree.setVisibility(View.VISIBLE);
                         llEmpty.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         llEmpty.setVisibility(View.VISIBLE);
                         llTree.setVisibility(View.GONE);
                     }
@@ -106,10 +106,17 @@ public class OrchardFragment extends BaseFragment implements TreeAdapter.OnItemC
     }
 
     @Override
-    public void onItemClick(int position) {
-        Intent intent = new Intent(getActivity(), WateringFruitTreesActivity.class);
-        intent.putExtra("tree_id", mShowItems.get(position).getUser_tree_id() + "");
-        startActivity(intent);
+    public void onItemClick(View v, int position) {
+        switch (v.getId()) {
+            case R.id.ll_watering:
+                Intent intent = new Intent(getActivity(), WateringFruitTreesActivity.class);
+                intent.putExtra("tree_id", mShowItems.get(position).getUser_tree_id() + "");
+                startActivity(intent);
+                break;
+            case R.id.ll_renew:
+//                startActivity(new Intent(getActivity(), ECertActivity.class));
+                break;
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = false) //在ui线程执行，优先级为100

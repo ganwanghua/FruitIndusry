@@ -2,26 +2,20 @@ package com.pinnoocle.fruitindustryoptimization.orchard;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.MainActivity;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.bean.CertificateDetailModel;
-import com.pinnoocle.fruitindustryoptimization.bean.UserTreeDetailModel;
 import com.pinnoocle.fruitindustryoptimization.common.AppManager;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
-import com.pinnoocle.fruitindustryoptimization.login.LoginActivity;
-import com.pinnoocle.fruitindustryoptimization.mine.SettingActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
-import com.pinnoocle.fruitindustryoptimization.widget.GlideCircleTransform;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,14 +26,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
-
 public class ECertActivity extends BaseActivity {
+
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.rl_title)
     RelativeLayout rlTitle;
+    @BindView(R.id.imageView)
+    ImageView imageView;
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_content)
