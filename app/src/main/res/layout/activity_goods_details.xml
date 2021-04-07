@@ -166,6 +166,7 @@
                 android:textColor="#DA251D" />
 
             <LinearLayout
+                android:id="@+id/ll_look"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white">
@@ -296,6 +297,7 @@
                 android:background="#E5E5E7" />
 
             <RelativeLayout
+                android:id="@+id/rl_server"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white">

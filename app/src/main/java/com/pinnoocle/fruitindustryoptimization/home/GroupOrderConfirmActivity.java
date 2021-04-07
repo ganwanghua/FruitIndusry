@@ -87,6 +87,7 @@ public class GroupOrderConfirmActivity extends BaseActivity {
     private OrderConfirmAdapter adapter;
     private String address_id;
     private String order_type ;
+    private String pay_type = "10";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +169,8 @@ public class GroupOrderConfirmActivity extends BaseActivity {
         map.put("goods_id", getIntent().getStringExtra("goods_id"));
         map.put("goods_sku_id", "0");
         map.put("remark", "");
+        map.put("pay_type", pay_type);
+        map.put("platform", "app");
 
         dataRepository.groupRightBuy(map, new RemotDataSource.getCallback() {
             @Override

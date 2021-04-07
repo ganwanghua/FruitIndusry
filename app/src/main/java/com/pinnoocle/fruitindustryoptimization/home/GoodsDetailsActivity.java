@@ -1,8 +1,10 @@
 package com.pinnoocle.fruitindustryoptimization.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,13 +21,19 @@ import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.bean.VipIntroModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
+import com.pinnoocle.fruitindustryoptimization.orchard.AdoptionAgreementActivity;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.pinnoocle.fruitindustryoptimization.widget.DialogShopCar;
 import com.pinnoocle.fruitindustryoptimization.widget.VerticalMarqueeLayout;
+import com.timmy.tdialog.TDialog;
+import com.timmy.tdialog.base.BindViewHolder;
+import com.timmy.tdialog.listener.OnBindViewListener;
+import com.timmy.tdialog.listener.OnViewClickListener;
 import com.to.aboomy.banner.Banner;
 import com.to.aboomy.banner.HolderCreator;
 import com.zzhoujay.richtext.ImageHolder;
@@ -137,7 +145,7 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
                     initBanner();
                     tvMoney.setText(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price());
                     tvName.setText(goodsDetailModel.getData().getDetail().getGoods_name());
-                    DecimalFormat decimalFormat =new DecimalFormat("0.00");
+                    DecimalFormat decimalFormat = new DecimalFormat("0.00");
                     tvOldMoney.setText("￥" + decimalFormat.format(Double.parseDouble(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price()) * 0.9));
                     tvLineMoney.setText("￥" + goodsDetailModel.getData().getDetail().getGoods_sku().getLine_price());
                     tvMoney1.setText("" + decimalFormat.format(Double.parseDouble(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price()) * 0.1));
@@ -184,6 +192,30 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
 
     }
 
+    private void vipIntro() {
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/goods/vip_intro");
+        map.put("wxapp_id", "10001");
+        map.put("token", FastData.getToken());
+        dataRepository.vipIntro(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+
+                VipIntroModel vipIntroModel = (VipIntroModel) data;
+                if (vipIntroModel.getCode() == 1) {
+                    Intent intent1 = new Intent(mContext, AdoptionAgreementActivity.class);
+                    intent1.putExtra("content", vipIntroModel.getData().getVip_intro());
+                    intent1.putExtra("title", "兵团优选");
+                    startActivity(intent1);
+                }
+            }
+        });
+    }
+
 
     private String translation(String content) {
         String replace = content.replace("&lt;", "<");
@@ -204,7 +236,7 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
     }
 
 
-    @OnClick({R.id.iv_back, R.id.ll_message, R.id.ll_collection, R.id.ll_shop, R.id.tv_add_cart, R.id.tv_buy})
+    @OnClick({R.id.iv_back, R.id.ll_message, R.id.ll_collection, R.id.ll_shop, R.id.tv_add_cart, R.id.tv_buy, R.id.ll_look,R.id.rl_server})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -223,8 +255,36 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
             case R.id.tv_buy:
                 showSelectDialog();
                 break;
+            case R.id.ll_look:
+                vipIntro();
+                break;
+            case R.id.rl_server:
+                showServerDialog();
+                break;
         }
     }
+
+    private void showServerDialog() {
+        new TDialog.Builder(getSupportFragmentManager())
+                .setLayoutRes(R.layout.server_dialog)
+                .setScreenWidthAspect(mContext, 1f)
+                .setGravity(Gravity.BOTTOM)
+                .setCancelableOutside(true)
+                .addOnClickListener( R.id.tv_sure)
+                .setOnViewClickListener(new OnViewClickListener() {
+                    @Override
+                    public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+                        switch (view.getId()) {
+                            case R.id.tv_sure:
+                                tDialog.dismiss();
+                                break;
+                        }
+                    }
+                })
+                .create()
+                .show();
+    }
+
 
     //举个栗子
     public class ImageHolderCreator implements HolderCreator {

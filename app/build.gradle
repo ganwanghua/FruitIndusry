@@ -22,7 +22,7 @@ android {
     signingConfigs {
         release {
 //            storeFile file('D:\\pinuoke\\FruitIndusry\\app\\btyx.jks')
-            storeFile file('D:\\pinuoke\\FruitIndusry\\app\\btyx.jks')
+            storeFile file('D:\\workspace\\FruitIndusry\\app\\btyx.jks')
             storePassword '123456'
             keyAlias 'key0'
             keyPassword '123456'

@@ -288,7 +288,7 @@ public class OrderConfirmActivity extends BaseActivity {
                     tvName.setText(userShipBean.getName());
                     String phone = userShipBean.getPhone().replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
                     tvPhone.setText(phone);
-                    tvAddress.setText(userShipBean.getRegion().getProvince() + userShipBean.getRegion().getCity() + userShipBean.getRegion().getRegion());
+                    tvAddress.setText(userShipBean.getRegion().getProvince() + userShipBean.getRegion().getCity() + userShipBean.getRegion().getRegion()+userShipBean.getDetail());
                 }
 
             }

@@ -289,4 +289,7 @@ public interface RetrofitService {
     //付款
     @POST("index.php")
     Observable<StatusModel> orderPay(@QueryMap Map<String, String> queryMap);
+
+
+
 }
