@@ -1,9 +1,8 @@
 package com.pinnoocle.fruitindustryoptimization.orchard;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -11,18 +10,23 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
+import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.R;
-import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
+import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.bean.UserTreeDetailModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
+import com.pinnoocle.fruitindustryoptimization.utils.ActivityUtils;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.pinnoocle.fruitindustryoptimization.widget.GlideCircleTransform;
 import com.pinnoocle.fruitindustryoptimization.widget.SpringScaleInterpolator;
@@ -81,6 +85,20 @@ public class WateringFruitTreesActivity extends BaseActivity {
     ImageView ivWaterDrop2;
     @BindView(R.id.iv_tree)
     ImageView ivTree;
+    @BindView(R.id.tv_name1)
+    TextView tvName1;
+    @BindView(R.id.tv_day)
+    TextView tvDay;
+    @BindView(R.id.rl_tree1)
+    RelativeLayout rlTree1;
+    @BindView(R.id.tv_notice)
+    TextView tvNotice;
+    @BindView(R.id.ll_tree_info)
+    LinearLayout llTreeInfo;
+    @BindView(R.id.rl_collar_tree)
+    RelativeLayout rlCollarTree;
+    private DataRepository dataRepository;
+    private UserTreeDetailModel userTreeDetailModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +106,85 @@ public class WateringFruitTreesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watering_fruit_trees);
         ButterKnife.bind(this);
+        dataRepository = Injection.dataRepository(this);
 
-        Glide.with(this).load(R.drawable.b).apply(bitmapTransform(new GlideCircleTransform(this))).into(ivAvatar);
+        userTreeDetail();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_wish, R.id.rl_big_gift_bag, R.id.ll_watering,R.id.rl_tree})
+    private void userTreeDetail() {
+        ViewLoading.show(this);
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/tree/user_tree_detail");
+        map.put("wxapp_id", "10001");
+        map.put("token", FastData.getToken());
+        map.put("order_no", "");
+        map.put("tree_id", getIntent().getStringExtra("tree_id"));
+        dataRepository.userTreeDetail(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                userTreeDetailModel = (UserTreeDetailModel) data;
+                if (userTreeDetailModel.getCode() == 1) {
+                    Glide.with(WateringFruitTreesActivity.this).load(userTreeDetailModel.getData().getUser().getAvatarUrl()).apply(bitmapTransform(new GlideCircleTransform(WateringFruitTreesActivity.this))).into(ivAvatar);
+                    tvName1.setText(userTreeDetailModel.getData().getUser().getNickName());
+                    tvName.setText(userTreeDetailModel.getData().getUser_tree().getName());
+                    tvDay.setText(userTreeDetailModel.getData().getUser_tree().getLeft_day() + "");
+                    tvTime.setText(userTreeDetailModel.getData().getUser_tree().getEnd_date() + "到期");
+                    if (userTreeDetailModel.getData().getUser_coupons().size() > 0) {
+                        tvNotice.setVisibility(View.VISIBLE);
+                    } else {
+                        tvNotice.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+    }
+
+    @OnClick({R.id.iv_back, R.id.iv_wish, R.id.rl_big_gift_bag, R.id.ll_watering, R.id.rl_tree, R.id.ll_tree_info, R.id.rl_collar_tree})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rl_collar_tree:
+                ActivityUtils.startActivity(this, AdoptActivity.class);
+                break;
+            case R.id.ll_tree_info:
+                new TDialog.Builder(getSupportFragmentManager())
+                        .setLayoutRes(R.layout.dialog_tree_info)
+                        .setScreenWidthAspect(this, 0.8f)
+                        .setGravity(Gravity.CENTER)
+                        .setCancelableOutside(true)
+                        .addOnClickListener(R.id.tv_save)
+                        .setOnBindViewListener(new OnBindViewListener() {
+                            @Override
+                            public void bindView(BindViewHolder viewHolder) {
+                                ImageView iv_avatar = viewHolder.getView(R.id.iv_avatar);
+                                EditText ed_name = viewHolder.getView(R.id.ed_name);
+                                TextView tv_time = viewHolder.getView(R.id.tv_time);
+
+                                Glide.with(WateringFruitTreesActivity.this).load(userTreeDetailModel.getData().getUser().getAvatarUrl()).apply(bitmapTransform(new GlideCircleTransform(WateringFruitTreesActivity.this))).into(iv_avatar);
+                                if (!TextUtils.isEmpty(userTreeDetailModel.getData().getUser_tree().getName())) {
+                                    ed_name.setText(userTreeDetailModel.getData().getUser_tree().getName());
+                                }
+                                tv_time.setText(userTreeDetailModel.getData().getUser_tree().getEnd_date() + "到期");
+                            }
+                        })
+                        .setOnViewClickListener(new OnViewClickListener() {
+                            @Override
+                            public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+                                switch (view.getId()) {
+                                    case R.id.tv_save:
+                                        tDialog.dismiss();
+                                        break;
+                                }
+                            }
+                        })
+                        .create()
+                        .show();
+                break;
             case R.id.iv_back:
                 finish();
                 break;
@@ -104,18 +194,26 @@ public class WateringFruitTreesActivity extends BaseActivity {
                         .setScreenWidthAspect(WateringFruitTreesActivity.this, 0.7f)
                         .setGravity(Gravity.CENTER)
                         .setCancelableOutside(false)
-                        .addOnClickListener()
+                        .addOnClickListener(R.id.iv_delete, R.id.rl_sure)
                         .setOnBindViewListener(new OnBindViewListener() {
                             @Override
                             public void bindView(BindViewHolder viewHolder) {
-
+                                EditText ed_wish = viewHolder.getView(R.id.ed_wish);
+                                if (!TextUtils.isEmpty(userTreeDetailModel.getData().getUser_tree().getWish())) {
+                                    ed_wish.setText(userTreeDetailModel.getData().getUser_tree().getWish());
+                                }
                             }
                         })
                         .setOnViewClickListener(new OnViewClickListener() {
                             @Override
                             public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
                                 switch (view.getId()) {
-
+                                    case R.id.iv_delete:
+                                        tDialog.dismiss();
+                                        break;
+                                    case R.id.rl_sure:
+                                        tDialog.dismiss();
+                                        break;
                                 }
                             }
                         })
@@ -124,63 +222,11 @@ public class WateringFruitTreesActivity extends BaseActivity {
                 break;
             case R.id.rl_big_gift_bag:
                 Intent intent = new Intent(this, BigGiftBagActivity.class);
+                intent.putExtra("tree_id", getIntent().getStringExtra("tree_id"));
                 startActivity(intent);
                 break;
             case R.id.ll_watering:
-                Animation operatingAnim = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);
-                LinearInterpolator lin = new LinearInterpolator();
-                operatingAnim.setInterpolator(lin);
-                operatingAnim.setFillAfter(true);
-                operatingAnim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        Animation animation1 = new AlphaAnimation(0f, 1.0f);
-                        animation1.setDuration(800);//动画的持续的时间
-                        animation1.setRepeatCount(1);
-                        ivWaterDrop.startAnimation(animation1);
-
-                        Animation animation2 = new AlphaAnimation(0f, 1.0f);
-                        animation2.setDuration(800);//动画的持续的时间
-                        animation2.setRepeatCount(1);
-                        ivWaterDrop1.startAnimation(animation2);
-
-                        Animation animation3 = new AlphaAnimation(0f, 1.0f);
-                        animation3.setDuration(800);//动画的持续的时间
-                        animation3.setRepeatCount(1);
-                        ivWaterDrop2.startAnimation(animation3);
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        Animation operatingAnim = AnimationUtils.loadAnimation(WateringFruitTreesActivity.this, R.anim.rotate_anim_one);
-                        LinearInterpolator lin = new LinearInterpolator();
-                        operatingAnim.setInterpolator(lin);
-                        operatingAnim.setFillAfter(true);
-                        operatingAnim.setAnimationListener(new Animation.AnimationListener() {
-                            @Override
-                            public void onAnimationStart(Animation animation) {
-                            }
-
-                            @Override
-                            public void onAnimationEnd(Animation animation) {
-                                Animation animation1 = new AlphaAnimation(1.0f, 0f);
-                                animation1.setDuration(1000);//动画的持续的时间
-                                animation1.setFillAfter(true);
-                                ivKettle.startAnimation(animation1);
-                            }
-
-                            @Override
-                            public void onAnimationRepeat(Animation animation) {
-                            }
-                        });
-                        ivKettle.startAnimation(operatingAnim);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-                    }
-                });
-                ivKettle.startAnimation(operatingAnim);
+                grow();
                 break;
             case R.id.rl_tree:
                 ScaleAnimation sa = new ScaleAnimation(1f, 1.0f, 1.0f, 1.1f, ScaleAnimation.RELATIVE_TO_SELF, 0.0f, ScaleAnimation.RELATIVE_TO_SELF, 1.0f);
@@ -211,5 +257,86 @@ public class WateringFruitTreesActivity extends BaseActivity {
                 rlTree.startAnimation(sa);
                 break;
         }
+    }
+
+    private void grow() {
+        ViewLoading.show(this);
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/tree/grow");
+        map.put("wxapp_id", "10001");
+        map.put("token", FastData.getToken());
+        map.put("type", "1");
+        map.put("tree_id", getIntent().getStringExtra("tree_id"));
+        dataRepository.grow(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                StatusModel statusModel = (StatusModel) data;
+                if (statusModel.getCode() == 1) {
+//                    GrowModel loginModel = new Gson().fromJson(statusModel.getData(), GrowModel.class);
+                    Animation operatingAnim = AnimationUtils.loadAnimation(WateringFruitTreesActivity.this, R.anim.rotate_anim);
+                    LinearInterpolator lin = new LinearInterpolator();
+                    operatingAnim.setInterpolator(lin);
+                    operatingAnim.setFillAfter(true);
+                    operatingAnim.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            Animation animation1 = new AlphaAnimation(0f, 1.0f);
+                            animation1.setDuration(800);//动画的持续的时间
+                            animation1.setRepeatCount(1);
+                            ivWaterDrop.startAnimation(animation1);
+
+                            Animation animation2 = new AlphaAnimation(0f, 1.0f);
+                            animation2.setDuration(800);//动画的持续的时间
+                            animation2.setRepeatCount(1);
+                            ivWaterDrop1.startAnimation(animation2);
+
+                            Animation animation3 = new AlphaAnimation(0f, 1.0f);
+                            animation3.setDuration(800);//动画的持续的时间
+                            animation3.setRepeatCount(1);
+                            ivWaterDrop2.startAnimation(animation3);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            Animation operatingAnim = AnimationUtils.loadAnimation(WateringFruitTreesActivity.this, R.anim.rotate_anim_one);
+                            LinearInterpolator lin = new LinearInterpolator();
+                            operatingAnim.setInterpolator(lin);
+                            operatingAnim.setFillAfter(true);
+                            operatingAnim.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    Animation animation1 = new AlphaAnimation(1.0f, 0f);
+                                    animation1.setDuration(1000);//动画的持续的时间
+                                    animation1.setFillAfter(true);
+                                    ivKettle.startAnimation(animation1);
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+                                }
+                            });
+                            ivKettle.startAnimation(operatingAnim);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                        }
+                    });
+                    ivKettle.startAnimation(operatingAnim);
+                } else {
+                    ToastUtils.showToast(statusModel.getMsg());
+                }
+            }
+        });
     }
 }

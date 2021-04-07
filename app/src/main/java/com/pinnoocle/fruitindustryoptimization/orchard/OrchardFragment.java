@@ -1,6 +1,8 @@
 package com.pinnoocle.fruitindustryoptimization.orchard;
 
 import android.content.Intent;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -9,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
-import com.pinnoocle.fruitindustryoptimization.adapter.AdoptAdapter;
 import com.pinnoocle.fruitindustryoptimization.adapter.TreeAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.UserTreesModel;
-import com.pinnoocle.fruitindustryoptimization.bean.WalletModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
@@ -21,7 +21,12 @@ import com.pinnoocle.fruitindustryoptimization.utils.ActivityUtils;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.pinnoocle.fruitindustryoptimization.widget.CommItemDecoration;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -32,8 +37,13 @@ public class OrchardFragment extends BaseFragment implements TreeAdapter.OnItemC
     TextView tvAdopt;
     @BindView(R.id.recycleView)
     RecyclerView recycleView;
+    @BindView(R.id.ll_tree)
+    LinearLayout llTree;
+    @BindView(R.id.ll_empty)
+    LinearLayout llEmpty;
     private TreeAdapter treeAdapter;
     private DataRepository dataRepository;
+    private List<UserTreesModel.DataBean.TreesBean> mShowItems = new ArrayList<>();
 
     @Override
     protected int LayoutId() {
@@ -69,9 +79,18 @@ public class OrchardFragment extends BaseFragment implements TreeAdapter.OnItemC
             @Override
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(mContext);
-//                UserTreesModel userTreesModel = (UserTreesModel) data;
-//                if (userTreesModel.getCode() == 1) {
-//                }
+                UserTreesModel userTreesModel = (UserTreesModel) data;
+                if (userTreesModel.getCode() == 1) {
+                    mShowItems.addAll(userTreesModel.getData().getTrees());
+                    treeAdapter.setData(mShowItems);
+                    if (mShowItems.size() > 0) {
+                        llTree.setVisibility(View.VISIBLE);
+                        llEmpty.setVisibility(View.GONE);
+                    }else {
+                        llEmpty.setVisibility(View.VISIBLE);
+                        llTree.setVisibility(View.GONE);
+                    }
+                }
             }
         });
     }
@@ -89,6 +108,14 @@ public class OrchardFragment extends BaseFragment implements TreeAdapter.OnItemC
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getActivity(), WateringFruitTreesActivity.class);
+        intent.putExtra("tree_id", mShowItems.get(position).getUser_tree_id() + "");
         startActivity(intent);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = false) //在ui线程执行，优先级为100
+    public void onEvent(String event) {
+        if (event.equals("11")) {
+            userTrees();
+        }
     }
 }

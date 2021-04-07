@@ -271,7 +271,10 @@ public class ConfirmOrderActivity extends BaseActivity {
                 ViewLoading.dismiss(mContext);
                 GeneTreeOrderModel geneTreeOrderModel = (GeneTreeOrderModel) data;
                 if (geneTreeOrderModel.getCode() == 1) {
-
+                    Intent intent = new Intent(ConfirmOrderActivity.this, ECertActivity.class);
+                    intent.putExtra("order_no",geneTreeOrderModel.getData().getOrder_no());
+                    intent.putExtra("tree_id",getIntent().getStringExtra("id"));
+                    startActivity(intent);
                 }
             }
         });

@@ -115,6 +115,13 @@ public interface RemotDataSource {
     void orderReceipt(Map<String, String> queryMap, getCallback callback);
     void orderDetail(Map<String, String> queryMap, getCallback callback);
 
-
     void couponLists(Map<String, String> queryMap, getCallback callback);
+
+    void userTreeDetail(Map<String, String> queryMap, getCallback callback);
+
+    void grow(Map<String, String> queryMap, getCallback callback);
+
+    void treePacket(Map<String, String> queryMap, getCallback callback);
+
+    void certificateDetail(Map<String, String> queryMap, getCallback callback);
 }

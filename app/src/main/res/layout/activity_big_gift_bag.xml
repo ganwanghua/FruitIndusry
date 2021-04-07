@@ -75,125 +75,11 @@
                     android:background="#464646" />
             </LinearLayout>
 
-            <RelativeLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/bg_pink_5"
-                android:padding="10dp">
-
-                <ImageView
-                    android:id="@+id/iv_image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/a" />
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/iv_image"
-                    android:text="4斤肉枣"
-                    android:textColor="#111111"
-                    android:textSize="14sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_name"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/iv_image">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="￥"
-                        android:textColor="#DA251D"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="50"
-                        android:textColor="#DA251D"
-                        android:textSize="24sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/iv_image"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/iv_image"
-                    android:text="干果零食原味红枣5斤礼盒装"
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/bg_pink_5"
-                android:padding="10dp">
-
-                <ImageView
-                    android:id="@+id/iv_image1"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/a" />
-
-                <TextView
-                    android:id="@+id/tv_name1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/iv_image1"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="兵团大地价值60元混合大礼包一份"
-                    android:textColor="#111111"
-                    android:textSize="14sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_name1"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/iv_image1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="￥"
-                        android:textColor="#DA251D"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="60"
-                        android:textColor="#DA251D"
-                        android:textSize="24sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/iv_image1"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/iv_image1"
-                    android:text="干果零食原味红枣5斤礼盒装"
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
-            </RelativeLayout>
+                android:overScrollMode="never"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -221,12 +107,12 @@
             android:layout_below="@id/ll_big_gift"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_yellow_25"
+            android:background="@drawable/bg_yellow_15"
             android:paddingLeft="50dp"
             android:paddingTop="10dp"
             android:paddingRight="50dp"
             android:paddingBottom="10dp"
-            android:text="立即领取"
+            android:text="已领取"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </RelativeLayout>

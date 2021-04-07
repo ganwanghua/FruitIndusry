@@ -46,6 +46,7 @@
             android:src="@mipmap/logo1" />
 
         <LinearLayout
+            android:id="@+id/ll_tree_info"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_alignParentRight="true"
@@ -59,10 +60,10 @@
                 android:layout_marginLeft="3dp" />
 
             <TextView
+                android:id="@+id/tv_name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="我的"
                 android:textColor="#333333"
                 android:textSize="15sp" />
 
@@ -90,11 +91,29 @@
             android:layout_marginTop="10dp"
             android:src="@mipmap/maturity_cycle" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="55dp"
             android:layout_marginTop="10dp"
-            android:src="@mipmap/calendar" />
+            android:background="@mipmap/calendar">
+
+            <TextView
+                android:id="@+id/tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="#00A23B"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_day"
+                android:layout_toRightOf="@id/tv_day"
+                android:text="天"
+                android:textColor="#00A23B"
+                android:textSize="9dp" />
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -128,6 +147,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_collar_tree"
             android:layout_width="wrap_content"
             android:layout_height="46dp"
             android:layout_marginTop="10dp">
@@ -165,6 +185,7 @@
         android:src="@mipmap/cloud1" />
 
     <RelativeLayout
+        android:id="@+id/rl_tree1"
         android:layout_width="match_parent"
         android:layout_height="260dp"
         android:layout_below="@id/iv_cloud">
@@ -195,8 +216,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="5dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
                 android:src="@mipmap/wish" />
         </RelativeLayout>
 
@@ -303,10 +324,10 @@
                 android:id="@+id/iv_kettle"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
-                android:paddingLeft="10dp"
                 android:layout_alignParentRight="true"
-                android:visibility="invisible"
-                android:src="@mipmap/kettle" />
+                android:paddingLeft="10dp"
+                android:src="@mipmap/kettle"
+                android:visibility="invisible" />
 
             <ImageView
                 android:id="@+id/iv_water_drop"
@@ -314,23 +335,142 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:src="@mipmap/water_drop"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
             <ImageView
                 android:id="@+id/iv_water_drop1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/water_drop"
                 android:layout_below="@id/iv_water_drop"
-                android:visibility="invisible"/>
+                android:src="@mipmap/water_drop"
+                android:visibility="invisible" />
 
             <ImageView
                 android:id="@+id/iv_water_drop2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/water_drop"
                 android:layout_below="@id/iv_water_drop1"
-                android:visibility="invisible"/>
+                android:src="@mipmap/water_drop"
+                android:visibility="invisible" />
         </RelativeLayout>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_tree1"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_yellow_15"
+        android:drawableLeft="@mipmap/notice"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:text="李小猫浇水获得了15元优惠券。"
+        android:textColor="#FF9E2B" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_notice"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_green_13"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/monitoring" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="实时监控"
+                    android:textColor="#111111" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/certificate" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="我的证书"
+                    android:textColor="#111111" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/dash_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/invite_money" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="邀请赚钱"
+                    android:textColor="#111111" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/growth_track" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="成长轨迹"
+                    android:textColor="#111111" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
 </RelativeLayout>

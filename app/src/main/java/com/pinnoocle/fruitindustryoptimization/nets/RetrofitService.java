@@ -7,6 +7,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
+import com.pinnoocle.fruitindustryoptimization.bean.CertificateDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CollectModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CouponListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
@@ -17,6 +18,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.GroupBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupRuleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GrowModel;
 import com.pinnoocle.fruitindustryoptimization.bean.HomeModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
@@ -28,11 +30,13 @@ import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SharingGoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
+import com.pinnoocle.fruitindustryoptimization.bean.TreePacketModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreesDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
+import com.pinnoocle.fruitindustryoptimization.bean.UserTreeDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserTreesModel;
 import com.pinnoocle.fruitindustryoptimization.bean.VipIntroModel;
 import com.pinnoocle.fruitindustryoptimization.bean.VipListsModel;
@@ -244,12 +248,15 @@ public interface RetrofitService {
     //拼团详情
     @GET("index.php")
     Observable<SharingGoodsDetailModel> sharingGoodsDetail(@QueryMap Map<String, String> queryMap);
+
     //拼团规则
     @GET("index.php")
     Observable<GroupRuleModel> groupRule(@QueryMap Map<String, String> queryMap);
+
     //预开团
     @GET("index.php")
     Observable<BuyNowModel> groupBuy(@QueryMap Map<String, String> queryMap);
+
     //开团
     @POST("index.php")
     Observable<StatusModel> groupRightBuy(@QueryMap Map<String, String> queryMap);
@@ -265,6 +272,21 @@ public interface RetrofitService {
 
 
 
+    //用户果树详情
+    @POST("index.php")
+    Observable<UserTreeDetailModel> userTreeDetail(@QueryMap Map<String, String> queryMap);
+
+    //浇水施肥
+    @POST("index.php")
+    Observable<StatusModel> grow(@QueryMap Map<String, String> queryMap);
+
+    //果树大礼包
+    @POST("index.php")
+    Observable<TreePacketModel> treePacket(@QueryMap Map<String, String> queryMap);
+
+    //果树证书
+    @POST("index.php")
+    Observable<CertificateDetailModel> certificateDetail(@QueryMap Map<String, String> queryMap);
 
 
 }

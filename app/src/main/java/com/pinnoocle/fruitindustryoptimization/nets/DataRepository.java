@@ -290,4 +290,24 @@ public class DataRepository implements RemotDataSource {
         mRemoteDataSource.couponLists(queryMap, callback);
     }
 
+    @Override
+    public void userTreeDetail(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.userTreeDetail(queryMap, callback);
+    }
+
+    @Override
+    public void grow(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.grow(queryMap, callback);
+    }
+
+    @Override
+    public void treePacket(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.treePacket(queryMap, callback);
+    }
+
+    @Override
+    public void certificateDetail(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.certificateDetail(queryMap, callback);
+    }
+
 }
