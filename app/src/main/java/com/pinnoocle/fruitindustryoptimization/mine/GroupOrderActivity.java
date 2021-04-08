@@ -36,7 +36,7 @@ public class GroupOrderActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         initWhite();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
+        setContentView(R.layout.activity_group_order);
         ButterKnife.bind(this);
         initView();
         initData();
@@ -51,22 +51,22 @@ public class GroupOrderActivity extends BaseActivity {
 
     }
     private void initOrderTypes() {
-        orderTypes.add(Type.All);
-        orderTypes.add(Type.Payment);
-        orderTypes.add(Type.Delivery);
-        orderTypes.add(Type.Received);
-        orderTypes.add(Type.Comment);
+        orderTypes.add("all");
+        orderTypes.add("payment");
+        orderTypes.add("sharing");
+        orderTypes.add("delivery");
+        orderTypes.add("received");
     }
 
     private void initTabLayout() {
         List<String> titles = new ArrayList<>();
         titles.add("全部");
         titles.add("待付款");
+        titles.add("拼团中");
         titles.add("待发货");
         titles.add("待收货");
-        titles.add("待评价");
         for (int i = 0; i < titles.size(); i++) {
-            fragments.add(new OrderFragment(orderTypes.get(i) + ""));
+            fragments.add(new GroupOrderFragment(orderTypes.get(i) + ""));
         }
         FragmentAdapter adatper = new FragmentAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setAdapter(adatper);

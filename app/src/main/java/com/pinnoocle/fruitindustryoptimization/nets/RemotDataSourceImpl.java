@@ -17,6 +17,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsSearchModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GroupOrderListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupRuleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkModel;
@@ -1338,6 +1339,28 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(MyPushModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void groupOrderList(Map<String, String> queryMap, getCallback callback) {
+        Observable<GroupOrderListModel> observable = RetrofitHelper.getInstance(mContext).getServer().groupOrderList(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<GroupOrderListModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(GroupOrderListModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });

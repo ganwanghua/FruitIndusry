@@ -132,4 +132,6 @@ public interface RemotDataSource {
     void certificateDetail(Map<String, String> queryMap, getCallback callback);
 
     void myPush(Map<String, String> queryMap, getCallback callback);
+
+    void groupOrderList(Map<String, String> queryMap, getCallback callback);
 }

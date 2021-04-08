@@ -14,6 +14,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsSearchModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GroupOrderListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupRuleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkModel;
@@ -289,6 +290,10 @@ public interface RetrofitService {
     //付款
     @POST("index.php")
     Observable<StatusModel> orderPay(@QueryMap Map<String, String> queryMap);
+
+    //用户的拼团订单
+    @GET("index.php")
+    Observable<GroupOrderListModel> groupOrderList(@QueryMap Map<String, String> queryMap);
 
 
 
