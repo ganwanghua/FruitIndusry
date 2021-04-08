@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.widget.NestedScrollView;
 
 import com.bumptech.glide.Glide;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
@@ -121,6 +122,10 @@ public class WateringFruitTreesActivity extends BaseActivity {
     ImageView ivCloud1;
     @BindView(R.id.ll_cloud)
     RelativeLayout llCloud;
+    @BindView(R.id.tv_video_photos)
+    StrokeTextView1 tvVideoPhotos;
+    @BindView(R.id.scrollview)
+    NestedScrollView scrollview;
     private DataRepository dataRepository;
     private UserTreeDetailModel userTreeDetailModel;
     private EditText ed_name, ed_name1;
@@ -132,9 +137,9 @@ public class WateringFruitTreesActivity extends BaseActivity {
         setContentView(R.layout.activity_watering_fruit_trees);
         ButterKnife.bind(this);
         dataRepository = Injection.dataRepository(this);
-        DisplayMetrics dm=new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int screenW=dm.widthPixels;
+        int screenW = dm.widthPixels;
         ValueAnimator valueAnimator = ValueAnimator.ofInt(screenW, -screenW);
         valueAnimator.setInterpolator(new LinearInterpolator());
         valueAnimator.setRepeatCount(-1);
@@ -248,9 +253,14 @@ public class WateringFruitTreesActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.ll_live, R.id.ll_adoption_certificate, R.id.tv_name, R.id.iv_back, R.id.iv_wish, R.id.rl_big_gift_bag, R.id.ll_watering, R.id.rl_tree, R.id.ll_tree_info, R.id.rl_collar_tree, R.id.rl_fertilizer})
+    @OnClick({R.id.tv_video_photos, R.id.ll_live, R.id.ll_adoption_certificate, R.id.tv_name, R.id.iv_back, R.id.iv_wish, R.id.rl_big_gift_bag, R.id.ll_watering, R.id.rl_tree, R.id.ll_tree_info, R.id.rl_collar_tree, R.id.rl_fertilizer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_video_photos:
+                Intent intent3 = new Intent(WateringFruitTreesActivity.this, VideoPicActivity.class);
+                intent3.putExtra("tree_id", userTreeDetailModel.getData().getUser_tree().getUser_tree_id() + "");
+                startActivity(intent3);
+                break;
             case R.id.ll_live:
                 Intent intent1 = new Intent(WateringFruitTreesActivity.this, WebViewActivity.class);
                 intent1.putExtra("live", userTreeDetailModel.getData().getSetting().getLive());
@@ -308,7 +318,7 @@ public class WateringFruitTreesActivity extends BaseActivity {
                         .setScreenWidthAspect(this, 0.8f)
                         .setGravity(Gravity.CENTER)
                         .setCancelableOutside(true)
-                        .addOnClickListener(R.id.tv_save, R.id.rl_adoption_certificate, R.id.rl_broadcast, R.id.tv_renew)
+                        .addOnClickListener(R.id.tv_save, R.id.rl_adoption_certificate, R.id.rl_broadcast, R.id.tv_renew, R.id.rl_video_pic)
                         .setOnBindViewListener(new OnBindViewListener() {
                             @Override
                             public void bindView(BindViewHolder viewHolder) {
@@ -327,6 +337,11 @@ public class WateringFruitTreesActivity extends BaseActivity {
                             @Override
                             public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
                                 switch (view.getId()) {
+                                    case R.id.rl_video_pic:
+                                        Intent intent3 = new Intent(WateringFruitTreesActivity.this, VideoPicActivity.class);
+                                        intent3.putExtra("tree_id", userTreeDetailModel.getData().getUser_tree().getUser_tree_id() + "");
+                                        startActivity(intent3);
+                                        break;
                                     case R.id.tv_renew:
                                         tDialog.dismiss();
                                         new TDialog.Builder(getSupportFragmentManager())

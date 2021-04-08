@@ -308,9 +308,4 @@ public interface RetrofitService {
     //拼团订单详情
     @GET("index.php")
     Observable<OrderDetailModel> groupOrderDetail(@QueryMap Map<String, String> queryMap);
-
-
-
-
-
 }

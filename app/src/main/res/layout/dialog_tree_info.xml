@@ -199,6 +199,7 @@
             android:background="#ECECEC" />
 
         <RelativeLayout
+            android:id="@+id/rl_video_pic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
