@@ -72,12 +72,12 @@ public class GroupOrderAdapter extends BaseAdapter<GroupOrderListModel.DataBeanX
                 holder.tvAfterSales.setVisibility(View.GONE);
                 break;
 
-            case "已完成":
+            case "拼团未成功，已退款":
                 holder.tvAfterSales.setVisibility(View.GONE);
                 if (mDatas.get(position).getIs_comment() == 0) {
-                    holder.rlPanel.setVisibility(View.VISIBLE);
+                    holder.rlPanel.setVisibility(View.GONE);
                     holder.tvCancel.setVisibility(View.GONE);
-                    holder.tvPay.setText("去评价");
+
                 } else {
                     holder.rlPanel.setVisibility(View.GONE);
 
