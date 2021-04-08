@@ -41,7 +41,7 @@ public class InnerOrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.List
         holder.tvTitle.setText(mDatas.get(position).getGoods_name());
         holder.tvGoodsPattern.setText(mDatas.get(position).getGoods_attr());
         holder.tvNum.setText("x" + mDatas.get(position).getTotal_num());
-            holder.tvPrice.setText("￥" + mDatas.get(position).getGoods_price());
+        holder.tvPrice.setText("￥" + mDatas.get(position).getGoods_price());
 
         holder.itemView.setOnClickListener(v -> {
             if (mOnItemClickListener != null) {
@@ -66,6 +66,7 @@ public class InnerOrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.List
         TextView tvPrice;
         @BindView(R.id.tv_num)
         TextView tvNum;
+
         public VH(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

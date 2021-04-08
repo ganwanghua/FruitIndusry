@@ -1,5 +1,6 @@
 package com.pinnoocle.fruitindustryoptimization.nets;
 
+import com.pinnoocle.fruitindustryoptimization.bean.ActiveDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
@@ -14,6 +15,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsSearchModel;
+import com.pinnoocle.fruitindustryoptimization.bean.GroupOrderDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupOrderListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupRuleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupWorkListModel;
@@ -294,6 +296,16 @@ public interface RetrofitService {
     //用户的拼团订单
     @GET("index.php")
     Observable<GroupOrderListModel> groupOrderList(@QueryMap Map<String, String> queryMap);
+
+    //拼单详情
+    @GET("index.php")
+    Observable<ActiveDetailModel> activeDetail(@QueryMap Map<String, String> queryMap);
+
+    //拼团订单详情
+    @GET("index.php")
+    Observable<OrderDetailModel> groupOrderDetail(@QueryMap Map<String, String> queryMap);
+
+
 
 
 

@@ -16,9 +16,7 @@ import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.GroupOrderAdapter;
-import com.pinnoocle.fruitindustryoptimization.adapter.OrderAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupOrderListModel;
-import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
@@ -97,22 +95,16 @@ public class GroupOrderFragment extends BaseFragment implements OnRefreshLoadMor
         orderAdapter = new GroupOrderAdapter(getContext());
         recycleView.setAdapter(orderAdapter);
         refresh.setOnRefreshLoadMoreListener(this);
-        orderAdapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<OrderListModel.DataBeanX.ListBean.DataBean>() {
+        orderAdapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<GroupOrderListModel.DataBeanX.ListBean.DataBean>() {
             @Override
-            public void onItemViewClick(View view, int position, OrderListModel.DataBeanX.ListBean.DataBean o) {
+            public void onItemViewClick(View view, int position, GroupOrderListModel.DataBeanX.ListBean.DataBean o) {
                 switch (view.getId()) {
                     case R.id.tv_cancel:
                         if (o.getState_text().equals("待付款")) {  //取消
-                            showOrderCancelDialog(o.getOrder_id() + "");
-                        }
-                        break;
-
-                    case R.id.tv_pay:
-                        if (o.getState_text().equals("待付款")) {  //去付款
-                            showOrderPayDialog(o.getOrder_id() + "", o.getOrder_no());
-                        } else if (o.getState_text().equals("已付款，待发货") || o.getState_text().equals("已发货，待收货")) {
-                            Intent intent = new Intent(mContext, OrderDetailActivity.class);
-                            intent.putExtra("order_id", o.getOrder_id() + "");
+                            showTipDialog();
+                        } else if (o.getState_text().equals("已付款，待成团") || o.getState_text().equals("已发货，待收货")) {
+                            Intent intent = new Intent(mContext, GroupWorkDetailActivity.class);
+                            intent.putExtra("active_id", o.getActive_id() + "");
                             startActivity(intent);
                         } else if (o.getState_text().equals("已完成")) {//去评价
 //                            Intent intent = new Intent(getContext(), OrderCommentActivity.class);
@@ -120,7 +112,12 @@ public class GroupOrderFragment extends BaseFragment implements OnRefreshLoadMor
 //                            startActivity(intent);
 
                         }
+                        break;
 
+                    case R.id.tv_pay:
+                        if (o.getState_text().equals("待付款")) {  //去付款
+                            showOrderPayDialog(o.getOrder_id() + "", o.getOrder_no());
+                        }
                         break;
 
 //                    default:
@@ -290,6 +287,28 @@ public class GroupOrderFragment extends BaseFragment implements OnRefreshLoadMor
                 .create()
                 .show();
     }
+
+    private void showTipDialog() {
+        new TDialog.Builder(getActivity().getSupportFragmentManager())
+                .setLayoutRes(R.layout.tip_dialog)
+                .setScreenWidthAspect(getContext(), 0.7f)
+                .setGravity(Gravity.CENTER)
+                .setCancelableOutside(false)
+                .addOnClickListener(R.id.tv_sure)
+                .setOnViewClickListener(new OnViewClickListener() {
+                    @Override
+                    public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+                        switch (view.getId()) {
+                            case R.id.tv_sure:
+                                tDialog.dismiss();
+                                break;
+                        }
+                    }
+                })
+                .create()
+                .show();
+    }
+
 
     private void showOrderConfirmDialog(String order_ids, String order_no) {
         new TDialog.Builder(getActivity().getSupportFragmentManager())

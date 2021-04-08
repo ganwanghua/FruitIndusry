@@ -134,4 +134,8 @@ public interface RemotDataSource {
     void myPush(Map<String, String> queryMap, getCallback callback);
 
     void groupOrderList(Map<String, String> queryMap, getCallback callback);
+
+    void activeDetail(Map<String, String> queryMap, getCallback callback);
+
+    void groupOrderDetail(Map<String, String> queryMap, getCallback callback);
 }

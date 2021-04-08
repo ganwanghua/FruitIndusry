@@ -1,5 +1,9 @@
 package com.pinnoocle.fruitindustryoptimization.bean;
 
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.pinnoocle.fruitindustryoptimization.adapter.RawStringJsonAdapter;
+
 import java.util.List;
 
 public class GroupOrderListModel {
@@ -7,7 +11,7 @@ public class GroupOrderListModel {
     /**
      * code : 1
      * msg : success
-     * data : {"list":{"total":1,"per_page":15,"current_page":1,"last_page":1,"data":[{"order_id":10156,"order_no":"2021031116354549541021","total_price":"126.00","order_price":"126.00","order_type":{"text":"拼团","value":20},"active_id":0,"coupon_id":0,"coupon_money":"0.00","points_money":"0.00","points_num":0,"virtual_code":"","virtual_code_money":"0.00","pay_price":"126.00","update_price":{"symbol":"+","value":"0.00"},"buyer_remark":"RWE","pay_type":{"text":"微信支付","value":20},"pay_status":{"text":"待付款","value":10},"pay_time":0,"delivery_type":{"text":"快递配送","value":10},"extract_shop_id":0,"extract_clerk_id":0,"express_price":"0.00","express_id":0,"express_company":"","express_no":"","delivery_status":{"text":"待发货","value":10},"delivery_time":0,"receipt_status":{"text":"待收货","value":10},"receipt_time":0,"order_status":{"text":"已取消","value":20},"points_bonus":0,"is_settled":0,"is_refund":0,"transaction_id":"","is_comment":0,"user_id":17139,"is_delete":0,"create_time":"2021-03-11 16:35:45","active_status":false,"goods":[{"order_goods_id":10156,"goods_id":10088,"goods_name":"兵团大地小兵坚果礼盒750g","image_id":24544,"selling_point":"","people":10,"group_time":24,"is_alone":0,"deduct_stock_type":10,"spec_type":10,"spec_sku_id":"0","goods_sku_id":10459,"goods_attr":"","goods_no":"","goods_price":"148.00","line_price":"0.00","goods_weight":0.75,"is_user_grade":1,"grade_ratio":1,"grade_goods_price":"126.00","grade_total_money":"14.00","coupon_money":"0.00","points_money":"0.00","points_num":0,"points_bonus":0,"virtual_code_money":"0.00","total_num":1,"total_price":"126.00","total_pay_price":"126.00","is_ind_dealer":0,"dealer_money_type":10,"first_money":"0.00","second_money":"0.00","third_money":"0.00","is_comment":0,"order_id":10156,"user_id":17139,"image":{"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.cc/uploads/2020090816231978dc05966.png"}}],"active":null,"state_text":"已取消"}]}}
+     * data : {"list":{"total":2,"per_page":15,"current_page":1,"last_page":1,"data":[{"order_id":10163,"order_no":"2021040809130099535610","total_price":"126.00","order_price":"126.00","order_type":{"text":"拼团","value":20},"active_id":10137,"coupon_id":0,"coupon_money":"0.00","points_money":"0.00","points_num":0,"virtual_code":"","virtual_code_money":"0.00","pay_price":"126.00","update_price":{"symbol":"+","value":"0.00"},"buyer_remark":"","pay_type":{"text":"余额支付","value":10},"pay_status":{"text":"已付款","value":20},"pay_time":1617844380,"delivery_type":{"text":"快递配送","value":10},"extract_shop_id":0,"extract_clerk_id":0,"express_price":"0.00","express_id":0,"express_company":"","express_no":"","delivery_status":{"text":"待发货","value":10},"delivery_time":0,"receipt_status":{"text":"待收货","value":10},"receipt_time":0,"order_status":{"text":"进行中","value":10},"points_bonus":0,"is_settled":0,"is_refund":0,"transaction_id":"","is_comment":0,"user_id":17145,"is_delete":0,"create_time":"2021-04-08 09:13:00","active_status":{"text":"拼单中","value":10},"goods":[{"order_goods_id":10162,"goods_id":10088,"goods_name":"兵团大地小兵坚果礼盒750g","image_id":24544,"selling_point":"","people":10,"group_time":24,"is_alone":0,"deduct_stock_type":10,"spec_type":10,"spec_sku_id":"0","goods_sku_id":10459,"goods_attr":"","goods_no":"","goods_price":"148.00","line_price":"0.00","goods_weight":0.75,"is_user_grade":1,"grade_ratio":1,"grade_goods_price":"126.00","grade_total_money":"14.00","coupon_money":"0.00","points_money":"0.00","points_num":0,"points_bonus":0,"virtual_code_money":"0.00","total_num":1,"total_price":"126.00","total_pay_price":"126.00","is_ind_dealer":0,"dealer_money_type":10,"first_money":"0.00","second_money":"0.00","third_money":"0.00","is_comment":0,"order_id":10163,"user_id":17145,"image":{"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.vshop365.cn/uploads/2020090816231978dc05966.png"}}],"active":{"active_id":10137,"goods_id":10088,"people":10,"actual_people":1,"creator_id":17145,"end_time":{"text":"2021-04-09 09:13:00","value":1617930780},"status":{"text":"拼单中","value":10},"surplus_people":9},"state_text":"已付款，待成团"},{"order_id":10162,"order_no":"2021040717064856999952","total_price":"126.00","order_price":"126.00","order_type":{"text":"拼团","value":20},"active_id":10136,"coupon_id":0,"coupon_money":"0.00","points_money":"0.00","points_num":0,"virtual_code":"","virtual_code_money":"0.00","pay_price":"126.00","update_price":{"symbol":"+","value":"0.00"},"buyer_remark":"","pay_type":{"text":"余额支付","value":10},"pay_status":{"text":"已付款","value":20},"pay_time":1617786409,"delivery_type":{"text":"快递配送","value":10},"extract_shop_id":0,"extract_clerk_id":0,"express_price":"0.00","express_id":0,"express_company":"","express_no":"","delivery_status":{"text":"待发货","value":10},"delivery_time":0,"receipt_status":{"text":"待收货","value":10},"receipt_time":0,"order_status":{"text":"进行中","value":10},"points_bonus":0,"is_settled":0,"is_refund":0,"transaction_id":"","is_comment":0,"user_id":17145,"is_delete":0,"create_time":"2021-04-07 17:06:48","active_status":{"text":"拼单中","value":10},"goods":[{"order_goods_id":10161,"goods_id":10088,"goods_name":"兵团大地小兵坚果礼盒750g","image_id":24544,"selling_point":"","people":10,"group_time":24,"is_alone":0,"deduct_stock_type":10,"spec_type":10,"spec_sku_id":"0","goods_sku_id":10459,"goods_attr":"","goods_no":"","goods_price":"148.00","line_price":"0.00","goods_weight":0.75,"is_user_grade":1,"grade_ratio":1,"grade_goods_price":"126.00","grade_total_money":"14.00","coupon_money":"0.00","points_money":"0.00","points_num":0,"points_bonus":0,"virtual_code_money":"0.00","total_num":1,"total_price":"126.00","total_pay_price":"126.00","is_ind_dealer":0,"dealer_money_type":10,"first_money":"0.00","second_money":"0.00","third_money":"0.00","is_comment":0,"order_id":10162,"user_id":17145,"image":{"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.vshop365.cn/uploads/2020090816231978dc05966.png"}}],"active":{"active_id":10136,"goods_id":10088,"people":10,"actual_people":1,"creator_id":17145,"end_time":{"text":"2021-04-08 17:06:49","value":1617872809},"status":{"text":"拼单中","value":10},"surplus_people":9},"state_text":"已付款，待成团"}]}}
      */
 
     private int code;
@@ -40,7 +44,7 @@ public class GroupOrderListModel {
 
     public static class DataBeanX {
         /**
-         * list : {"total":1,"per_page":15,"current_page":1,"last_page":1,"data":[{"order_id":10156,"order_no":"2021031116354549541021","total_price":"126.00","order_price":"126.00","order_type":{"text":"拼团","value":20},"active_id":0,"coupon_id":0,"coupon_money":"0.00","points_money":"0.00","points_num":0,"virtual_code":"","virtual_code_money":"0.00","pay_price":"126.00","update_price":{"symbol":"+","value":"0.00"},"buyer_remark":"RWE","pay_type":{"text":"微信支付","value":20},"pay_status":{"text":"待付款","value":10},"pay_time":0,"delivery_type":{"text":"快递配送","value":10},"extract_shop_id":0,"extract_clerk_id":0,"express_price":"0.00","express_id":0,"express_company":"","express_no":"","delivery_status":{"text":"待发货","value":10},"delivery_time":0,"receipt_status":{"text":"待收货","value":10},"receipt_time":0,"order_status":{"text":"已取消","value":20},"points_bonus":0,"is_settled":0,"is_refund":0,"transaction_id":"","is_comment":0,"user_id":17139,"is_delete":0,"create_time":"2021-03-11 16:35:45","active_status":false,"goods":[{"order_goods_id":10156,"goods_id":10088,"goods_name":"兵团大地小兵坚果礼盒750g","image_id":24544,"selling_point":"","people":10,"group_time":24,"is_alone":0,"deduct_stock_type":10,"spec_type":10,"spec_sku_id":"0","goods_sku_id":10459,"goods_attr":"","goods_no":"","goods_price":"148.00","line_price":"0.00","goods_weight":0.75,"is_user_grade":1,"grade_ratio":1,"grade_goods_price":"126.00","grade_total_money":"14.00","coupon_money":"0.00","points_money":"0.00","points_num":0,"points_bonus":0,"virtual_code_money":"0.00","total_num":1,"total_price":"126.00","total_pay_price":"126.00","is_ind_dealer":0,"dealer_money_type":10,"first_money":"0.00","second_money":"0.00","third_money":"0.00","is_comment":0,"order_id":10156,"user_id":17139,"image":{"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.cc/uploads/2020090816231978dc05966.png"}}],"active":null,"state_text":"已取消"}]}
+         * list : {"total":2,"per_page":15,"current_page":1,"last_page":1,"data":[{"order_id":10163,"order_no":"2021040809130099535610","total_price":"126.00","order_price":"126.00","order_type":{"text":"拼团","value":20},"active_id":10137,"coupon_id":0,"coupon_money":"0.00","points_money":"0.00","points_num":0,"virtual_code":"","virtual_code_money":"0.00","pay_price":"126.00","update_price":{"symbol":"+","value":"0.00"},"buyer_remark":"","pay_type":{"text":"余额支付","value":10},"pay_status":{"text":"已付款","value":20},"pay_time":1617844380,"delivery_type":{"text":"快递配送","value":10},"extract_shop_id":0,"extract_clerk_id":0,"express_price":"0.00","express_id":0,"express_company":"","express_no":"","delivery_status":{"text":"待发货","value":10},"delivery_time":0,"receipt_status":{"text":"待收货","value":10},"receipt_time":0,"order_status":{"text":"进行中","value":10},"points_bonus":0,"is_settled":0,"is_refund":0,"transaction_id":"","is_comment":0,"user_id":17145,"is_delete":0,"create_time":"2021-04-08 09:13:00","active_status":{"text":"拼单中","value":10},"goods":[{"order_goods_id":10162,"goods_id":10088,"goods_name":"兵团大地小兵坚果礼盒750g","image_id":24544,"selling_point":"","people":10,"group_time":24,"is_alone":0,"deduct_stock_type":10,"spec_type":10,"spec_sku_id":"0","goods_sku_id":10459,"goods_attr":"","goods_no":"","goods_price":"148.00","line_price":"0.00","goods_weight":0.75,"is_user_grade":1,"grade_ratio":1,"grade_goods_price":"126.00","grade_total_money":"14.00","coupon_money":"0.00","points_money":"0.00","points_num":0,"points_bonus":0,"virtual_code_money":"0.00","total_num":1,"total_price":"126.00","total_pay_price":"126.00","is_ind_dealer":0,"dealer_money_type":10,"first_money":"0.00","second_money":"0.00","third_money":"0.00","is_comment":0,"order_id":10163,"user_id":17145,"image":{"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.vshop365.cn/uploads/2020090816231978dc05966.png"}}],"active":{"active_id":10137,"goods_id":10088,"people":10,"actual_people":1,"creator_id":17145,"end_time":{"text":"2021-04-09 09:13:00","value":1617930780},"status":{"text":"拼单中","value":10},"surplus_people":9},"state_text":"已付款，待成团"},{"order_id":10162,"order_no":"2021040717064856999952","total_price":"126.00","order_price":"126.00","order_type":{"text":"拼团","value":20},"active_id":10136,"coupon_id":0,"coupon_money":"0.00","points_money":"0.00","points_num":0,"virtual_code":"","virtual_code_money":"0.00","pay_price":"126.00","update_price":{"symbol":"+","value":"0.00"},"buyer_remark":"","pay_type":{"text":"余额支付","value":10},"pay_status":{"text":"已付款","value":20},"pay_time":1617786409,"delivery_type":{"text":"快递配送","value":10},"extract_shop_id":0,"extract_clerk_id":0,"express_price":"0.00","express_id":0,"express_company":"","express_no":"","delivery_status":{"text":"待发货","value":10},"delivery_time":0,"receipt_status":{"text":"待收货","value":10},"receipt_time":0,"order_status":{"text":"进行中","value":10},"points_bonus":0,"is_settled":0,"is_refund":0,"transaction_id":"","is_comment":0,"user_id":17145,"is_delete":0,"create_time":"2021-04-07 17:06:48","active_status":{"text":"拼单中","value":10},"goods":[{"order_goods_id":10161,"goods_id":10088,"goods_name":"兵团大地小兵坚果礼盒750g","image_id":24544,"selling_point":"","people":10,"group_time":24,"is_alone":0,"deduct_stock_type":10,"spec_type":10,"spec_sku_id":"0","goods_sku_id":10459,"goods_attr":"","goods_no":"","goods_price":"148.00","line_price":"0.00","goods_weight":0.75,"is_user_grade":1,"grade_ratio":1,"grade_goods_price":"126.00","grade_total_money":"14.00","coupon_money":"0.00","points_money":"0.00","points_num":0,"points_bonus":0,"virtual_code_money":"0.00","total_num":1,"total_price":"126.00","total_pay_price":"126.00","is_ind_dealer":0,"dealer_money_type":10,"first_money":"0.00","second_money":"0.00","third_money":"0.00","is_comment":0,"order_id":10162,"user_id":17145,"image":{"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.vshop365.cn/uploads/2020090816231978dc05966.png"}}],"active":{"active_id":10136,"goods_id":10088,"people":10,"actual_people":1,"creator_id":17145,"end_time":{"text":"2021-04-08 17:06:49","value":1617872809},"status":{"text":"拼单中","value":10},"surplus_people":9},"state_text":"已付款，待成团"}]}
          */
 
         private ListBean list;
@@ -55,11 +59,11 @@ public class GroupOrderListModel {
 
         public static class ListBean {
             /**
-             * total : 1
+             * total : 2
              * per_page : 15
              * current_page : 1
              * last_page : 1
-             * data : [{"order_id":10156,"order_no":"2021031116354549541021","total_price":"126.00","order_price":"126.00","order_type":{"text":"拼团","value":20},"active_id":0,"coupon_id":0,"coupon_money":"0.00","points_money":"0.00","points_num":0,"virtual_code":"","virtual_code_money":"0.00","pay_price":"126.00","update_price":{"symbol":"+","value":"0.00"},"buyer_remark":"RWE","pay_type":{"text":"微信支付","value":20},"pay_status":{"text":"待付款","value":10},"pay_time":0,"delivery_type":{"text":"快递配送","value":10},"extract_shop_id":0,"extract_clerk_id":0,"express_price":"0.00","express_id":0,"express_company":"","express_no":"","delivery_status":{"text":"待发货","value":10},"delivery_time":0,"receipt_status":{"text":"待收货","value":10},"receipt_time":0,"order_status":{"text":"已取消","value":20},"points_bonus":0,"is_settled":0,"is_refund":0,"transaction_id":"","is_comment":0,"user_id":17139,"is_delete":0,"create_time":"2021-03-11 16:35:45","active_status":false,"goods":[{"order_goods_id":10156,"goods_id":10088,"goods_name":"兵团大地小兵坚果礼盒750g","image_id":24544,"selling_point":"","people":10,"group_time":24,"is_alone":0,"deduct_stock_type":10,"spec_type":10,"spec_sku_id":"0","goods_sku_id":10459,"goods_attr":"","goods_no":"","goods_price":"148.00","line_price":"0.00","goods_weight":0.75,"is_user_grade":1,"grade_ratio":1,"grade_goods_price":"126.00","grade_total_money":"14.00","coupon_money":"0.00","points_money":"0.00","points_num":0,"points_bonus":0,"virtual_code_money":"0.00","total_num":1,"total_price":"126.00","total_pay_price":"126.00","is_ind_dealer":0,"dealer_money_type":10,"first_money":"0.00","second_money":"0.00","third_money":"0.00","is_comment":0,"order_id":10156,"user_id":17139,"image":{"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.cc/uploads/2020090816231978dc05966.png"}}],"active":null,"state_text":"已取消"}]
+             * data : [{"order_id":10163,"order_no":"2021040809130099535610","total_price":"126.00","order_price":"126.00","order_type":{"text":"拼团","value":20},"active_id":10137,"coupon_id":0,"coupon_money":"0.00","points_money":"0.00","points_num":0,"virtual_code":"","virtual_code_money":"0.00","pay_price":"126.00","update_price":{"symbol":"+","value":"0.00"},"buyer_remark":"","pay_type":{"text":"余额支付","value":10},"pay_status":{"text":"已付款","value":20},"pay_time":1617844380,"delivery_type":{"text":"快递配送","value":10},"extract_shop_id":0,"extract_clerk_id":0,"express_price":"0.00","express_id":0,"express_company":"","express_no":"","delivery_status":{"text":"待发货","value":10},"delivery_time":0,"receipt_status":{"text":"待收货","value":10},"receipt_time":0,"order_status":{"text":"进行中","value":10},"points_bonus":0,"is_settled":0,"is_refund":0,"transaction_id":"","is_comment":0,"user_id":17145,"is_delete":0,"create_time":"2021-04-08 09:13:00","active_status":{"text":"拼单中","value":10},"goods":[{"order_goods_id":10162,"goods_id":10088,"goods_name":"兵团大地小兵坚果礼盒750g","image_id":24544,"selling_point":"","people":10,"group_time":24,"is_alone":0,"deduct_stock_type":10,"spec_type":10,"spec_sku_id":"0","goods_sku_id":10459,"goods_attr":"","goods_no":"","goods_price":"148.00","line_price":"0.00","goods_weight":0.75,"is_user_grade":1,"grade_ratio":1,"grade_goods_price":"126.00","grade_total_money":"14.00","coupon_money":"0.00","points_money":"0.00","points_num":0,"points_bonus":0,"virtual_code_money":"0.00","total_num":1,"total_price":"126.00","total_pay_price":"126.00","is_ind_dealer":0,"dealer_money_type":10,"first_money":"0.00","second_money":"0.00","third_money":"0.00","is_comment":0,"order_id":10163,"user_id":17145,"image":{"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.vshop365.cn/uploads/2020090816231978dc05966.png"}}],"active":{"active_id":10137,"goods_id":10088,"people":10,"actual_people":1,"creator_id":17145,"end_time":{"text":"2021-04-09 09:13:00","value":1617930780},"status":{"text":"拼单中","value":10},"surplus_people":9},"state_text":"已付款，待成团"},{"order_id":10162,"order_no":"2021040717064856999952","total_price":"126.00","order_price":"126.00","order_type":{"text":"拼团","value":20},"active_id":10136,"coupon_id":0,"coupon_money":"0.00","points_money":"0.00","points_num":0,"virtual_code":"","virtual_code_money":"0.00","pay_price":"126.00","update_price":{"symbol":"+","value":"0.00"},"buyer_remark":"","pay_type":{"text":"余额支付","value":10},"pay_status":{"text":"已付款","value":20},"pay_time":1617786409,"delivery_type":{"text":"快递配送","value":10},"extract_shop_id":0,"extract_clerk_id":0,"express_price":"0.00","express_id":0,"express_company":"","express_no":"","delivery_status":{"text":"待发货","value":10},"delivery_time":0,"receipt_status":{"text":"待收货","value":10},"receipt_time":0,"order_status":{"text":"进行中","value":10},"points_bonus":0,"is_settled":0,"is_refund":0,"transaction_id":"","is_comment":0,"user_id":17145,"is_delete":0,"create_time":"2021-04-07 17:06:48","active_status":{"text":"拼单中","value":10},"goods":[{"order_goods_id":10161,"goods_id":10088,"goods_name":"兵团大地小兵坚果礼盒750g","image_id":24544,"selling_point":"","people":10,"group_time":24,"is_alone":0,"deduct_stock_type":10,"spec_type":10,"spec_sku_id":"0","goods_sku_id":10459,"goods_attr":"","goods_no":"","goods_price":"148.00","line_price":"0.00","goods_weight":0.75,"is_user_grade":1,"grade_ratio":1,"grade_goods_price":"126.00","grade_total_money":"14.00","coupon_money":"0.00","points_money":"0.00","points_num":0,"points_bonus":0,"virtual_code_money":"0.00","total_num":1,"total_price":"126.00","total_pay_price":"126.00","is_ind_dealer":0,"dealer_money_type":10,"first_money":"0.00","second_money":"0.00","third_money":"0.00","is_comment":0,"order_id":10162,"user_id":17145,"image":{"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.vshop365.cn/uploads/2020090816231978dc05966.png"}}],"active":{"active_id":10136,"goods_id":10088,"people":10,"actual_people":1,"creator_id":17145,"end_time":{"text":"2021-04-08 17:06:49","value":1617872809},"status":{"text":"拼单中","value":10},"surplus_people":9},"state_text":"已付款，待成团"}]
              */
 
             private int total;
@@ -110,12 +114,12 @@ public class GroupOrderListModel {
 
             public static class DataBean {
                 /**
-                 * order_id : 10156
-                 * order_no : 2021031116354549541021
+                 * order_id : 10163
+                 * order_no : 2021040809130099535610
                  * total_price : 126.00
                  * order_price : 126.00
                  * order_type : {"text":"拼团","value":20}
-                 * active_id : 0
+                 * active_id : 10137
                  * coupon_id : 0
                  * coupon_money : 0.00
                  * points_money : 0.00
@@ -124,10 +128,10 @@ public class GroupOrderListModel {
                  * virtual_code_money : 0.00
                  * pay_price : 126.00
                  * update_price : {"symbol":"+","value":"0.00"}
-                 * buyer_remark : RWE
-                 * pay_type : {"text":"微信支付","value":20}
-                 * pay_status : {"text":"待付款","value":10}
-                 * pay_time : 0
+                 * buyer_remark :
+                 * pay_type : {"text":"余额支付","value":10}
+                 * pay_status : {"text":"已付款","value":20}
+                 * pay_time : 1617844380
                  * delivery_type : {"text":"快递配送","value":10}
                  * extract_shop_id : 0
                  * extract_clerk_id : 0
@@ -139,19 +143,19 @@ public class GroupOrderListModel {
                  * delivery_time : 0
                  * receipt_status : {"text":"待收货","value":10}
                  * receipt_time : 0
-                 * order_status : {"text":"已取消","value":20}
+                 * order_status : {"text":"进行中","value":10}
                  * points_bonus : 0
                  * is_settled : 0
                  * is_refund : 0
                  * transaction_id :
                  * is_comment : 0
-                 * user_id : 17139
+                 * user_id : 17145
                  * is_delete : 0
-                 * create_time : 2021-03-11 16:35:45
-                 * active_status : false
-                 * goods : [{"order_goods_id":10156,"goods_id":10088,"goods_name":"兵团大地小兵坚果礼盒750g","image_id":24544,"selling_point":"","people":10,"group_time":24,"is_alone":0,"deduct_stock_type":10,"spec_type":10,"spec_sku_id":"0","goods_sku_id":10459,"goods_attr":"","goods_no":"","goods_price":"148.00","line_price":"0.00","goods_weight":0.75,"is_user_grade":1,"grade_ratio":1,"grade_goods_price":"126.00","grade_total_money":"14.00","coupon_money":"0.00","points_money":"0.00","points_num":0,"points_bonus":0,"virtual_code_money":"0.00","total_num":1,"total_price":"126.00","total_pay_price":"126.00","is_ind_dealer":0,"dealer_money_type":10,"first_money":"0.00","second_money":"0.00","third_money":"0.00","is_comment":0,"order_id":10156,"user_id":17139,"image":{"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.cc/uploads/2020090816231978dc05966.png"}}]
-                 * active : null
-                 * state_text : 已取消
+                 * create_time : 2021-04-08 09:13:00
+                 * active_status : {"text":"拼单中","value":10}
+                 * goods : [{"order_goods_id":10162,"goods_id":10088,"goods_name":"兵团大地小兵坚果礼盒750g","image_id":24544,"selling_point":"","people":10,"group_time":24,"is_alone":0,"deduct_stock_type":10,"spec_type":10,"spec_sku_id":"0","goods_sku_id":10459,"goods_attr":"","goods_no":"","goods_price":"148.00","line_price":"0.00","goods_weight":0.75,"is_user_grade":1,"grade_ratio":1,"grade_goods_price":"126.00","grade_total_money":"14.00","coupon_money":"0.00","points_money":"0.00","points_num":0,"points_bonus":0,"virtual_code_money":"0.00","total_num":1,"total_price":"126.00","total_pay_price":"126.00","is_ind_dealer":0,"dealer_money_type":10,"first_money":"0.00","second_money":"0.00","third_money":"0.00","is_comment":0,"order_id":10163,"user_id":17145,"image":{"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.vshop365.cn/uploads/2020090816231978dc05966.png"}}]
+                 * active : {"active_id":10137,"goods_id":10088,"people":10,"actual_people":1,"creator_id":17145,"end_time":{"text":"2021-04-09 09:13:00","value":1617930780},"status":{"text":"拼单中","value":10},"surplus_people":9}
+                 * state_text : 已付款，待成团
                  */
 
                 private int order_id;
@@ -192,8 +196,10 @@ public class GroupOrderListModel {
                 private int user_id;
                 private int is_delete;
                 private String create_time;
-                private boolean active_status;
-                private Object active;
+                @SerializedName("active_status")
+                @JsonAdapter(RawStringJsonAdapter.class)
+                private String active_status;
+                private ActiveBean active;
                 private String state_text;
                 private List<GoodsBean> goods;
 
@@ -501,19 +507,19 @@ public class GroupOrderListModel {
                     this.create_time = create_time;
                 }
 
-                public boolean isActive_status() {
+                public String getActive_status() {
                     return active_status;
                 }
 
-                public void setActive_status(boolean active_status) {
+                public void setActive_status(String active_status) {
                     this.active_status = active_status;
                 }
 
-                public Object getActive() {
+                public ActiveBean getActive() {
                     return active;
                 }
 
-                public void setActive(Object active) {
+                public void setActive(ActiveBean active) {
                     this.active = active;
                 }
 
@@ -587,8 +593,8 @@ public class GroupOrderListModel {
 
                 public static class PayTypeBean {
                     /**
-                     * text : 微信支付
-                     * value : 20
+                     * text : 余额支付
+                     * value : 10
                      */
 
                     private String text;
@@ -613,8 +619,8 @@ public class GroupOrderListModel {
 
                 public static class PayStatusBean {
                     /**
-                     * text : 待付款
-                     * value : 10
+                     * text : 已付款
+                     * value : 20
                      */
 
                     private String text;
@@ -717,8 +723,8 @@ public class GroupOrderListModel {
 
                 public static class OrderStatusBean {
                     /**
-                     * text : 已取消
-                     * value : 20
+                     * text : 进行中
+                     * value : 10
                      */
 
                     private String text;
@@ -741,9 +747,173 @@ public class GroupOrderListModel {
                     }
                 }
 
+                public static class ActiveStatusBean {
+                    /**
+                     * text : 拼单中
+                     * value : 10
+                     */
+
+                    private String text;
+                    private int value;
+
+                    public String getText() {
+                        return text;
+                    }
+
+                    public void setText(String text) {
+                        this.text = text;
+                    }
+
+                    public int getValue() {
+                        return value;
+                    }
+
+                    public void setValue(int value) {
+                        this.value = value;
+                    }
+                }
+
+                public static class ActiveBean {
+                    /**
+                     * active_id : 10137
+                     * goods_id : 10088
+                     * people : 10
+                     * actual_people : 1
+                     * creator_id : 17145
+                     * end_time : {"text":"2021-04-09 09:13:00","value":1617930780}
+                     * status : {"text":"拼单中","value":10}
+                     * surplus_people : 9
+                     */
+
+                    private int active_id;
+                    private int goods_id;
+                    private int people;
+                    private int actual_people;
+                    private int creator_id;
+                    private EndTimeBean end_time;
+                    private StatusBean status;
+                    private int surplus_people;
+
+                    public int getActive_id() {
+                        return active_id;
+                    }
+
+                    public void setActive_id(int active_id) {
+                        this.active_id = active_id;
+                    }
+
+                    public int getGoods_id() {
+                        return goods_id;
+                    }
+
+                    public void setGoods_id(int goods_id) {
+                        this.goods_id = goods_id;
+                    }
+
+                    public int getPeople() {
+                        return people;
+                    }
+
+                    public void setPeople(int people) {
+                        this.people = people;
+                    }
+
+                    public int getActual_people() {
+                        return actual_people;
+                    }
+
+                    public void setActual_people(int actual_people) {
+                        this.actual_people = actual_people;
+                    }
+
+                    public int getCreator_id() {
+                        return creator_id;
+                    }
+
+                    public void setCreator_id(int creator_id) {
+                        this.creator_id = creator_id;
+                    }
+
+                    public EndTimeBean getEnd_time() {
+                        return end_time;
+                    }
+
+                    public void setEnd_time(EndTimeBean end_time) {
+                        this.end_time = end_time;
+                    }
+
+                    public StatusBean getStatus() {
+                        return status;
+                    }
+
+                    public void setStatus(StatusBean status) {
+                        this.status = status;
+                    }
+
+                    public int getSurplus_people() {
+                        return surplus_people;
+                    }
+
+                    public void setSurplus_people(int surplus_people) {
+                        this.surplus_people = surplus_people;
+                    }
+
+                    public static class EndTimeBean {
+                        /**
+                         * text : 2021-04-09 09:13:00
+                         * value : 1617930780
+                         */
+
+                        private String text;
+                        private int value;
+
+                        public String getText() {
+                            return text;
+                        }
+
+                        public void setText(String text) {
+                            this.text = text;
+                        }
+
+                        public int getValue() {
+                            return value;
+                        }
+
+                        public void setValue(int value) {
+                            this.value = value;
+                        }
+                    }
+
+                    public static class StatusBean {
+                        /**
+                         * text : 拼单中
+                         * value : 10
+                         */
+
+                        private String text;
+                        private int value;
+
+                        public String getText() {
+                            return text;
+                        }
+
+                        public void setText(String text) {
+                            this.text = text;
+                        }
+
+                        public int getValue() {
+                            return value;
+                        }
+
+                        public void setValue(int value) {
+                            this.value = value;
+                        }
+                    }
+                }
+
                 public static class GoodsBean {
                     /**
-                     * order_goods_id : 10156
+                     * order_goods_id : 10162
                      * goods_id : 10088
                      * goods_name : 兵团大地小兵坚果礼盒750g
                      * image_id : 24544
@@ -778,9 +948,9 @@ public class GroupOrderListModel {
                      * second_money : 0.00
                      * third_money : 0.00
                      * is_comment : 0
-                     * order_id : 10156
-                     * user_id : 17139
-                     * image : {"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.cc/uploads/2020090816231978dc05966.png"}
+                     * order_id : 10163
+                     * user_id : 17145
+                     * image : {"file_id":24544,"storage":"local","group_id":0,"file_url":"","file_name":"2020090816231978dc05966.png","file_size":984464,"file_type":"image","extension":"png","is_user":0,"is_recycle":0,"is_delete":0,"file_path":"http://btys.vshop365.cn/uploads/2020090816231978dc05966.png"}
                      */
 
                     private int order_goods_id;
@@ -1139,7 +1309,7 @@ public class GroupOrderListModel {
                          * is_user : 0
                          * is_recycle : 0
                          * is_delete : 0
-                         * file_path : http://btys.cc/uploads/2020090816231978dc05966.png
+                         * file_path : http://btys.vshop365.cn/uploads/2020090816231978dc05966.png
                          */
 
                         private int file_id;

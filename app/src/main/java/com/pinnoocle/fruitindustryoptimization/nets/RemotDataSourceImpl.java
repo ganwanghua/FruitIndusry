@@ -3,6 +3,7 @@ package com.pinnoocle.fruitindustryoptimization.nets;
 
 import android.content.Context;
 
+import com.pinnoocle.fruitindustryoptimization.bean.ActiveDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.ArticleModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BalanceDetailModel;
@@ -1361,6 +1362,50 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(GroupOrderListModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void activeDetail(Map<String, String> queryMap, getCallback callback) {
+        Observable<ActiveDetailModel> observable = RetrofitHelper.getInstance(mContext).getServer().activeDetail(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ActiveDetailModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(ActiveDetailModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void groupOrderDetail(Map<String, String> queryMap, getCallback callback) {
+        Observable<OrderDetailModel> observable = RetrofitHelper.getInstance(mContext).getServer().groupOrderDetail(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<OrderDetailModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(OrderDetailModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });

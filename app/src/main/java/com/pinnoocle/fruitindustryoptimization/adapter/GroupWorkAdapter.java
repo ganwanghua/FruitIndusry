@@ -14,14 +14,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.pinnoocle.fruitindustryoptimization.R;
+import com.pinnoocle.fruitindustryoptimization.bean.ActiveDetailModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GroupWorkAdapter extends BaseAdapter<String, GroupWorkAdapter.VH> {
-
-
+public class GroupWorkAdapter extends BaseAdapter<ActiveDetailModel.DataBeanX.DetailBean.UsersBean, GroupWorkAdapter.VH> {
 
     public GroupWorkAdapter(Context mContext) {
         super(mContext);
@@ -40,9 +39,15 @@ public class GroupWorkAdapter extends BaseAdapter<String, GroupWorkAdapter.VH> {
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        Glide.with(mContext).load("").apply(RequestOptions.bitmapTransform(new CircleCrop())).into(holder.ivAvatar);
-        holder.tvName.setText("lulu");
-        holder.tvChief.setVisibility(View.VISIBLE);
+        if (mDatas.get(position).getUser() != null) {
+            Glide.with(mContext).load(mDatas.get(position).getUser().getAvatarUrl()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(holder.ivAvatar);
+            holder.tvName.setText(mDatas.get(position).getUser().getNickName());
+        }
+        if (mDatas.get(position).getIs_creator() == 1) {
+            holder.tvChief.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvChief.setVisibility(View.GONE);
+        }
 
     }
 

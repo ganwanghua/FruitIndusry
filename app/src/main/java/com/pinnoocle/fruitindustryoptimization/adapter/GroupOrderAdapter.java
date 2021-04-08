@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.bean.GroupOrderListModel;
-import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.mine.GroupOrderDetailActivity;
 import com.pinnoocle.fruitindustryoptimization.mine.OrderDetailActivity;
@@ -35,7 +34,7 @@ public class GroupOrderAdapter extends BaseAdapter<GroupOrderListModel.DataBeanX
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new VH(LayoutInflater.from(mContext).inflate(R.layout.item_order, parent, false));
+        return new VH(LayoutInflater.from(mContext).inflate(R.layout.item_group_order, parent, false));
     }
 
     @Override
@@ -65,11 +64,11 @@ public class GroupOrderAdapter extends BaseAdapter<GroupOrderListModel.DataBeanX
                 holder.tvPay.setText("去付款");
                 holder.tvAfterSales.setVisibility(View.GONE);
                 break;
-            case "已付款，待发货":
+            case "已付款，待成团":
             case "已发货，待收货":
                 holder.rlPanel.setVisibility(View.VISIBLE);
-                holder.tvCancel.setVisibility(View.GONE);
-                holder.tvPay.setText("查看");
+                holder.tvPay.setVisibility(View.GONE);
+                holder.tvCancel.setText("拼团详情");
                 holder.tvAfterSales.setVisibility(View.GONE);
                 break;
 
