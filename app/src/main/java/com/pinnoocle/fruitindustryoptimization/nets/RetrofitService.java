@@ -293,6 +293,10 @@ public interface RetrofitService {
     @POST("index.php")
     Observable<StatusModel> orderPay(@QueryMap Map<String, String> queryMap);
 
+    //修改果树名字
+    @POST("index.php")
+    Observable<StatusModel> nameTree(@QueryMap Map<String, String> queryMap);
+
     //用户的拼团订单
     @GET("index.php")
     Observable<GroupOrderListModel> groupOrderList(@QueryMap Map<String, String> queryMap);

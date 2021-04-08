@@ -1,10 +1,13 @@
 package com.pinnoocle.fruitindustryoptimization.orchard;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -20,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.R;
+import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserTreeDetailModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
@@ -35,6 +39,8 @@ import com.timmy.tdialog.TDialog;
 import com.timmy.tdialog.base.BindViewHolder;
 import com.timmy.tdialog.listener.OnBindViewListener;
 import com.timmy.tdialog.listener.OnViewClickListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -109,8 +115,15 @@ public class WateringFruitTreesActivity extends BaseActivity {
     ImageView ivFertilizer3;
     @BindView(R.id.ll_adoption_certificate)
     LinearLayout llAdoptionCertificate;
+    @BindView(R.id.ll_live)
+    LinearLayout llLive;
+    @BindView(R.id.iv_cloud1)
+    ImageView ivCloud1;
+    @BindView(R.id.ll_cloud)
+    RelativeLayout llCloud;
     private DataRepository dataRepository;
     private UserTreeDetailModel userTreeDetailModel;
+    private EditText ed_name, ed_name1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +132,22 @@ public class WateringFruitTreesActivity extends BaseActivity {
         setContentView(R.layout.activity_watering_fruit_trees);
         ButterKnife.bind(this);
         dataRepository = Injection.dataRepository(this);
+        DisplayMetrics dm=new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenW=dm.widthPixels;
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(screenW, -screenW);
+        valueAnimator.setInterpolator(new LinearInterpolator());
+        valueAnimator.setRepeatCount(-1);
+        valueAnimator.setDuration(25000);
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value = (int) animation.getAnimatedValue();
+                llCloud.scrollTo(value, 0);
+            }
+        });
+        valueAnimator.start();
 
         userTreeDetail();
     }
@@ -143,6 +172,7 @@ public class WateringFruitTreesActivity extends BaseActivity {
                 userTreeDetailModel = (UserTreeDetailModel) data;
                 if (userTreeDetailModel.getCode() == 1) {
                     Glide.with(WateringFruitTreesActivity.this).load(userTreeDetailModel.getData().getUser().getAvatarUrl()).apply(bitmapTransform(new GlideCircleTransform(WateringFruitTreesActivity.this))).into(ivAvatar);
+                    Glide.with(WateringFruitTreesActivity.this).load(userTreeDetailModel.getData().getUser_tree().getPic()).into(ivTree);
                     tvName1.setText(userTreeDetailModel.getData().getUser().getNickName());
 
                     tvDay.setText(userTreeDetailModel.getData().getUser_tree().getLeft_day() + "");
@@ -162,9 +192,70 @@ public class WateringFruitTreesActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.ll_adoption_certificate, R.id.tv_name, R.id.iv_back, R.id.iv_wish, R.id.rl_big_gift_bag, R.id.ll_watering, R.id.rl_tree, R.id.ll_tree_info, R.id.rl_collar_tree, R.id.rl_fertilizer})
+    private void nameTree(String name) {
+        ViewLoading.show(this);
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/tree/name_tree");
+        map.put("wxapp_id", "10001");
+        map.put("tree_id", getIntent().getStringExtra("tree_id"));
+        map.put("token", FastData.getToken());
+        map.put("name", name);
+        dataRepository.nameTree(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                StatusModel statusModel = (StatusModel) data;
+                if (statusModel.getCode() == 1) {
+                    EventBus.getDefault().post("11");
+                    ToastUtils.showToast(statusModel.getMsg());
+                    userTreeDetail();
+                }
+            }
+        });
+    }
+
+    private void geneTreeOrder() {
+        ViewLoading.show(this);
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/tree/gene_tree_order");
+        map.put("wxapp_id", "10001");
+        map.put("tree_id", userTreeDetailModel.getData().getUser_tree().getTree_id() + "");
+        map.put("token", FastData.getToken());
+        map.put("spec", userTreeDetailModel.getData().getUser_tree().getType() + "");
+        map.put("number", userTreeDetailModel.getData().getUser_tree().getNumber() + "");
+        map.put("time", userTreeDetailModel.getData().getTime().get(0).getMonth() + "");
+        map.put("user_tree_id", userTreeDetailModel.getData().getUser_tree().getUser_tree_id() + "");
+        dataRepository.geneTreeOrder(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                GeneTreeOrderModel geneTreeOrderModel = (GeneTreeOrderModel) data;
+                if (geneTreeOrderModel.getCode() == 1) {
+                    EventBus.getDefault().post("11");
+                    userTreeDetail();
+                }
+            }
+        });
+    }
+
+    @OnClick({R.id.ll_live, R.id.ll_adoption_certificate, R.id.tv_name, R.id.iv_back, R.id.iv_wish, R.id.rl_big_gift_bag, R.id.ll_watering, R.id.rl_tree, R.id.ll_tree_info, R.id.rl_collar_tree, R.id.rl_fertilizer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ll_live:
+                Intent intent1 = new Intent(WateringFruitTreesActivity.this, WebViewActivity.class);
+                intent1.putExtra("live", userTreeDetailModel.getData().getSetting().getLive());
+                startActivity(intent1);
+                break;
             case R.id.ll_adoption_certificate:
                 Intent intent = new Intent(WateringFruitTreesActivity.this, ECertActivity.class);
                 intent.putExtra("order_no", "");
@@ -182,7 +273,10 @@ public class WateringFruitTreesActivity extends BaseActivity {
                         .setOnBindViewListener(new OnBindViewListener() {
                             @Override
                             public void bindView(BindViewHolder viewHolder) {
-
+                                ed_name1 = viewHolder.getView(R.id.ed_name);
+                                if (!TextUtils.isEmpty(tvName.getText().toString())) {
+                                    ed_name1.setText(userTreeDetailModel.getData().getUser_tree().getName());
+                                }
                             }
                         })
                         .setOnViewClickListener(new OnViewClickListener() {
@@ -193,6 +287,7 @@ public class WateringFruitTreesActivity extends BaseActivity {
                                         tDialog.dismiss();
                                         break;
                                     case R.id.tv_save:
+                                        nameTree(ed_name1.getText().toString());
                                         tDialog.dismiss();
                                         break;
                                 }
@@ -213,12 +308,12 @@ public class WateringFruitTreesActivity extends BaseActivity {
                         .setScreenWidthAspect(this, 0.8f)
                         .setGravity(Gravity.CENTER)
                         .setCancelableOutside(true)
-                        .addOnClickListener(R.id.tv_save, R.id.rl_adoption_certificate)
+                        .addOnClickListener(R.id.tv_save, R.id.rl_adoption_certificate, R.id.rl_broadcast, R.id.tv_renew)
                         .setOnBindViewListener(new OnBindViewListener() {
                             @Override
                             public void bindView(BindViewHolder viewHolder) {
                                 ImageView iv_avatar = viewHolder.getView(R.id.iv_avatar);
-                                EditText ed_name = viewHolder.getView(R.id.ed_name);
+                                ed_name = viewHolder.getView(R.id.ed_name);
                                 TextView tv_time = viewHolder.getView(R.id.tv_time);
 
                                 Glide.with(WateringFruitTreesActivity.this).load(userTreeDetailModel.getData().getUser().getAvatarUrl()).apply(bitmapTransform(new GlideCircleTransform(WateringFruitTreesActivity.this))).into(iv_avatar);
@@ -232,7 +327,36 @@ public class WateringFruitTreesActivity extends BaseActivity {
                             @Override
                             public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
                                 switch (view.getId()) {
+                                    case R.id.tv_renew:
+                                        tDialog.dismiss();
+                                        new TDialog.Builder(getSupportFragmentManager())
+                                                .setLayoutRes(R.layout.dialog_renew)
+                                                .setScreenWidthAspect(WateringFruitTreesActivity.this, 1f)
+                                                .setGravity(Gravity.BOTTOM)
+                                                .setCancelableOutside(true)
+                                                .addOnClickListener(R.id.tv_sure)
+                                                .setOnBindViewListener(new OnBindViewListener() {
+                                                    @Override
+                                                    public void bindView(BindViewHolder viewHolder) {
+
+                                                    }
+                                                })
+                                                .setOnViewClickListener(new OnViewClickListener() {
+                                                    @Override
+                                                    public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+                                                        switch (view.getId()) {
+                                                            case R.id.tv_sure:
+                                                                geneTreeOrder();
+                                                                tDialog.dismiss();
+                                                                break;
+                                                        }
+                                                    }
+                                                })
+                                                .create()
+                                                .show();
+                                        break;
                                     case R.id.tv_save:
+                                        nameTree(ed_name.getText().toString());
                                         tDialog.dismiss();
                                         break;
                                     case R.id.rl_adoption_certificate:
@@ -241,6 +365,11 @@ public class WateringFruitTreesActivity extends BaseActivity {
                                         intent.putExtra("pos", "1");
                                         intent.putExtra("tree_id", userTreeDetailModel.getData().getUser_tree().getUser_tree_id() + "");
                                         startActivity(intent);
+                                        break;
+                                    case R.id.rl_broadcast:
+                                        Intent intent1 = new Intent(WateringFruitTreesActivity.this, WebViewActivity.class);
+                                        intent1.putExtra("live", userTreeDetailModel.getData().getSetting().getLive());
+                                        startActivity(intent1);
                                         break;
                                 }
                             }
@@ -284,9 +413,9 @@ public class WateringFruitTreesActivity extends BaseActivity {
                         .show();
                 break;
             case R.id.rl_big_gift_bag:
-                Intent intent1 = new Intent(this, BigGiftBagActivity.class);
-                intent1.putExtra("tree_id", getIntent().getStringExtra("tree_id"));
-                startActivity(intent1);
+                Intent intent2 = new Intent(this, BigGiftBagActivity.class);
+                intent2.putExtra("tree_id", getIntent().getStringExtra("tree_id"));
+                startActivity(intent2);
                 break;
             case R.id.ll_watering:
                 grow("1");

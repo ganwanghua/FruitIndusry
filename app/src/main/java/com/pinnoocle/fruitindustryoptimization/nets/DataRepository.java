@@ -321,6 +321,11 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
+    public void nameTree(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.nameTree(queryMap, callback);
+    }
+
+    @Override
     public void groupOrderList(Map<String, String> queryMap, getCallback callback) {
         mRemoteDataSource.groupOrderList(queryMap, callback);
     }

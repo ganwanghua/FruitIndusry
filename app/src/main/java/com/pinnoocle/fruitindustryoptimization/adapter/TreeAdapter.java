@@ -64,6 +64,14 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
                 }
             }
         });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClicks(position);
+                }
+            }
+        });
     }
 
     public void setData(List<UserTreesModel.DataBean.TreesBean> mShowItems) {
@@ -80,6 +88,8 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
     //**********************itemClick************************
     public interface OnItemClickListener {
         void onItemClick(View v, int position);
+
+        void onItemClicks(int position);
     }
 
     private OnItemClickListener mOnItemClickListener;

@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mine.IntegralActivity"></activity>
+        <activity android:name=".orchard.WebViewActivity"></activity>
+        <activity android:name=".mine.IntegralActivity" />
         <activity android:name=".home.GoodsListActivity" />
         <activity android:name=".mine.MyPushActivity" />
         <activity android:name=".mine.VipGoodsDetailActivity" />
@@ -47,7 +48,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".orchard.BigGiftBagActivity" />
-        <activity android:name=".orchard.WateringFruitTreesActivity" />
+        <activity android:name=".orchard.WateringFruitTreesActivity"/>
         <activity android:name=".orchard.ECertActivity" />
         <activity android:name=".orchard.ConfirmOrderActivity" />
         <activity android:name=".orchard.AdoptDetailsActivity" />

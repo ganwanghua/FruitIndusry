@@ -16,7 +16,7 @@
             android:layout_marginTop="50dp">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="果树命名"
@@ -44,7 +44,7 @@
 
             <TextView
                 android:id="@+id/tv_adoption"
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="认养期限"
@@ -54,10 +54,11 @@
                 android:id="@+id/tv_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/tv_renew"
                 android:layout_toRightOf="@id/tv_adoption"
                 android:background="@color/white"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:textColor="#333333"
                 android:textSize="12sp" />
 
@@ -85,7 +86,7 @@
 
             <TextView
                 android:id="@+id/tv_gift_bag"
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="大礼包"
@@ -109,8 +110,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
-                android:visibility="gone"
-                android:src="@drawable/ic_right_24" />
+                android:src="@drawable/ic_right_24"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <View
@@ -125,7 +126,7 @@
 
             <TextView
                 android:id="@+id/tv_certificate"
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="认养证书"
@@ -155,15 +156,17 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="#ECECEC" />
+            android:background="#ECECEC"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_processing"
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="加工/质检"
@@ -201,7 +204,7 @@
 
             <TextView
                 android:id="@+id/tv_video_photos"
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="视频照片"
@@ -234,12 +237,13 @@
             android:background="#ECECEC" />
 
         <RelativeLayout
+            android:id="@+id/rl_broadcast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tv_broadcast"
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="直播"
@@ -271,9 +275,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_green_6"
+            android:gravity="center"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:gravity="center"
             android:text="保存"
             android:textColor="@color/white"
             android:textSize="16sp" />
@@ -283,5 +287,5 @@
         android:id="@+id/iv_avatar"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
