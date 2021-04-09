@@ -504,6 +504,7 @@ public class OrderDetailActivity extends BaseActivity {
                 if (tvBuy.getText().toString().equals("去付款")) {
                     showOrderPayDialog(order_id, order_no);
                 } else if (tvBuy.getText().toString().equals("申请售后")) {
+                    startActivity(new Intent(mContext,ApplyForAfterSalesActivity.class));
 
                 } else if (tvBuy.getText().toString().equals("确认收货")) {
                     showOrderConfirmDialog(order_id, order_no);

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
+import com.pinnoocle.fruitindustryoptimization.mine.ApplyForAfterSalesActivity;
 import com.pinnoocle.fruitindustryoptimization.mine.OrderDetailActivity;
 
 import java.util.List;
@@ -112,6 +113,9 @@ public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.
             mContext.startActivity(intent);
 
         });
+//        holder.tvAfterSales.setOnClickListener(v -> {
+//            mContext.startActivity(new Intent(mContext, ApplyForAfterSalesActivity.class));
+//        });
 
     }
 

@@ -97,6 +97,7 @@
         <activity android:name=".mine.GroupOrderActivity" />
         <activity android:name=".mine.GroupWorkDetailActivity" />
         <activity android:name=".mine.GroupOrderDetailActivity" />
+        <activity android:name=".mine.ApplyForAfterSalesActivity" />
     </application>
 
 </manifest>
