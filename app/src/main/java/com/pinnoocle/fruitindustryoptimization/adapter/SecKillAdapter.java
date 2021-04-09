@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
-import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,15 @@ public class SecKillAdapter extends RecyclerView.Adapter<SecKillAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-
+        Glide.with(context).load(mShowItems.get(position).getGoods().getGoods_image()).into(holder.ivGoodsPic);
+        holder.tvTitle.setText(mShowItems.get(position).getGoods().getGoods_name());
+        holder.tvNum.setText(mShowItems.get(position).getCut_money());
+        holder.tvNum1.setText(mShowItems.get(position).getSurplus_money());
+        holder.itemView.setOnClickListener(v -> {
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.onItemClick(position);
+            }
+        });
     }
 
     @Override
@@ -74,6 +82,18 @@ public class SecKillAdapter extends RecyclerView.Adapter<SecKillAdapter.ViewHold
     //**************************************************************
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_goods_pic)
+        ImageView ivGoodsPic;
+        @BindView(R.id.tv_title)
+        TextView tvTitle;
+        @BindView(R.id.tv_num)
+        TextView tvNum;
+        @BindView(R.id.tv_num1)
+        TextView tvNum1;
+        @BindView(R.id.ll_num)
+        LinearLayout llNum;
+        @BindView(R.id.tv_secKill)
+        TextView tvSecKill;
 
         public ViewHolder(View itemView) {
             super(itemView);

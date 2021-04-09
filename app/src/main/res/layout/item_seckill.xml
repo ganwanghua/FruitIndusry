@@ -21,45 +21,66 @@
         android:layout_toEndOf="@id/iv_goods_pic"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="兵团大地 新疆灰枣500g/袋红枣零食小吃休闲食品若羌灰枣正宗特产"
         android:textColor="@color/black_1"
         android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/tv_price"
+    <LinearLayout
+        android:id="@+id/ll_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/tv_sales"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:layout_toEndOf="@id/iv_goods_pic"
-        android:text="￥148.00"
-        android:textColor="@color/light_red"
-        android:textSize="13sp" />
+        android:layout_below="@id/tv_title"
+        android:layout_toEndOf="@id/iv_goods_pic">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已砍"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#DA251D"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="元,只差"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_num1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#DA251D"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="元"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_sales"
+        android:id="@+id/tv_secKill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/iv_goods_pic"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@id/iv_goods_pic"
-        android:text="已售5件"
-        android:textColor="#666666"
-        android:textSize="12sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/tv_sales"
         android:layout_alignParentRight="true"
         android:background="@drawable/bg_red_20"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"
-        android:text="立即秒杀"
+        android:text="继续秒杀助力"
         android:textColor="@color/white"
         android:textSize="13sp" />
 </RelativeLayout>

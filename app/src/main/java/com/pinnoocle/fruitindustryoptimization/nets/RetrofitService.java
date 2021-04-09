@@ -25,9 +25,13 @@ import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyPushModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
+import com.pinnoocle.fruitindustryoptimization.bean.PartakeModel;
+import com.pinnoocle.fruitindustryoptimization.bean.SecKillDetailModel;
+import com.pinnoocle.fruitindustryoptimization.bean.SecKillVenueModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SharingGoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.bean.TaskDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePacketModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
@@ -308,4 +312,20 @@ public interface RetrofitService {
     //拼团订单详情
     @GET("index.php")
     Observable<OrderDetailModel> groupOrderDetail(@QueryMap Map<String, String> queryMap);
+
+    //我的秒杀助力
+    @POST("index.php")
+    Observable<SecKillVenueModel> secKillVenue(@QueryMap Map<String, String> queryMap);
+
+    //秒杀活动详情
+    @GET("index.php")
+    Observable<SecKillDetailModel> secKillDetail(@QueryMap Map<String, String> queryMap);
+
+    //立即秒杀
+    @GET("index.php")
+    Observable<PartakeModel> partake(@QueryMap Map<String, String> queryMap);
+
+    //秒杀任务详情
+    @GET("index.php")
+    Observable<TaskDetailModel> taskDetail(@QueryMap Map<String, String> queryMap);
 }

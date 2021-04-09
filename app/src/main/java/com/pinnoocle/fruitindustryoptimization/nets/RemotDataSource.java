@@ -140,4 +140,12 @@ public interface RemotDataSource {
     void activeDetail(Map<String, String> queryMap, getCallback callback);
 
     void groupOrderDetail(Map<String, String> queryMap, getCallback callback);
+
+    void secKillVenue(Map<String, String> queryMap, getCallback callback);
+
+    void secKillDetail(Map<String, String> queryMap, getCallback callback);
+
+    void partake(Map<String, String> queryMap, getCallback callback);
+
+    void taskDetail(Map<String, String> queryMap, getCallback callback);
 }

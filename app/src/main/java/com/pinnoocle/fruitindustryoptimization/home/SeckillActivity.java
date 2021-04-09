@@ -5,16 +5,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import com.androidkun.xtablayout.XTabLayout;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
-import com.pinnoocle.fruitindustryoptimization.adapter.AdoptionOrderAdapter;
+import com.pinnoocle.fruitindustryoptimization.adapter.FragmentAdapter;
 import com.pinnoocle.fruitindustryoptimization.adapter.SecKillAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
-import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
@@ -34,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SeckillActivity extends BaseActivity implements SecKillAdapter.OnItemClickListener, OnRefreshLoadMoreListener {
+public class SeckillActivity extends BaseActivity {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -42,14 +44,12 @@ public class SeckillActivity extends BaseActivity implements SecKillAdapter.OnIt
     RelativeLayout rlTitle;
     @BindView(R.id.rl_seckill)
     RelativeLayout rlSeckill;
-    @BindView(R.id.recycleView)
-    RecyclerView recycleView;
-    @BindView(R.id.refresh)
-    SmartRefreshLayout refresh;
-    SecKillAdapter secKillAdapter;
-    private DataRepository dataRepository;
-    private int page = 1;
-    private List<SeckillModel.DataBeanX.MyListBean.DataBean> mShowItems = new ArrayList<>();
+    @BindView(R.id.xTablayout)
+    XTabLayout xTablayout;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+    List<Fragment> fragments = new ArrayList<>();
+    List<String> titles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,71 +57,27 @@ public class SeckillActivity extends BaseActivity implements SecKillAdapter.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seckill);
         ButterKnife.bind(this);
-        dataRepository = Injection.dataRepository(this);
 
-        recycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recycleView.addItemDecoration(new CommItemDecoration(this, DividerItemDecoration.VERTICAL, getResources().getColor(R.color.transparent), 30));
-        secKillAdapter = new SecKillAdapter(this);
-        recycleView.setAdapter(secKillAdapter);
-
-        secKillAdapter.setOnItemClickListener(this);
-        refresh.setOnRefreshLoadMoreListener(this);
-        seckill(page);
+        titles.add("秒杀助力会场");
+        titles.add("我的秒杀助力");
+        for (int i = 0; i < titles.size(); i++) {
+            if (i == 0) {
+                fragments.add(new SecondKillVenueFragment());
+            } else {
+                fragments.add(new MySecondKillFragment());
+            }
+        }
+        FragmentAdapter adatper = new FragmentAdapter(getSupportFragmentManager(), fragments, titles);
+        viewPager.setAdapter(adatper);
+        viewPager.setOffscreenPageLimit(fragments.size());
+        //将TabLayout和ViewPager关联起来。
+        xTablayout.setupWithViewPager(viewPager);
     }
 
-    private void seckill(int page) {
-        ViewLoading.show(this);
-        Map<String, String> map = new HashMap<>();
-        map.put("s", "/api/bargain.task/lists");
-        map.put("wxapp_id", "10001");
-        map.put("token", FastData.getToken());
-        map.put("page", page + "");
-        dataRepository.seckill(map, new RemotDataSource.getCallback() {
-            @Override
-            public void onFailure(String info) {
-                refresh.finishRefresh();
-                refresh.finishLoadMore();
-                ViewLoading.dismiss(mContext);
-            }
-
-            @Override
-            public void onSuccess(Object data) {
-                refresh.finishRefresh();
-                ViewLoading.dismiss(mContext);
-                SeckillModel seckillModel = (SeckillModel) data;
-                if (seckillModel.getCode() == 1) {
-                    if (seckillModel.getData().getMyList().getCurrent_page() == seckillModel.getData().getMyList().getLast_page()) {
-                        refresh.finishLoadMoreWithNoMoreData();
-                    } else {
-                        refresh.finishLoadMore();
-                    }
-                    mShowItems.addAll(seckillModel.getData().getMyList().getData());
-                    secKillAdapter.setData(mShowItems);
-                }
-            }
-        });
-    }
 
     @OnClick(R.id.iv_back)
     public void onViewClicked() {
         finish();
     }
 
-    @Override
-    public void onItemClick(int position) {
-
-    }
-
-    @Override
-    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        page++;
-        seckill(page);
-    }
-
-    @Override
-    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        page = 1;
-        mShowItems.clear();
-        seckill(page);
-    }
 }

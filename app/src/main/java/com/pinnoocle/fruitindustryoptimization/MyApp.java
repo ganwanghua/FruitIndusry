@@ -10,6 +10,8 @@ import com.pinnoocle.fruitindustryoptimization.greendao.DaoSession;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 import com.zzhoujay.richtext.RichText;
 
 
@@ -31,6 +33,10 @@ public class MyApp extends Application {
         setDatabase();
         mWxApi = WXAPIFactory.createWXAPI(this, WX_APPID, true);
         mWxApi.registerApp(WX_APPID);
+
+        UMConfigure.init(this, "606fc57cde41b946ab440c1b", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        PlatformConfig.setWeixin(WX_APPID, WX_APPSecret);
+        PlatformConfig.setWXFileProvider("com.tencent.sample2.fileprovider");
     }
 
     private void setDatabase() {
