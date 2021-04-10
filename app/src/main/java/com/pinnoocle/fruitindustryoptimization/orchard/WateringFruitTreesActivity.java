@@ -80,8 +80,6 @@ public class WateringFruitTreesActivity extends BaseActivity {
     RelativeLayout rlBigGiftBag;
     @BindView(R.id.ll_watering)
     RelativeLayout llWatering;
-    @BindView(R.id.rl_tree)
-    RelativeLayout rlTree;
     @BindView(R.id.iv_kettle)
     ImageView ivKettle;
     @BindView(R.id.iv_water_drop)
@@ -126,6 +124,16 @@ public class WateringFruitTreesActivity extends BaseActivity {
     StrokeTextView1 tvVideoPhotos;
     @BindView(R.id.scrollview)
     NestedScrollView scrollview;
+    @BindView(R.id.iv_tree1)
+    ImageView ivTree1;
+    @BindView(R.id.rl_cloud)
+    RelativeLayout rlCloud;
+    @BindView(R.id.rl_picture)
+    RelativeLayout rlPicture;
+    @BindView(R.id.iv_tree2)
+    ImageView ivTree2;
+    @BindView(R.id.iv_tree3)
+    ImageView ivTree3;
     private DataRepository dataRepository;
     private UserTreeDetailModel userTreeDetailModel;
     private EditText ed_name, ed_name1;
@@ -177,7 +185,31 @@ public class WateringFruitTreesActivity extends BaseActivity {
                 userTreeDetailModel = (UserTreeDetailModel) data;
                 if (userTreeDetailModel.getCode() == 1) {
                     Glide.with(WateringFruitTreesActivity.this).load(userTreeDetailModel.getData().getUser().getAvatarUrl()).apply(bitmapTransform(new GlideCircleTransform(WateringFruitTreesActivity.this))).into(ivAvatar);
-                    Glide.with(WateringFruitTreesActivity.this).load(userTreeDetailModel.getData().getUser_tree().getPic()).into(ivTree);
+                    if (userTreeDetailModel.getData().getUser_tree().getTree_status() == 1) {
+                        ivTree.setVisibility(View.VISIBLE);
+                        ivTree1.setVisibility(View.GONE);
+                        ivTree2.setVisibility(View.GONE);
+                        ivTree3.setVisibility(View.GONE);
+                        Glide.with(WateringFruitTreesActivity.this).load(userTreeDetailModel.getData().getUser_tree().getPic()).into(ivTree);
+                    } else if (userTreeDetailModel.getData().getUser_tree().getTree_status() == 2) {
+                        ivTree.setVisibility(View.GONE);
+                        ivTree1.setVisibility(View.VISIBLE);
+                        ivTree2.setVisibility(View.GONE);
+                        ivTree3.setVisibility(View.GONE);
+                        Glide.with(WateringFruitTreesActivity.this).load(userTreeDetailModel.getData().getUser_tree().getPic()).into(ivTree1);
+                    } else if (userTreeDetailModel.getData().getUser_tree().getTree_status() == 3) {
+                        ivTree.setVisibility(View.GONE);
+                        ivTree1.setVisibility(View.GONE);
+                        ivTree2.setVisibility(View.VISIBLE);
+                        ivTree3.setVisibility(View.GONE);
+                        Glide.with(WateringFruitTreesActivity.this).load(userTreeDetailModel.getData().getUser_tree().getPic()).into(ivTree2);
+                    }else if (userTreeDetailModel.getData().getUser_tree().getTree_status() == 4) {
+                        ivTree.setVisibility(View.GONE);
+                        ivTree1.setVisibility(View.GONE);
+                        ivTree2.setVisibility(View.GONE);
+                        ivTree3.setVisibility(View.VISIBLE);
+                        Glide.with(WateringFruitTreesActivity.this).load(userTreeDetailModel.getData().getUser_tree().getPic()).into(ivTree3);
+                    }
                     tvName1.setText(userTreeDetailModel.getData().getUser().getNickName());
 
                     tvDay.setText(userTreeDetailModel.getData().getUser_tree().getLeft_day() + "");
@@ -253,7 +285,7 @@ public class WateringFruitTreesActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.tv_video_photos, R.id.ll_live, R.id.ll_adoption_certificate, R.id.tv_name, R.id.iv_back, R.id.iv_wish, R.id.rl_big_gift_bag, R.id.ll_watering, R.id.rl_tree, R.id.ll_tree_info, R.id.rl_collar_tree, R.id.rl_fertilizer})
+    @OnClick({R.id.tv_video_photos, R.id.ll_live, R.id.ll_adoption_certificate, R.id.tv_name, R.id.iv_back, R.id.iv_wish, R.id.rl_big_gift_bag, R.id.ll_watering, R.id.iv_tree, R.id.iv_tree1, R.id.iv_tree2, R.id.iv_tree3, R.id.ll_tree_info, R.id.rl_collar_tree, R.id.rl_fertilizer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_video_photos:
@@ -435,7 +467,7 @@ public class WateringFruitTreesActivity extends BaseActivity {
             case R.id.ll_watering:
                 grow("1");
                 break;
-            case R.id.rl_tree:
+            case R.id.iv_tree:
                 ScaleAnimation sa = new ScaleAnimation(1f, 1.0f, 1.0f, 1.1f, ScaleAnimation.RELATIVE_TO_SELF, 0.0f, ScaleAnimation.RELATIVE_TO_SELF, 1.0f);
                 // 设置动画播放的时间
                 sa.setDuration(1000);
@@ -453,7 +485,7 @@ public class WateringFruitTreesActivity extends BaseActivity {
                         // 设置动画播放的时间
                         sa.setDuration(500);
                         sa.setFillAfter(true);
-                        rlTree.startAnimation(sa);
+                        ivTree.startAnimation(sa);
                     }
 
                     @Override
@@ -461,7 +493,91 @@ public class WateringFruitTreesActivity extends BaseActivity {
 
                     }
                 });
-                rlTree.startAnimation(sa);
+                ivTree.startAnimation(sa);
+                break;
+            case R.id.iv_tree1:
+                ScaleAnimation sa1 = new ScaleAnimation(1f, 1.0f, 1.0f, 1.1f, ScaleAnimation.RELATIVE_TO_SELF, 0.0f, ScaleAnimation.RELATIVE_TO_SELF, 1.0f);
+                // 设置动画播放的时间
+                sa1.setDuration(1000);
+                sa1.setFillAfter(true);
+                sa1.setInterpolator(new SpringScaleInterpolator(0.3f));
+                sa1.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        ScaleAnimation sa = new ScaleAnimation(1f, 1.0f, 1.1f, 1.0f, ScaleAnimation.RELATIVE_TO_SELF, 0.0f, ScaleAnimation.RELATIVE_TO_SELF, 1.0f);
+                        // 设置动画播放的时间
+                        sa.setDuration(500);
+                        sa.setFillAfter(true);
+                        ivTree1.startAnimation(sa);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                ivTree1.startAnimation(sa1);
+                break;
+            case R.id.iv_tree2:
+                ScaleAnimation sa2 = new ScaleAnimation(1f, 1.0f, 1.0f, 1.1f, ScaleAnimation.RELATIVE_TO_SELF, 0.0f, ScaleAnimation.RELATIVE_TO_SELF, 1.0f);
+                // 设置动画播放的时间
+                sa2.setDuration(1000);
+                sa2.setFillAfter(true);
+                sa2.setInterpolator(new SpringScaleInterpolator(0.3f));
+                sa2.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        ScaleAnimation sa = new ScaleAnimation(1f, 1.0f, 1.1f, 1.0f, ScaleAnimation.RELATIVE_TO_SELF, 0.0f, ScaleAnimation.RELATIVE_TO_SELF, 1.0f);
+                        // 设置动画播放的时间
+                        sa.setDuration(500);
+                        sa.setFillAfter(true);
+                        ivTree2.startAnimation(sa);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                ivTree2.startAnimation(sa2);
+                break;
+            case R.id.iv_tree3:
+                ScaleAnimation sa3 = new ScaleAnimation(1f, 1.0f, 1.0f, 1.1f, ScaleAnimation.RELATIVE_TO_SELF, 0.0f, ScaleAnimation.RELATIVE_TO_SELF, 1.0f);
+                // 设置动画播放的时间
+                sa3.setDuration(1000);
+                sa3.setFillAfter(true);
+                sa3.setInterpolator(new SpringScaleInterpolator(0.3f));
+                sa3.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        ScaleAnimation sa = new ScaleAnimation(1f, 1.0f, 1.1f, 1.0f, ScaleAnimation.RELATIVE_TO_SELF, 0.0f, ScaleAnimation.RELATIVE_TO_SELF, 1.0f);
+                        // 设置动画播放的时间
+                        sa.setDuration(500);
+                        sa.setFillAfter(true);
+                        ivTree3.startAnimation(sa);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                ivTree3.startAnimation(sa3);
                 break;
         }
     }
