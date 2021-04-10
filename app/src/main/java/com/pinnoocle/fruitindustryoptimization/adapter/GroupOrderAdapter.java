@@ -65,7 +65,6 @@ public class GroupOrderAdapter extends BaseAdapter<GroupOrderListModel.DataBeanX
                 holder.tvAfterSales.setVisibility(View.GONE);
                 break;
             case "已付款，待成团":
-            case "已发货，待收货":
                 holder.rlPanel.setVisibility(View.VISIBLE);
                 holder.tvPay.setVisibility(View.GONE);
                 holder.tvCancel.setText("拼团详情");
@@ -78,6 +77,27 @@ public class GroupOrderAdapter extends BaseAdapter<GroupOrderListModel.DataBeanX
                     holder.rlPanel.setVisibility(View.GONE);
                     holder.tvCancel.setVisibility(View.GONE);
 
+                } else {
+                    holder.rlPanel.setVisibility(View.GONE);
+
+                }
+
+                break;
+
+            case "已付款，待发货":
+            case "已发货，待收货":
+                holder.rlPanel.setVisibility(View.VISIBLE);
+                holder.tvPay.setVisibility(View.GONE);
+                holder.tvCancel.setText("查看");
+                holder.tvAfterSales.setVisibility(View.GONE);
+                break;
+
+            case "已完成":
+                holder.tvAfterSales.setVisibility(View.GONE);
+                if (mDatas.get(position).getIs_comment() == 0) {
+                    holder.rlPanel.setVisibility(View.VISIBLE);
+                    holder.tvPay.setVisibility(View.GONE);
+                    holder.tvCancel.setText("去评价");
                 } else {
                     holder.rlPanel.setVisibility(View.GONE);
 

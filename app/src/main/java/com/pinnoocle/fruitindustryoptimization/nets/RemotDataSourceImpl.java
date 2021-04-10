@@ -35,6 +35,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.TreePacketModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreesDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
+import com.pinnoocle.fruitindustryoptimization.bean.UploadImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserTreeDetailModel;
@@ -1428,6 +1429,50 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(OrderDetailModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void commentOrder(Map<String, String> queryMap, getCallback callback) {
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().commentOrder(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<StatusModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(StatusModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void image(Map<String, String> queryMap, MultipartBody.Part file, getCallback callback) {
+        Observable<UploadImageModel> observable = RetrofitHelper.getInstance(mContext).getServer().image(queryMap, file);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UploadImageModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(UploadImageModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });

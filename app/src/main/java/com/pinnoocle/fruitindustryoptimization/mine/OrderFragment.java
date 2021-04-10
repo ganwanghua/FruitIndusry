@@ -113,9 +113,9 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
                             intent.putExtra("order_id", o.getOrder_id() + "");
                             startActivity(intent);
                         } else if (o.getState_text().equals("已完成")) {//去评价
-//                            Intent intent = new Intent(getContext(), OrderCommentActivity.class);
-//                            intent.putExtra("order_id", o.getOrder_id() + "");
-//                            startActivity(intent);
+                            Intent intent = new Intent(getContext(), OrderCommentActivity.class);
+                            intent.putExtra("order_id", o.getOrder_id() + "");
+                            startActivity(intent);
 
                         }
 

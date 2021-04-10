@@ -339,4 +339,14 @@ public class DataRepository implements RemotDataSource {
     public void groupOrderDetail(Map<String, String> queryMap, getCallback callback) {
         mRemoteDataSource.groupOrderDetail(queryMap, callback);
     }
+
+    @Override
+    public void commentOrder(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.commentOrder(queryMap, callback);
+    }
+
+    @Override
+    public void image(Map<String, String> queryMap,MultipartBody.Part file,getCallback callback) {
+        mRemoteDataSource.image(queryMap,file,callback);
+    }
 }

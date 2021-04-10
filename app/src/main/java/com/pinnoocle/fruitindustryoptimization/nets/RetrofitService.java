@@ -33,6 +33,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.TreePacketModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreesDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
+import com.pinnoocle.fruitindustryoptimization.bean.UploadImageModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.UserTreeDetailModel;
@@ -308,4 +309,13 @@ public interface RetrofitService {
     //拼团订单详情
     @GET("index.php")
     Observable<OrderDetailModel> groupOrderDetail(@QueryMap Map<String, String> queryMap);
+
+    //订单评价提交
+    @GET("index.php")
+    Observable<StatusModel> commentOrder(@QueryMap Map<String, String> queryMap);
+
+    //图片上传
+    @GET("index.php")
+    Observable<UploadImageModel> image(@QueryMap Map<String, String> queryMap,@Part MultipartBody.Part file);
+
 }

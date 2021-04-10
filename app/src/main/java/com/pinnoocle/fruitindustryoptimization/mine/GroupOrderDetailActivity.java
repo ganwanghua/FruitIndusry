@@ -175,7 +175,7 @@ public class GroupOrderDetailActivity extends BaseActivity {
                     tvStatus.setText(orderDetailModel.getData().getOrder().getState_text());
                     order_id = orderDetailModel.getData().getOrder().getOrder_id() + "";
                     order_no = orderDetailModel.getData().getOrder().getOrder_no() + "";
-                    if (orderDetailModel.getData().getOrder().getState_text().equals("已取消")) {
+                    if (orderDetailModel.getData().getOrder().getState_text().equals("已取消")||orderDetailModel.getData().getOrder().getState_text().equals("拼团未成功，已退款")) {
                         rlPanel.setVisibility(View.GONE);
                     } else if (orderDetailModel.getData().getOrder().getState_text().equals("待付款")) {
                         view.setBackgroundResource(R.color.light_white);
@@ -194,7 +194,7 @@ public class GroupOrderDetailActivity extends BaseActivity {
 
                         tvCancel.setText("取消订单");
                         tvBuy.setText("去付款");
-                    } else if (orderDetailModel.getData().getOrder().getState_text().equals("已付款，待发货")) {
+                    } else if (orderDetailModel.getData().getOrder().getState_text().equals("已付款，待发货")||orderDetailModel.getData().getOrder().getState_text().equals("已付款，待成团")) {
                         view1.setBackgroundResource(R.color.light_white);
                         view2.setBackgroundResource(R.color.light_white);
                         ivReceivingGoods.setBackgroundResource(R.drawable.bg_light_white_stroke);

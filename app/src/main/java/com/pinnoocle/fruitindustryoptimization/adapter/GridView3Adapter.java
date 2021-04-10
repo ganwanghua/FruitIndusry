@@ -13,7 +13,7 @@ import com.pinnoocle.fruitindustryoptimization.utils.ScreenUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridView2Adapter extends android.widget.BaseAdapter {
+public class GridView3Adapter extends android.widget.BaseAdapter {
 
     private Context mContext;
     private List<String> mList;
@@ -25,7 +25,7 @@ public class GridView2Adapter extends android.widget.BaseAdapter {
 
     protected OnItemClickListener mOnItemClickListener;
 
-    public GridView2Adapter(Context mContext, List<String> mList) {
+    public GridView3Adapter(Context mContext, List<String> mList) {
         this.mContext = mContext;
         this.mList = mList;
         inflater = LayoutInflater.from(mContext);
@@ -35,7 +35,7 @@ public class GridView2Adapter extends android.widget.BaseAdapter {
     public int getCount() {
         //return mList.size() + 1;//因为最后多了一个添加图片的ImageView
         int count = mList == null ? 1 : mList.size() + 1;
-        if (count > 6) {
+        if (count > 3) {
             return mList.size();
         } else {
             return count;

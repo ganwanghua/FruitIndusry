@@ -140,4 +140,8 @@ public interface RemotDataSource {
     void activeDetail(Map<String, String> queryMap, getCallback callback);
 
     void groupOrderDetail(Map<String, String> queryMap, getCallback callback);
+
+    void commentOrder(Map<String, String> queryMap, getCallback callback);
+
+    void image(Map<String, String> queryMap, MultipartBody.Part file, getCallback callback);
 }

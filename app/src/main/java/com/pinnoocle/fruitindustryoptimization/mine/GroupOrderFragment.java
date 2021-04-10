@@ -102,7 +102,7 @@ public class GroupOrderFragment extends BaseFragment implements OnRefreshLoadMor
                     case R.id.tv_cancel:
                         if (o.getState_text().equals("待付款")) {  //取消
                             showTipDialog();
-                        } else if (o.getState_text().equals("已付款，待成团") || o.getState_text().equals("已发货，待收货")) {
+                        } else if (o.getState_text().equals("已付款，待成团")) {
                             Intent intent = new Intent(mContext, GroupWorkDetailActivity.class);
                             intent.putExtra("active_id", o.getActive_id() + "");
                             startActivity(intent);
@@ -111,6 +111,11 @@ public class GroupOrderFragment extends BaseFragment implements OnRefreshLoadMor
 //                            intent.putExtra("order_id", o.getOrder_id() + "");
 //                            startActivity(intent);
 
+                        }else if(o.getState_text().equals("已付款，待发货") || o.getState_text().equals("已发货，待收货"))
+                        {
+                            Intent intent = new Intent(mContext, GroupOrderDetailActivity.class);
+                            intent.putExtra("order_id", o.getOrder_id() + "");
+                            mContext.startActivity(intent);
                         }
                         break;
 
