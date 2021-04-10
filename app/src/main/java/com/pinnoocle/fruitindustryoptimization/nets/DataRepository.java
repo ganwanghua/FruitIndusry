@@ -2,9 +2,13 @@ package com.pinnoocle.fruitindustryoptimization.nets;
 
 import android.content.Context;
 
+import com.pinnoocle.fruitindustryoptimization.bean.UploadImageModel;
+
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import rx.Observable;
 
 /**
  * Created by whs on 2017/5/18
@@ -341,8 +345,8 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
-    public void commentOrder(Map<String, String> queryMap, getCallback callback) {
-        mRemoteDataSource.commentOrder(queryMap, callback);
+    public void commentOrder(Map<String, String> map1,Map<String, String> map2, getCallback callback) {
+        mRemoteDataSource.commentOrder(map1,map2, callback);
     }
 
     @Override
@@ -368,5 +372,10 @@ public class DataRepository implements RemotDataSource {
     @Override
     public void taskDetail(Map<String, String> queryMap, getCallback callback) {
         mRemoteDataSource.taskDetail(queryMap, callback);
+    }
+
+    @Override
+    public Observable<UploadImageModel> imageObservable(Map<String, String> queryMap, MultipartBody.Part file) {
+        return mRemoteDataSource.imageObservable(queryMap,file);
     }
 }

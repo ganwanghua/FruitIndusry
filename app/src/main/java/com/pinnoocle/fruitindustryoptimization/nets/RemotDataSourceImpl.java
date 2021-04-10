@@ -51,6 +51,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.WalletModel;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -1527,8 +1528,8 @@ public class RemotDataSourceImpl implements RemotDataSource {
     }
 
     @Override
-    public void commentOrder(Map<String, String> queryMap, getCallback callback) {
-        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().commentOrder(queryMap);
+    public void commentOrder(Map<String, String> map1,Map<String, String> map2, getCallback callback) {
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().commentOrder(map1,map2);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<StatusModel>() {
                     @Override
@@ -1568,5 +1569,8 @@ public class RemotDataSourceImpl implements RemotDataSource {
                         callback.onSuccess(s);
                     }
                 });
+    }
+    public  Observable<UploadImageModel> imageObservable(Map<String, String> queryMap, MultipartBody.Part file){
+        return RetrofitHelper.getInstance(mContext).getServer().image(queryMap, file);
     }
 }

@@ -49,10 +49,13 @@ import com.pinnoocle.fruitindustryoptimization.bean.WalletModel;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import rx.Observable;
@@ -331,11 +334,12 @@ public interface RetrofitService {
     Observable<TaskDetailModel> taskDetail(@QueryMap Map<String, String> queryMap);
 
     //订单评价提交
-    @GET("index.php")
-    Observable<StatusModel> commentOrder(@QueryMap Map<String, String> queryMap);
+    @POST("index.php")
+    Observable<StatusModel> commentOrder(@QueryMap Map<String, String> map1,@Body Map<String, String> map2);
 
     //图片上传
-    @GET("index.php")
-    Observable<UploadImageModel> image(@QueryMap Map<String, String> queryMap,@Part MultipartBody.Part file);
+    @Multipart
+    @POST("index.php")
+    Observable<UploadImageModel> image(@PartMap Map<String, String> queryMap, @Part MultipartBody.Part file);
 
 }

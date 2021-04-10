@@ -94,7 +94,7 @@ public class OrderConfirmActivity extends BaseActivity {
     private DataRepository dataRepository;
     private OrderConfirmAdapter adapter;
     private String address_id;
-    private String pay_type = "20";//余额支付10
+    private String pay_type = "10";//余额支付10
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

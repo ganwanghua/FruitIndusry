@@ -70,7 +70,10 @@ public class OrderCommentAdapter extends BaseAdapter<OrderDetailModel.DataBean.O
         holder.tvGoodsPattern.setText(mDatas.get(position).getGoods_attr());
         holder.tvNum.setText("x" + mDatas.get(position).getTotal_num());
         holder.tvPrice.setText("￥" + mDatas.get(position).getGoods_price());
-
+        if (commentMap.get(position) == null) {
+            commentMap.put(position, new CommentBean());
+        }
+        commentMap.get(position).setScore("10");
         holder.llCommentGood.setOnClickListener(v -> {
             selectCommentType(holder.tvGood,holder.tvM,holder.tvBad,holder.ivGood,holder.ivM,holder.ivBad,holder.tvGood,holder.ivGood);
             commentMap.get(position).setScore("10");

@@ -1,9 +1,13 @@
 package com.pinnoocle.fruitindustryoptimization.nets;
 
 
+import com.pinnoocle.fruitindustryoptimization.bean.UploadImageModel;
+
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import rx.Observable;
 
 /**
  * Created by whs on 2017/6/7
@@ -141,7 +145,7 @@ public interface RemotDataSource {
 
     void groupOrderDetail(Map<String, String> queryMap, getCallback callback);
 
-    void commentOrder(Map<String, String> queryMap, getCallback callback);
+    void commentOrder(Map<String, String> map1,Map<String, String> map2, getCallback callback);
 
     void image(Map<String, String> queryMap, MultipartBody.Part file, getCallback callback);
 
@@ -152,4 +156,6 @@ public interface RemotDataSource {
     void partake(Map<String, String> queryMap, getCallback callback);
 
     void taskDetail(Map<String, String> queryMap, getCallback callback);
+
+    Observable<UploadImageModel> imageObservable(Map<String, String> queryMap, MultipartBody.Part file);
 }
