@@ -144,4 +144,12 @@ public interface RemotDataSource {
     void commentOrder(Map<String, String> queryMap, getCallback callback);
 
     void image(Map<String, String> queryMap, MultipartBody.Part file, getCallback callback);
+
+    void secKillVenue(Map<String, String> queryMap, getCallback callback);
+
+    void secKillDetail(Map<String, String> queryMap, getCallback callback);
+
+    void partake(Map<String, String> queryMap, getCallback callback);
+
+    void taskDetail(Map<String, String> queryMap, getCallback callback);
 }

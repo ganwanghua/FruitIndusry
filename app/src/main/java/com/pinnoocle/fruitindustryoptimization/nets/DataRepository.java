@@ -349,4 +349,24 @@ public class DataRepository implements RemotDataSource {
     public void image(Map<String, String> queryMap,MultipartBody.Part file,getCallback callback) {
         mRemoteDataSource.image(queryMap,file,callback);
     }
+
+    @Override
+    public void secKillVenue(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.secKillVenue(queryMap, callback);
+    }
+
+    @Override
+    public void secKillDetail(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.secKillDetail(queryMap, callback);
+    }
+
+    @Override
+    public void partake(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.partake(queryMap, callback);
+    }
+
+    @Override
+    public void taskDetail(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.taskDetail(queryMap, callback);
+    }
 }

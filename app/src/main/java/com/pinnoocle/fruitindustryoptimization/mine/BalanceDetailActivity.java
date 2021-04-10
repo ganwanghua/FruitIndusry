@@ -73,7 +73,7 @@ public class BalanceDetailActivity extends BaseActivity implements OnRefreshLoad
         map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
         map.put("page", page + "");
-        dataRepository.treeOrder(map, new RemotDataSource.getCallback() {
+        dataRepository.balanceDetail(map, new RemotDataSource.getCallback() {
             @Override
             public void onFailure(String info) {
                 refresh.finishRefresh();

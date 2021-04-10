@@ -27,9 +27,13 @@ import com.pinnoocle.fruitindustryoptimization.bean.MyBalanceModel;
 import com.pinnoocle.fruitindustryoptimization.bean.MyPushModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
+import com.pinnoocle.fruitindustryoptimization.bean.PartakeModel;
+import com.pinnoocle.fruitindustryoptimization.bean.SecKillDetailModel;
+import com.pinnoocle.fruitindustryoptimization.bean.SecKillVenueModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SharingGoodsDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
+import com.pinnoocle.fruitindustryoptimization.bean.TaskDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreeOrderModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePacketModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreePosterModel;
@@ -1429,6 +1433,94 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
                     @Override
                     public void onNext(OrderDetailModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void secKillVenue(Map<String, String> queryMap, getCallback callback) {
+        Observable<SecKillVenueModel> observable = RetrofitHelper.getInstance(mContext).getServer().secKillVenue(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<SecKillVenueModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(SecKillVenueModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void secKillDetail(Map<String, String> queryMap, getCallback callback) {
+        Observable<SecKillDetailModel> observable = RetrofitHelper.getInstance(mContext).getServer().secKillDetail(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<SecKillDetailModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(SecKillDetailModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void partake(Map<String, String> queryMap, getCallback callback) {
+        Observable<PartakeModel> observable = RetrofitHelper.getInstance(mContext).getServer().partake(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<PartakeModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(PartakeModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void taskDetail(Map<String, String> queryMap, getCallback callback) {
+        Observable<TaskDetailModel> observable = RetrofitHelper.getInstance(mContext).getServer().taskDetail(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<TaskDetailModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(TaskDetailModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });

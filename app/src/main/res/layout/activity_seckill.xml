@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="#F6F6F6"
+    android:fitsSystemWindows="true"
     tools:context=".orchard.AdoptActivity">
 
     <RelativeLayout
@@ -42,27 +43,35 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:src="@mipmap/seckill1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="限时开放中"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refresh"
+    <com.androidkun.xtablayout.XTabLayout
+        android:id="@+id/xTablayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:overScrollMode="never"
+        app:xTabMode="fixed"
+        app:xTabSelectedTextColor="@color/light_red"
+        app:xTabSelectedTextSize="14sp"
+        app:xTabTextColor="#111111"
+        app:xTabTextSize="14sp" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-20dp"
-        android:layout_below="@id/rl_seckill">
-
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never" />
-
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        android:layout_below="@id/rl_seckill"
+        android:layout_above="@id/xTablayout"
+        android:overScrollMode="never" />
 </RelativeLayout>
