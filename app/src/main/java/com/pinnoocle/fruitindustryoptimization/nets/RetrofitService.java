@@ -340,6 +340,6 @@ public interface RetrofitService {
     //图片上传
     @Multipart
     @POST("index.php")
-    Observable<UploadImageModel> image(@PartMap Map<String, String> queryMap, @Part MultipartBody.Part file);
+    Observable<UploadImageModel> image(@QueryMap Map<String, String> queryMap, @Part MultipartBody.Part file);
 
 }

@@ -148,9 +148,9 @@ public class OrderCommentActivity extends BaseActivity {
         map.put("order_id", getIntent().getStringExtra("order_id"));
 //        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), formData);
 
-        map1.put("formData",formData);
+        map1.put("formData", formData);
         ViewLoading.show(mContext);
-        dataRepository.commentOrder(map,map1, new RemotDataSource.getCallback() {
+        dataRepository.commentOrder(map, map1, new RemotDataSource.getCallback() {
             @Override
             public void onFailure(String info) {
                 ViewLoading.dismiss(mContext);
@@ -170,7 +170,7 @@ public class OrderCommentActivity extends BaseActivity {
         });
     }
 
-    public void image(File file, int i,int j) {
+    public void image(File file, int i, int j) {
         Map<String, String> map = new HashMap<>();
         map.put("s", "/api/upload/image");
         map.put("wxapp_id", "10001");
@@ -192,12 +192,11 @@ public class OrderCommentActivity extends BaseActivity {
                 if (imageModel.getCode() == 1) {
                     ids.add(imageModel.getData().getFile_id());
                     image_list.add(imageModel.getData().getFile_path());
-                    if(carSize.get()>=j){
+                    if (carSize.get() >= j) {
                         adapter.commentMap.get(i).setUploaded(ids);
                         adapter.commentMap.get(i).setImage_list(image_list);
                     }
-                    if( carSize.get() >= images)
-                    {
+                    if (carSize.get() >= images) {
                         comment();
                     }
                 }
@@ -240,8 +239,15 @@ public class OrderCommentActivity extends BaseActivity {
         for (int i = 0; i < adapter.getData().size(); i++) {
             if (adapter.vhMap.get(i) != null) {
                 if (adapter.cacheListMap.get(i) != null && adapter.cacheListMap.get(i).size() > 0) {
+                    adapter.commentMap.get(i).setContent(adapter.vhMap.get(i).edAdvise.getText().toString());
+                    adapter.commentMap.get(i).setGoods_id(adapter.getData().get(i).getGoods_id());
+                    adapter.commentMap.get(i).setOrder_goods_id(adapter.getData().get(i).getOrder_goods_id());
+                    if (!TextUtils.isEmpty(adapter.vhMap.get(i).edAdvise.getText().toString())) {
+                        commentBeans.add(adapter.commentMap.get(i));
+                    }
+
                     for (int j = 0; j < adapter.cacheListMap.get(i).size(); j++) {
-                        image(new File(adapter.cacheListMap.get(i).get(j)), i,adapter.cacheListMap.get(i).size()-1);
+                        image(new File(adapter.cacheListMap.get(i).get(j)), i, adapter.cacheListMap.get(i).size() - 1);
                     }
                     images += adapter.cacheListMap.get(i).size();
                 } else {
@@ -260,7 +266,7 @@ public class OrderCommentActivity extends BaseActivity {
             }
 
         }
-        if (carSize.get() == 0 ) {
+        if (carSize.get() == 0) {
             comment();
         }
     }
@@ -269,7 +275,11 @@ public class OrderCommentActivity extends BaseActivity {
         FormDataBean formDataBean = new FormDataBean();
         formDataBean.formData = commentBeans;
         String form_data = new Gson().toJson(commentBeans);
-        commentOrder(form_data);
+        if (commentBeans != null && commentBeans.size() > 0) {
+            commentOrder(form_data);
+        }else {
+            ToastUtils.showToast("请输入评论内容");
+        }
 
     }
 }
