@@ -152,6 +152,8 @@ public class ShoppingCartFragment extends BaseFragment {
                         llContent.setVisibility(View.GONE);
                         rlPanel.setVisibility(View.GONE);
                         emptyShopCart.setVisibility(View.VISIBLE);
+                        checkbox.setChecked(false);
+
 
                     } else {
                         llContent.setVisibility(View.VISIBLE);
@@ -247,6 +249,8 @@ public class ShoppingCartFragment extends BaseFragment {
     }
 
 
+
+
     private void refreshEditStatus() {
         boolean isEditStatus = "管理" == tvEdit.getText().toString();
         String text;
@@ -329,11 +333,7 @@ public class ShoppingCartFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        refreshEditStatus();
-    }
+
 
     private void updateTotalPrice() {
         double totalPrice = 0;
@@ -381,6 +381,8 @@ public class ShoppingCartFragment extends BaseFragment {
     public void onEvent(String event) {
         if (event.equals("cart_refresh")) {
             cartList();
+        }else if(event.equals("refreshEditStatus")){
+            refreshEditStatus();
         }
     }
 }

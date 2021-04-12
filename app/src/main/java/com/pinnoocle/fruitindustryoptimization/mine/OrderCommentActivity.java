@@ -164,6 +164,7 @@ public class OrderCommentActivity extends BaseActivity {
                 if (statusModel.getCode() == 1) {
                     finish();
                     EventBus.getDefault().post("order_refresh");
+                    EventBus.getDefault().post("1");
                 }
                 ToastUtils.showToast(statusModel.getMsg());
             }

@@ -43,11 +43,9 @@ public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.
         holder.tvTime.setText(mDatas.get(position).getCreate_time());
         holder.tvStatus.setText(mDatas.get(position).getState_text());
         holder.tvTotalNum.setText("共" + mDatas.get(position).getGoods().size() + "件商品，实付:");
-//        if(mDatas.get(position).getIs_vip_order()==1){
-//            holder.tvPrice.setText( mDatas.get(position).getPay_price()+"金豆");
-//        }else {
+
         holder.tvPayMoney.setText("￥" + mDatas.get(position).getPay_price());
-//        }
+
 
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         List<OrderListModel.DataBeanX.ListBean.DataBean.GoodsBean> goods = mDatas.get(position).getGoods();
@@ -64,6 +62,12 @@ public class OrderAdapter extends BaseAdapter<OrderListModel.DataBeanX.ListBean.
                 holder.tvPay.setText("去付款");
                 holder.tvAfterSales.setVisibility(View.GONE);
                 break;
+
+//                holder.rlPanel.setVisibility(View.VISIBLE);
+//                holder.tvCancel.setText("申请退款");
+//                holder.tvPay.setText("查看");
+//                holder.tvAfterSales.setVisibility(View.GONE);
+//                break;
             case "已付款，待发货":
             case "已发货，待收货":
                 holder.rlPanel.setVisibility(View.VISIBLE);

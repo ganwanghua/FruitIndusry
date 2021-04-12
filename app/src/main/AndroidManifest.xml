@@ -106,6 +106,13 @@
         <activity android:name=".mine.GroupOrderActivity" />
         <activity android:name=".mine.GroupWorkDetailActivity" />
         <activity android:name=".mine.GroupOrderDetailActivity" />
+        <activity android:name=".mine.ApplyForAfterSalesActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            />
+        <activity android:name=".mine.OrderCommentActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            />
+        <activity android:name=".mine.PaySuccessActivity" />
         <activity
             android:name=".mine.ApplyForAfterSalesActivity"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />

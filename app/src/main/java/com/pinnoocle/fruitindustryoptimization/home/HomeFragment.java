@@ -230,6 +230,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 ViewLoading.dismiss(mContext);
                 StatusModel statusModel = (StatusModel) data;
                 if (statusModel.getCode() == 1) {
+                    EventBus.getDefault().post("cart_refresh");
                 }
                 ToastUtils.showToast(statusModel.getMsg());
 

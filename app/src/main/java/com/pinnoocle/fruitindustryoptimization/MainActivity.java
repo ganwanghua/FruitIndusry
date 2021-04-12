@@ -30,6 +30,7 @@ import com.pinnoocle.fruitindustryoptimization.shoppingcart.ShoppingCartFragment
 import com.pinnoocle.fruitindustryoptimization.utils.DensityUtil;
 import com.pinnoocle.fruitindustryoptimization.widget.NoScrollViewPager;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -162,13 +163,16 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void onTabSelected(int position) {
+
         viewPager.setCurrentItem(position, false);
     }
 
 
     @Override
     public void onTabUnselected(int position) {
-
+        if (position == 3) {
+            EventBus.getDefault().post("refreshEditStatus");
+        }
     }
 
     @Override
@@ -200,9 +204,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     public void onEvent(String event) {
         if (event.equals("2")) {
             bottomNavigationBar.selectTab(2);
-        }else if(event.equals("to_shop_cart")){
+        } else if (event.equals("to_shop_cart")) {
             bottomNavigationBar.selectTab(3);
-        }else if(event.equals("3")){
+        } else if (event.equals("3")) {
             bottomNavigationBar.selectTab(0);
         }
     }

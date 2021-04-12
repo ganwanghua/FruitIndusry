@@ -82,7 +82,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_red_stroke_1"
                     android:padding="6dp"
-                    android:text="退货退款"
+                    android:text="换货"
                     android:textColor="@color/light_red"
                     android:textSize="12sp" />
 
@@ -133,7 +133,8 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/bg_grey_1_stroke"
                         android:gravity="top"
-                        android:hint="请在此描述换货原因及待换商品类型"
+                        android:hint="请详细填写申请原因，注意保持商品的完好,建议您先与卖家沟通
+"
                         android:minLines="8"
                         android:padding="10dp"
                         android:textColorHint="#CCCCCC"
@@ -163,9 +164,9 @@
                     android:id="@+id/gridView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="6dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginBottom="6dp"
                     android:horizontalSpacing="5dp"
                     android:listSelector="@android:color/transparent"
@@ -178,13 +179,10 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
     <TextView
-        android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/tv_sure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:background="@drawable/bg_red_"
         android:gravity="center"
         android:paddingTop="10dp"

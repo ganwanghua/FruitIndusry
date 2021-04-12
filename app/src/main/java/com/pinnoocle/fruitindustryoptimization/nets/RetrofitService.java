@@ -343,6 +343,10 @@ public interface RetrofitService {
     @POST("index.php")
     Observable<UploadImageModel> image(@QueryMap Map<String, String> queryMap, @Part MultipartBody.Part file);
 
+    //申请售后
+    @GET("index.php")
+    Observable<StatusModel> refundApply(@QueryMap Map<String, String> queryMap);
+
     //我的评价
     @GET("index.php")
     Observable<MyCommentModel> myComment(@QueryMap Map<String, String> queryMap);

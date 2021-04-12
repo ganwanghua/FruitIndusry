@@ -102,6 +102,8 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
                     case R.id.tv_cancel:
                         if (o.getState_text().equals("待付款")) {  //取消
                             showOrderCancelDialog(o.getOrder_id() + "");
+                        } else if (o.getState_text().equals("已付款，待发货")) {
+                            showOrderReturnDialog(o.getOrder_id() + "");
                         }
                         break;
 
@@ -118,8 +120,8 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
                             startActivity(intent);
 
                         }
-
                         break;
+
 
 //                    default:
 //                        startActivity(new Intent(getContext(), OrderDetailActivity.class));
@@ -256,6 +258,39 @@ public class OrderFragment extends BaseFragment implements OnRefreshLoadMoreList
 
         });
     }
+
+    private void showOrderReturnDialog(String order_ids) {
+        new TDialog.Builder(getActivity().getSupportFragmentManager())
+                .setLayoutRes(R.layout.order_return_dialog)
+                .setScreenWidthAspect(getContext(), 0.7f)
+                .setGravity(Gravity.CENTER)
+                .setCancelableOutside(false)
+                .addOnClickListener(R.id.tv_cancel, R.id.tv_sure)
+                .setOnBindViewListener(new OnBindViewListener() {
+                    @Override
+                    public void bindView(BindViewHolder viewHolder) {
+                    }
+                })
+                .setOnViewClickListener(new OnViewClickListener() {
+                    @Override
+                    public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+                        switch (view.getId()) {
+                            case R.id.tv_cancel:
+                                tDialog.dismiss();
+                                break;
+                            case R.id.tv_sure:
+                                orderCancel(order_ids);
+                                tDialog.dismiss();
+
+                                break;
+                        }
+                    }
+                })
+                .create()
+                .show();
+    }
+
+
 
 
     private void showOrderCancelDialog(String order_ids) {

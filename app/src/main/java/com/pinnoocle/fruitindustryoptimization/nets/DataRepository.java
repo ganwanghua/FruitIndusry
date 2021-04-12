@@ -375,6 +375,11 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
+    public void refundApply(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.refundApply(queryMap, callback);
+    }
+
+    @Override
     public void myComment(Map<String, String> queryMap, getCallback callback) {
         mRemoteDataSource.myComment(queryMap, callback);
     }

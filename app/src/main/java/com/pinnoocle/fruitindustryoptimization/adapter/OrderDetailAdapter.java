@@ -1,10 +1,12 @@
 package com.pinnoocle.fruitindustryoptimization.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +24,11 @@ import butterknife.ButterKnife;
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class OrderDetailAdapter extends BaseAdapter<OrderDetailModel.DataBean.OrderBean.GoodsBeanX, OrderDetailAdapter.VH> {
+    private boolean show = false;
 
+    public void setShow(boolean show) {
+        this.show = show;
+    }
 
     public OrderDetailAdapter(Context mContext) {
         super(mContext);
@@ -44,9 +50,21 @@ public class OrderDetailAdapter extends BaseAdapter<OrderDetailModel.DataBean.Or
 
         holder.itemView.setOnClickListener(v -> {
             if (mOnItemDataClickListener != null) {
-                mOnItemDataClickListener.onItemViewClick(v, position,mDatas.get(position));
+                mOnItemDataClickListener.onItemViewClick(v, position, mDatas.get(position));
             }
         });
+
+        if(show){
+            holder.tvAfterSale.setVisibility(View.VISIBLE);
+        }else {
+            holder.tvAfterSale.setVisibility(View.GONE);
+        }
+        holder.tvAfterSale.setOnClickListener(v -> {
+            if (mOnItemDataClickListener != null) {
+                mOnItemDataClickListener.onItemViewClick(v, position, mDatas.get(position));
+            }
+        });
+
     }
 
     @Override
@@ -55,6 +73,7 @@ public class OrderDetailAdapter extends BaseAdapter<OrderDetailModel.DataBean.Or
     }
 
     public static class VH extends RecyclerView.ViewHolder {
+
         @BindView(R.id.iv_shop)
         ImageView ivShop;
         @BindView(R.id.tv_title)
@@ -65,6 +84,12 @@ public class OrderDetailAdapter extends BaseAdapter<OrderDetailModel.DataBean.Or
         TextView tvPrice;
         @BindView(R.id.tv_num)
         TextView tvNum;
+        @BindView(R.id.tv_after_sale_text)
+        TextView tvAfterSaleText;
+        @BindView(R.id.tv_after_sale)
+        TextView tvAfterSale;
+        @BindView(R.id.rl_after_sale)
+        RelativeLayout rlAfterSale;
 
         public VH(@NonNull View itemView) {
             super(itemView);

@@ -26,6 +26,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.RightBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.mine.AddressActivity;
+import com.pinnoocle.fruitindustryoptimization.mine.PaySuccessActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
@@ -192,6 +193,7 @@ public class OrderConfirmActivity extends BaseActivity {
                 if (statusModel.getCode() == 1) {
                     EventBus.getDefault().post("cart_refresh");
                     RightBuyModel rightBuyModel = new Gson().fromJson(statusModel.getData(), RightBuyModel.class);
+                    startActivity(new Intent(mContext, PaySuccessActivity.class));
                 } else {
                     ToastUtils.showToast(statusModel.getMsg());
                 }

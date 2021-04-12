@@ -32,6 +32,8 @@ import com.timmy.tdialog.listener.OnBindViewListener;
 import com.timmy.tdialog.listener.OnViewClickListener;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
@@ -140,9 +142,16 @@ public class OrderDetailActivity extends BaseActivity {
         adapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<OrderDetailModel.DataBean.OrderBean.GoodsBeanX>() {
             @Override
             public void onItemViewClick(View view, int position, OrderDetailModel.DataBean.OrderBean.GoodsBeanX o) {
-                Intent intent = new Intent(mContext, GoodsDetailsActivity.class);
-                intent.putExtra("goods_id", o.getGoods_id() + "");
-                startActivity(intent);
+                if (view.getId() == R.id.tv_after_sale) {
+                    Intent intent = new Intent(mContext, ApplyForAfterSalesActivity.class);
+                    intent.putExtra("order_id", o.getOrder_id() + "");
+                    intent.putExtra("order_goods_id", o.getOrder_goods_id() + "");
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(mContext, GoodsDetailsActivity.class);
+                    intent.putExtra("goods_id", o.getGoods_id() + "");
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -175,7 +184,13 @@ public class OrderDetailActivity extends BaseActivity {
                     tvStatus.setText(orderDetailModel.getData().getOrder().getState_text());
                     order_id = orderDetailModel.getData().getOrder().getOrder_id() + "";
                     order_no = orderDetailModel.getData().getOrder().getOrder_no() + "";
-                    if (orderDetailModel.getData().getOrder().getState_text().equals("已取消")) {
+
+                    if (orderDetailModel.getData().getOrder().isIsAllowRefund() && orderDetailModel.getData().getOrder().getOrder_source() != 40) {
+                        adapter.setShow(true);
+                    }
+
+                    if (orderDetailModel.getData().getOrder().getState_text().equals("已取消")
+                            || orderDetailModel.getData().getOrder().getIs_comment() == 1 && orderDetailModel.getData().getOrder().getOrder_status().getValue() == 30) {
                         rlPanel.setVisibility(View.GONE);
                     } else if (orderDetailModel.getData().getOrder().getState_text().equals("待付款")) {
                         view.setBackgroundResource(R.color.light_white);
@@ -205,8 +220,7 @@ public class OrderDetailActivity extends BaseActivity {
                         tvMessageFill.setTextColor(0x99ffffff);
                         tvHint.setText("您的订单正在备货中~");
 
-                        tvBuy.setText("申请售后");
-                        tvCancel.setVisibility(View.GONE);
+                        rlPanel.setVisibility(View.GONE);
                     } else if (orderDetailModel.getData().getOrder().getState_text().equals("已发货，待收货")) {
                         view2.setBackgroundResource(R.color.light_white);
                         ivMessageFill.setBackgroundResource(R.drawable.bg_light_white_stroke);
@@ -496,20 +510,26 @@ public class OrderDetailActivity extends BaseActivity {
             case R.id.tv_cancel:
                 if (tvCancel.getText().toString().equals("取消订单")) {
                     showOrderCancelDialog(order_id);
-                } else if (tvCancel.getText().toString().equals("申请售后")) {
-
                 }
                 break;
             case R.id.tv_buy:
                 if (tvBuy.getText().toString().equals("去付款")) {
                     showOrderPayDialog(order_id, order_no);
-                } else if (tvBuy.getText().toString().equals("申请售后")) {
-                    startActivity(new Intent(mContext,ApplyForAfterSalesActivity.class));
-
                 } else if (tvBuy.getText().toString().equals("确认收货")) {
                     showOrderConfirmDialog(order_id, order_no);
+                } else if (tvBuy.getText().toString().equals("去评价")) {
+                    Intent intent = new Intent(mContext, OrderCommentActivity.class);
+                    intent.putExtra("order_id", order_id);
+                    startActivity(intent);
                 }
                 break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = false) //在ui线程执行，优先级为100
+    public void onEvent(String event) {
+        if (event.equals("order_refresh")) {
+            orderDetail();
         }
     }
 }

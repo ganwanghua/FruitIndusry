@@ -27,6 +27,8 @@ import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.ActivityUtils;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,7 +150,7 @@ public class ClassificationFragment extends BaseFragment {
                 ViewLoading.dismiss(mContext);
                 StatusModel statusModel = (StatusModel) data;
                 if (statusModel.getCode() == 1) {
-
+                    EventBus.getDefault().post("cart_refresh");
                 }
                 ToastUtils.showToast(statusModel.getMsg());
 
