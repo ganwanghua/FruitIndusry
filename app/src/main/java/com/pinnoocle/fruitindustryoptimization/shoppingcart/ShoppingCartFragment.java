@@ -23,6 +23,7 @@ import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.event.CanSettlement;
 import com.pinnoocle.fruitindustryoptimization.event.CartAllCheckedEvent;
+import com.pinnoocle.fruitindustryoptimization.home.GoodsDetailsActivity;
 import com.pinnoocle.fruitindustryoptimization.home.OrderConfirmActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
@@ -118,6 +119,7 @@ public class ShoppingCartFragment extends BaseFragment {
                         cartSub(o.getGoods_id() + "", o.getGoods_sku().getSpec_sku_id(), 1);
                         o.setTotal_num(o.getTotal_num() - 1);
                         break;
+
                 }
             }
         });

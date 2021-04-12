@@ -20,6 +20,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.event.CanSettlement;
 import com.pinnoocle.fruitindustryoptimization.event.CartAllCheckedEvent;
+import com.pinnoocle.fruitindustryoptimization.home.GoodsDetailsActivity;
 import com.pinnoocle.fruitindustryoptimization.widget.NumberButtonExt;
 
 import org.greenrobot.eventbus.EventBus;
@@ -84,6 +85,9 @@ public class ShoppingCartAdapter extends BaseAdapter<CartListsModel.DataBean.Goo
 
         });
         holder.itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(mContext, GoodsDetailsActivity.class);
+                intent.putExtra("goods_id", mDatas.get(position).getGoods_id() + "");
+                mContext.startActivity(intent);
 
         });
 
