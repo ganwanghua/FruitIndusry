@@ -107,6 +107,10 @@ public class MineFragment extends BaseFragment {
     RelativeLayout rlMyPush;
     @BindView(R.id.ll_integral)
     LinearLayout llIntegral;
+    @BindView(R.id.rl_group_order)
+    RelativeLayout rlGroupOrder;
+    @BindView(R.id.rl_evaluate)
+    RelativeLayout rlEvaluate;
     private int[] icon = {R.mipmap.paid, R.mipmap.delivered, R.mipmap.received, R.mipmap.evaluated, R.mipmap.after_sales};
     private int[] icon1 = {R.mipmap.membership, R.mipmap.my_fruit_tree, R.mipmap.adoption, R.mipmap.registration};
     private String[] iconName = {"待付款", "待发货", "待收货", "待评价", "退款/售后"};
@@ -327,10 +331,12 @@ public class MineFragment extends BaseFragment {
     }
 
     @OnClick({R.id.ll_integral, R.id.rl_setting, R.id.rl_my_push, R.id.rl_adoption_order, R.id.ll_balance, R.id.rl_addresss, R.id.ll_rebate, R.id.rl_collection, R.id.ll_coupon, R.id.tv_all_order
-    ,R.id.rl_group_order
-    })
+            , R.id.rl_group_order, R.id.rl_evaluate})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rl_evaluate:
+                startActivity(new Intent(getContext(), EvaluateActivity.class));
+                break;
             case R.id.ll_integral:
                 startActivity(new Intent(getContext(), IntegralActivity.class));
                 break;

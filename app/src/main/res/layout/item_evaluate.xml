@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/iv_goods_pic"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/tv_time"
+        android:layout_toRightOf="@id/iv_goods_pic"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="16sp"
+        android:textColor="#111111" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="#666666" />
+
+
+    <com.kaelli.niceratingbar.NiceRatingBar
+        android:id="@+id/niceRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/iv_goods_pic"
+        app:nrb_ratingStatus="Enable"
+        app:nrb_starEmptyResource="@mipmap/rating_star_off"
+        app:nrb_starFullResource="@mipmap/rating_star_on"
+        app:nrb_starImageHeight="15dp"
+        app:nrb_starImagePadding="8dp"
+        app:nrb_starImageWidth="15dp"
+        app:nrb_starTotal="5" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_goods_pic"
+        android:layout_marginTop="10dp"
+        android:textColor="#333333" />
+
+    <com.jaeger.ninegridimageview.NineGridImageView
+        android:id="@+id/nineGridImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_content"
+        android:layout_marginTop="10dp"
+        app:imgGap="4dp"
+        app:showStyle="fill"
+        app:singleImgSize="150dp" />
+</RelativeLayout>

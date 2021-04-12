@@ -24,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".home.SecKillDetailActivity"></activity>
+        <activity android:name=".mine.EvaluateActivity"></activity>
+        <activity android:name=".home.SecKillDetailActivity" />
         <activity android:name=".home.SecKillDetailsActivity" />
         <activity android:name=".orchard.VideoPicActivity" />
         <activity android:name=".orchard.WebViewActivity" />
@@ -105,12 +106,12 @@
         <activity android:name=".mine.GroupOrderActivity" />
         <activity android:name=".mine.GroupWorkDetailActivity" />
         <activity android:name=".mine.GroupOrderDetailActivity" />
-        <activity android:name=".mine.ApplyForAfterSalesActivity"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
-            />
-        <activity android:name=".mine.OrderCommentActivity"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
-            />
+        <activity
+            android:name=".mine.ApplyForAfterSalesActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+        <activity
+            android:name=".mine.OrderCommentActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
     </application>
 
 </manifest>

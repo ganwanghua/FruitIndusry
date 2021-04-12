@@ -228,8 +228,6 @@ public class ConfirmOrderActivity extends BaseActivity {
                 break;
             case R.id.tv_buy:
                 geneTreeOrder();
-//                Intent intent = new Intent(this, ECertActivity.class);
-//                startActivity(intent);
                 break;
             case R.id.iv_select:
                 if (isSelect) {

@@ -145,7 +145,7 @@ public interface RemotDataSource {
 
     void groupOrderDetail(Map<String, String> queryMap, getCallback callback);
 
-    void commentOrder(Map<String, String> map1,Map<String, String> map2, getCallback callback);
+    void commentOrder(Map<String, String> map1, Map<String, String> map2, getCallback callback);
 
     void image(Map<String, String> queryMap, MultipartBody.Part file, getCallback callback);
 
@@ -156,6 +156,8 @@ public interface RemotDataSource {
     void partake(Map<String, String> queryMap, getCallback callback);
 
     void taskDetail(Map<String, String> queryMap, getCallback callback);
+
+    void myComment(Map<String, String> queryMap, getCallback callback);
 
     Observable<UploadImageModel> imageObservable(Map<String, String> queryMap, MultipartBody.Part file);
 }

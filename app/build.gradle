@@ -21,8 +21,8 @@ android {
 
     signingConfigs {
         release {
-//            storeFile file('D:\\pinuoke\\FruitIndusry\\app\\btyx.jks')
-            storeFile file('D:\\workspace\\FruitIndusry\\app\\btyx.jks')
+            storeFile file('D:\\pinuoke\\FruitIndusry\\app\\btyx.jks')
+//            storeFile file('D:\\workspace\\FruitIndusry\\app\\btyx.jks')
             storePassword '123456'
             keyAlias 'key0'
             keyPassword '123456'
@@ -131,4 +131,7 @@ dependencies {
     implementation "com.umeng.umsdk:share-core:7.1.3"
     implementation "com.umeng.umsdk:share-board:7.1.3"
     implementation "com.umeng.umsdk:share-wx:7.1.3"
+    //评分控件
+    implementation 'com.github.KaelLi1989:NiceRatingBar:1.0.0'
+    implementation 'com.jaeger.ninegridimageview:library:1.1.1'
 }
