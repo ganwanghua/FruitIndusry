@@ -310,7 +310,7 @@ public class MineFragment extends BaseFragment {
                         startActivity(intent3);
                         break;
                     case 4: //退换
-//                        startActivity(new Intent(getContext(), AfterSalesListActivity.class));
+                        startActivity(new Intent(getContext(), AfterSaleListActivity.class));
                         break;
                     default:
                         break;

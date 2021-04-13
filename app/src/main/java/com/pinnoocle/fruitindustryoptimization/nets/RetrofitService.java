@@ -27,6 +27,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.MyPushModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.PartakeModel;
+import com.pinnoocle.fruitindustryoptimization.bean.RefundListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SecKillDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SecKillVenueModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
@@ -350,4 +351,12 @@ public interface RetrofitService {
     //我的评价
     @GET("index.php")
     Observable<MyCommentModel> myComment(@QueryMap Map<String, String> queryMap);
+
+    //售后列表
+    @GET("index.php")
+    Observable<RefundListsModel> refundLists(@QueryMap Map<String, String> queryMap);
+
+    //团抢售后列表
+    @GET("index.php")
+    Observable<RefundListsModel> groupRefundLists(@QueryMap Map<String, String> queryMap);
 }

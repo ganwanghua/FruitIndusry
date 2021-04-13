@@ -113,6 +113,8 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
             />
         <activity android:name=".mine.PaySuccessActivity" />
+        <activity android:name=".mine.AfterSaleListActivity" />
+        <activity android:name=".mine.GroupAfterSaleListActivity" />
     </application>
 
 </manifest>

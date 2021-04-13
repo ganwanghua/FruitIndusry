@@ -229,6 +229,7 @@ public class OrderDetailActivity extends BaseActivity {
                         tvHint.setText("您的订单已发货，请这注意查收~");
 
                         tvCancel.setText("申请售后");
+                        tvCancel.setVisibility(View.GONE);
                         tvBuy.setText("确认收货");
                     } else if (orderDetailModel.getData().getOrder().getState_text().equals("已完成")) {
                         tvHint.setText("您的订单已完成，期待您的好评~");

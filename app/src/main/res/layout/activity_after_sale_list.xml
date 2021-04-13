@@ -19,7 +19,7 @@
             android:layout_centerInParent="true"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="拼团订单"
+            android:text="退款/售后"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -30,39 +30,23 @@
             android:padding="15dp"
             android:src="@mipmap/goback" />
     </RelativeLayout>
-    <LinearLayout
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
 
     <com.androidkun.xtablayout.XTabLayout
         android:id="@+id/xTablayout"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:background="@color/white"
         android:overScrollMode="never"
-        app:xTabDisplayNum="5"
+        app:xTabDisplayNum="2"
         app:xTabIndicatorColor="@color/light_red"
         app:xTabIndicatorHeight="2dp"
-        app:xTabIndicatorWidth="30dp"
+        app:xTabIndicatorWidth="72dp"
+        app:xTabMode="scrollable"
         app:xTabSelectedTextColor="@color/light_red"
-        app:xTabSelectedTextSize="11sp"
+        app:xTabSelectedTextSize="13sp"
         app:xTabTextSelectedBold="true"
         app:xTabTextColor="@color/black_1"
-        app:xTabTextSize="11sp" />
-        <TextView
-            android:id="@+id/tv_after_sales"
-            android:layout_gravity="center_vertical"
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="售后"
-            android:textSize="11sp"
-            android:textColor="@color/black_1"/>
-    </LinearLayout>
-
+        app:xTabTextSize="13sp" />
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"

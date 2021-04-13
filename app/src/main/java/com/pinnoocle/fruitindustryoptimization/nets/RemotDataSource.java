@@ -161,5 +161,9 @@ public interface RemotDataSource {
 
     void myComment(Map<String, String> queryMap, getCallback callback);
 
+    void refundLists(Map<String, String> queryMap, getCallback callback);
+
+    void groupRefundLists(Map<String, String> queryMap, getCallback callback);
+
     Observable<UploadImageModel> imageObservable(Map<String, String> queryMap, MultipartBody.Part file);
 }

@@ -7,7 +7,6 @@ import com.pinnoocle.fruitindustryoptimization.bean.UploadImageModel;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import rx.Observable;
 
 /**
@@ -382,6 +381,16 @@ public class DataRepository implements RemotDataSource {
     @Override
     public void myComment(Map<String, String> queryMap, getCallback callback) {
         mRemoteDataSource.myComment(queryMap, callback);
+    }
+
+    @Override
+    public void refundLists(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.refundLists(queryMap, callback);
+    }
+
+    @Override
+    public void groupRefundLists(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.groupRefundLists(queryMap, callback);
     }
 
     @Override
