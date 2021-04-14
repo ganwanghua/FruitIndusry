@@ -24,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mine.EvaluateActivity"></activity>
+        <activity android:name=".mine.SecKillOrderActivity"/>
+        <activity android:name=".mine.EvaluateActivity" />
         <activity android:name=".home.SecKillDetailActivity" />
         <activity android:name=".home.SecKillDetailsActivity" />
         <activity android:name=".orchard.VideoPicActivity" />
