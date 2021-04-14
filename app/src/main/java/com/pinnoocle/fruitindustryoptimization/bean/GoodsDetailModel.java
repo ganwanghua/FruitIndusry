@@ -9,7 +9,7 @@ public class GoodsDetailModel {
     /**
      * code : 1
      * msg : success
-     * data : {"images":[{"id":30605,"goods_id":12439,"image_id":24579,"file_path":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","file_name":"202009081646084f1910130.jpg","file_url":""}],"rules":"&lt;p&gt;请在设置中配置&lt;/p&gt;","detail":{"goods_id":12439,"goods_name":"兵团大地果之粹红枣礼盒","selling_point":"物美价廉","category_id":10515,"spec_type":10,"deduct_stock_type":10,"content":"&lt;div&gt;&lt;br/&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/20200908164418ce7400601.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/202009081704338aba46920.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/2020090817051288b1b8211.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/202009081705343fdb30819.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/202009081705533f8b49723.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/20200908170607e49375000.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/20200908170622369869169.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;","goods_sort":100,"buy_limit":0,"least_expend_money":"0.00","delivery_id":10001,"is_new_user_enjoy":0,"is_points_gift":0,"is_points_discount":1,"is_enable_balance_price":0,"is_enable_grade":1,"is_alone_grade":0,"alone_grade_equity":{"1":"","2":"0"},"is_ind_dealer":1,"dealer_money_type":1,"first_money":"10.00","second_money":"0.00","third_money":"0.00","is_rush":0,"is_points_exchange":0,"need_points_num":0,"need_points_money":"0.00","goods_status":{"text":"上架","value":10},"is_packet":0,"is_checked":1,"video":"","comment_data_count":0,"goods_stock":221,"goods_image":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","goods_sku":{"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"120.00","line_price":"0.00","stock_num":221,"goods_sales":1,"goods_weight":1.5,"goods_old_price":"120.00","image":null},"goods_multi_spec":null,"is_user_grade":false,"bought_num":0,"collect":0,"category":{"category_id":10515,"name":"礼盒","parent_id":0,"image_id":0,"sort":100,"create_time":"2020-09-14 19:21:10"},"image":[{"id":30605,"goods_id":12439,"image_id":24579,"file_path":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","file_name":"202009081646084f1910130.jpg","file_url":""}],"sku":[{"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"120.00","line_price":"0.00","stock_num":221,"goods_sales":1,"goods_weight":1.5,"goods_old_price":"120.00","image":null}],"comment_data":[],"goods_sales":1},"coupon":{"name":"暂无可用优惠券"},"cart_total_num":1,"specData":null,"setting":{"points_name":"积分"}}
+     * data : {"images":[{"id":30605,"goods_id":12439,"image_id":24579,"file_path":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","file_name":"202009081646084f1910130.jpg","file_url":""}],"rules":"","detail":{"goods_id":12439,"goods_name":"兵团大地果之粹红枣礼盒","selling_point":"物美价廉","category_id":10515,"spec_type":10,"deduct_stock_type":10,"content":"<div><br/><\/div><p><img src=\"http://btys.vshop365.cn/uploads/20200908164418ce7400601.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/202009081704338aba46920.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/2020090817051288b1b8211.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/202009081705343fdb30819.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/202009081705533f8b49723.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/20200908170607e49375000.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/20200908170622369869169.jpg\"/><\/p><p><br/><\/p>","goods_sort":100,"buy_limit":0,"least_expend_money":"0.00","delivery_id":10001,"is_new_user_enjoy":0,"is_points_gift":0,"is_points_discount":1,"is_enable_balance_price":0,"is_enable_grade":1,"is_alone_grade":0,"alone_grade_equity":{"1":"","2":"0"},"is_ind_dealer":1,"dealer_money_type":1,"first_money":"10.00","second_money":"0.00","third_money":"0.00","is_rush":0,"is_points_exchange":0,"need_points_num":0,"need_points_money":"0.00","goods_status":{"text":"上架","value":10},"is_packet":0,"is_checked":1,"video":"","comment_data_count":3,"goods_stock":221,"goods_image":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","goods_sku":{"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"108.00","line_price":"0.00","stock_num":221,"goods_sales":12,"goods_weight":1.5,"goods_old_price":"120.00","image":null},"goods_multi_spec":null,"is_user_grade":true,"bought_num":5,"collect":0,"category":{"category_id":10515,"name":"礼盒","parent_id":0,"image_id":0,"sort":100,"create_time":"2020-09-14 19:21:10"},"image":[{"id":30605,"goods_id":12439,"image_id":24579,"file_path":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","file_name":"202009081646084f1910130.jpg","file_url":""}],"sku":[{"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"108.00","line_price":"0.00","stock_num":221,"goods_sales":12,"goods_weight":1.5,"goods_old_price":"120.00","image":null}],"comment_data":[{"comment_id":15,"score":10,"content":"测试","is_picture":0,"user_id":17145,"wxapp_id":10001,"create_time":"2021-04-10 17:14:26","user":{"user_id":17145,"nickName":"技术测试","avatarUrl":"http://btys.vshop365.cn/uploads/202103171908190a1360751.png"}},{"comment_id":17,"score":10,"content":"测试","is_picture":1,"user_id":17145,"wxapp_id":10001,"create_time":"2021-04-12 09:45:59","user":{"user_id":17145,"nickName":"技术测试","avatarUrl":"http://btys.vshop365.cn/uploads/202103171908190a1360751.png"}}],"goods_sales":12},"coupon":{"name":"暂无可用优惠券"},"cart_total_num":4,"specData":null,"setting":{"points_name":"积分"}}
      */
 
     private int code;
@@ -43,10 +43,10 @@ public class GoodsDetailModel {
     public static class DataBean {
         /**
          * images : [{"id":30605,"goods_id":12439,"image_id":24579,"file_path":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","file_name":"202009081646084f1910130.jpg","file_url":""}]
-         * rules : &lt;p&gt;请在设置中配置&lt;/p&gt;
-         * detail : {"goods_id":12439,"goods_name":"兵团大地果之粹红枣礼盒","selling_point":"物美价廉","category_id":10515,"spec_type":10,"deduct_stock_type":10,"content":"&lt;div&gt;&lt;br/&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/20200908164418ce7400601.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/202009081704338aba46920.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/2020090817051288b1b8211.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/202009081705343fdb30819.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/202009081705533f8b49723.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/20200908170607e49375000.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/20200908170622369869169.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;","goods_sort":100,"buy_limit":0,"least_expend_money":"0.00","delivery_id":10001,"is_new_user_enjoy":0,"is_points_gift":0,"is_points_discount":1,"is_enable_balance_price":0,"is_enable_grade":1,"is_alone_grade":0,"alone_grade_equity":{"1":"","2":"0"},"is_ind_dealer":1,"dealer_money_type":1,"first_money":"10.00","second_money":"0.00","third_money":"0.00","is_rush":0,"is_points_exchange":0,"need_points_num":0,"need_points_money":"0.00","goods_status":{"text":"上架","value":10},"is_packet":0,"is_checked":1,"video":"","comment_data_count":0,"goods_stock":221,"goods_image":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","goods_sku":{"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"120.00","line_price":"0.00","stock_num":221,"goods_sales":1,"goods_weight":1.5,"goods_old_price":"120.00","image":null},"goods_multi_spec":null,"is_user_grade":false,"bought_num":0,"collect":0,"category":{"category_id":10515,"name":"礼盒","parent_id":0,"image_id":0,"sort":100,"create_time":"2020-09-14 19:21:10"},"image":[{"id":30605,"goods_id":12439,"image_id":24579,"file_path":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","file_name":"202009081646084f1910130.jpg","file_url":""}],"sku":[{"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"120.00","line_price":"0.00","stock_num":221,"goods_sales":1,"goods_weight":1.5,"goods_old_price":"120.00","image":null}],"comment_data":[],"goods_sales":1}
+         * rules :
+         * detail : {"goods_id":12439,"goods_name":"兵团大地果之粹红枣礼盒","selling_point":"物美价廉","category_id":10515,"spec_type":10,"deduct_stock_type":10,"content":"<div><br/><\/div><p><img src=\"http://btys.vshop365.cn/uploads/20200908164418ce7400601.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/202009081704338aba46920.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/2020090817051288b1b8211.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/202009081705343fdb30819.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/202009081705533f8b49723.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/20200908170607e49375000.jpg\"/><\/p><p><img src=\"http://btys.vshop365.cn/uploads/20200908170622369869169.jpg\"/><\/p><p><br/><\/p>","goods_sort":100,"buy_limit":0,"least_expend_money":"0.00","delivery_id":10001,"is_new_user_enjoy":0,"is_points_gift":0,"is_points_discount":1,"is_enable_balance_price":0,"is_enable_grade":1,"is_alone_grade":0,"alone_grade_equity":{"1":"","2":"0"},"is_ind_dealer":1,"dealer_money_type":1,"first_money":"10.00","second_money":"0.00","third_money":"0.00","is_rush":0,"is_points_exchange":0,"need_points_num":0,"need_points_money":"0.00","goods_status":{"text":"上架","value":10},"is_packet":0,"is_checked":1,"video":"","comment_data_count":3,"goods_stock":221,"goods_image":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","goods_sku":{"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"108.00","line_price":"0.00","stock_num":221,"goods_sales":12,"goods_weight":1.5,"goods_old_price":"120.00","image":null},"goods_multi_spec":null,"is_user_grade":true,"bought_num":5,"collect":0,"category":{"category_id":10515,"name":"礼盒","parent_id":0,"image_id":0,"sort":100,"create_time":"2020-09-14 19:21:10"},"image":[{"id":30605,"goods_id":12439,"image_id":24579,"file_path":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","file_name":"202009081646084f1910130.jpg","file_url":""}],"sku":[{"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"108.00","line_price":"0.00","stock_num":221,"goods_sales":12,"goods_weight":1.5,"goods_old_price":"120.00","image":null}],"comment_data":[{"comment_id":15,"score":10,"content":"测试","is_picture":0,"user_id":17145,"wxapp_id":10001,"create_time":"2021-04-10 17:14:26","user":{"user_id":17145,"nickName":"技术测试","avatarUrl":"http://btys.vshop365.cn/uploads/202103171908190a1360751.png"}},{"comment_id":17,"score":10,"content":"测试","is_picture":1,"user_id":17145,"wxapp_id":10001,"create_time":"2021-04-12 09:45:59","user":{"user_id":17145,"nickName":"技术测试","avatarUrl":"http://btys.vshop365.cn/uploads/202103171908190a1360751.png"}}],"goods_sales":12}
          * coupon : {"name":"暂无可用优惠券"}
-         * cart_total_num : 1
+         * cart_total_num : 4
          * specData : null
          * setting : {"points_name":"积分"}
          */
@@ -123,7 +123,7 @@ public class GoodsDetailModel {
              * category_id : 10515
              * spec_type : 10
              * deduct_stock_type : 10
-             * content : &lt;div&gt;&lt;br/&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/20200908164418ce7400601.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/202009081704338aba46920.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/2020090817051288b1b8211.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/202009081705343fdb30819.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/202009081705533f8b49723.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/20200908170607e49375000.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://btys.vshop365.cn/uploads/20200908170622369869169.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+             * content : <div><br/></div><p><img src="http://btys.vshop365.cn/uploads/20200908164418ce7400601.jpg"/></p><p><img src="http://btys.vshop365.cn/uploads/202009081704338aba46920.jpg"/></p><p><img src="http://btys.vshop365.cn/uploads/2020090817051288b1b8211.jpg"/></p><p><img src="http://btys.vshop365.cn/uploads/202009081705343fdb30819.jpg"/></p><p><img src="http://btys.vshop365.cn/uploads/202009081705533f8b49723.jpg"/></p><p><img src="http://btys.vshop365.cn/uploads/20200908170607e49375000.jpg"/></p><p><img src="http://btys.vshop365.cn/uploads/20200908170622369869169.jpg"/></p><p><br/></p>
              * goods_sort : 100
              * buy_limit : 0
              * least_expend_money : 0.00
@@ -148,19 +148,19 @@ public class GoodsDetailModel {
              * is_packet : 0
              * is_checked : 1
              * video :
-             * comment_data_count : 0
+             * comment_data_count : 3
              * goods_stock : 221
              * goods_image : http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg
-             * goods_sku : {"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"120.00","line_price":"0.00","stock_num":221,"goods_sales":1,"goods_weight":1.5,"goods_old_price":"120.00","image":null}
+             * goods_sku : {"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"108.00","line_price":"0.00","stock_num":221,"goods_sales":12,"goods_weight":1.5,"goods_old_price":"120.00","image":null}
              * goods_multi_spec : null
-             * is_user_grade : false
-             * bought_num : 0
+             * is_user_grade : true
+             * bought_num : 5
              * collect : 0
              * category : {"category_id":10515,"name":"礼盒","parent_id":0,"image_id":0,"sort":100,"create_time":"2020-09-14 19:21:10"}
              * image : [{"id":30605,"goods_id":12439,"image_id":24579,"file_path":"http://btys.vshop365.cn/uploads/202009081646084f1910130.jpg","file_name":"202009081646084f1910130.jpg","file_url":""}]
-             * sku : [{"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"120.00","line_price":"0.00","stock_num":221,"goods_sales":1,"goods_weight":1.5,"goods_old_price":"120.00","image":null}]
-             * comment_data : []
-             * goods_sales : 1
+             * sku : [{"goods_sku_id":33756,"goods_id":12439,"spec_sku_id":"0","image_id":0,"goods_no":"566464","balance_price":"0.00","goods_price":"108.00","line_price":"0.00","stock_num":221,"goods_sales":12,"goods_weight":1.5,"goods_old_price":"120.00","image":null}]
+             * comment_data : [{"comment_id":15,"score":10,"content":"测试","is_picture":0,"user_id":17145,"wxapp_id":10001,"create_time":"2021-04-10 17:14:26","user":{"user_id":17145,"nickName":"技术测试","avatarUrl":"http://btys.vshop365.cn/uploads/202103171908190a1360751.png"}},{"comment_id":17,"score":10,"content":"测试","is_picture":1,"user_id":17145,"wxapp_id":10001,"create_time":"2021-04-12 09:45:59","user":{"user_id":17145,"nickName":"技术测试","avatarUrl":"http://btys.vshop365.cn/uploads/202103171908190a1360751.png"}}]
+             * goods_sales : 12
              */
 
             private int goods_id;
@@ -206,7 +206,7 @@ public class GoodsDetailModel {
             private int goods_sales;
             private List<ImageBean> image;
             private List<SkuBean> sku;
-            private List<?> comment_data;
+            private List<CommentDataBean> comment_data;
 
             public int getGoods_id() {
                 return goods_id;
@@ -552,11 +552,11 @@ public class GoodsDetailModel {
                 this.sku = sku;
             }
 
-            public List<?> getComment_data() {
+            public List<CommentDataBean> getComment_data() {
                 return comment_data;
             }
 
-            public void setComment_data(List<?> comment_data) {
+            public void setComment_data(List<CommentDataBean> comment_data) {
                 this.comment_data = comment_data;
             }
 
@@ -622,10 +622,10 @@ public class GoodsDetailModel {
                  * image_id : 0
                  * goods_no : 566464
                  * balance_price : 0.00
-                 * goods_price : 120.00
+                 * goods_price : 108.00
                  * line_price : 0.00
                  * stock_num : 221
-                 * goods_sales : 1
+                 * goods_sales : 12
                  * goods_weight : 1.5
                  * goods_old_price : 120.00
                  * image : null
@@ -890,10 +890,10 @@ public class GoodsDetailModel {
                  * image_id : 0
                  * goods_no : 566464
                  * balance_price : 0.00
-                 * goods_price : 120.00
+                 * goods_price : 108.00
                  * line_price : 0.00
                  * stock_num : 221
-                 * goods_sales : 1
+                 * goods_sales : 12
                  * goods_weight : 1.5
                  * goods_old_price : 120.00
                  * image : null
@@ -1015,6 +1015,128 @@ public class GoodsDetailModel {
 
                 public void setImage(Object image) {
                     this.image = image;
+                }
+            }
+
+            public static class CommentDataBean {
+                /**
+                 * comment_id : 15
+                 * score : 10
+                 * content : 测试
+                 * is_picture : 0
+                 * user_id : 17145
+                 * wxapp_id : 10001
+                 * create_time : 2021-04-10 17:14:26
+                 * user : {"user_id":17145,"nickName":"技术测试","avatarUrl":"http://btys.vshop365.cn/uploads/202103171908190a1360751.png"}
+                 */
+
+                private int comment_id;
+                private int score;
+                private String content;
+                private int is_picture;
+                private int user_id;
+                private int wxapp_id;
+                private String create_time;
+                private UserBean user;
+
+                public int getComment_id() {
+                    return comment_id;
+                }
+
+                public void setComment_id(int comment_id) {
+                    this.comment_id = comment_id;
+                }
+
+                public int getScore() {
+                    return score;
+                }
+
+                public void setScore(int score) {
+                    this.score = score;
+                }
+
+                public String getContent() {
+                    return content;
+                }
+
+                public void setContent(String content) {
+                    this.content = content;
+                }
+
+                public int getIs_picture() {
+                    return is_picture;
+                }
+
+                public void setIs_picture(int is_picture) {
+                    this.is_picture = is_picture;
+                }
+
+                public int getUser_id() {
+                    return user_id;
+                }
+
+                public void setUser_id(int user_id) {
+                    this.user_id = user_id;
+                }
+
+                public int getWxapp_id() {
+                    return wxapp_id;
+                }
+
+                public void setWxapp_id(int wxapp_id) {
+                    this.wxapp_id = wxapp_id;
+                }
+
+                public String getCreate_time() {
+                    return create_time;
+                }
+
+                public void setCreate_time(String create_time) {
+                    this.create_time = create_time;
+                }
+
+                public UserBean getUser() {
+                    return user;
+                }
+
+                public void setUser(UserBean user) {
+                    this.user = user;
+                }
+
+                public static class UserBean {
+                    /**
+                     * user_id : 17145
+                     * nickName : 技术测试
+                     * avatarUrl : http://btys.vshop365.cn/uploads/202103171908190a1360751.png
+                     */
+
+                    private int user_id;
+                    private String nickName;
+                    private String avatarUrl;
+
+                    public int getUser_id() {
+                        return user_id;
+                    }
+
+                    public void setUser_id(int user_id) {
+                        this.user_id = user_id;
+                    }
+
+                    public String getNickName() {
+                        return nickName;
+                    }
+
+                    public void setNickName(String nickName) {
+                        this.nickName = nickName;
+                    }
+
+                    public String getAvatarUrl() {
+                        return avatarUrl;
+                    }
+
+                    public void setAvatarUrl(String avatarUrl) {
+                        this.avatarUrl = avatarUrl;
+                    }
                 }
             }
         }

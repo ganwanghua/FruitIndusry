@@ -115,6 +115,8 @@
         <activity android:name=".mine.PaySuccessActivity" />
         <activity android:name=".mine.AfterSaleListActivity" />
         <activity android:name=".mine.GroupAfterSaleListActivity" />
+        <activity android:name=".home.EvaluationActivity" />
+        <activity android:name=".home.CouponsCenterActivity" />
     </application>
 
 </manifest>

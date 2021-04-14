@@ -359,4 +359,9 @@ public interface RetrofitService {
     //团抢售后列表
     @GET("index.php")
     Observable<RefundListsModel> groupRefundLists(@QueryMap Map<String, String> queryMap);
+
+    //商品评价
+    @GET("index.php")
+    Observable<MyCommentModel> goodsComment(@QueryMap Map<String, String> queryMap);
+
 }

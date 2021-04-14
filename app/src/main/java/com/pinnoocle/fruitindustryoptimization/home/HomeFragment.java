@@ -195,7 +195,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                             }
                             initMarqueeView(titles);
                         } else if (i == 5) {
-                            initJzVideo(homeModel.getData().getItems().get(i).getParams().getPoster());
+                            initJzVideo(homeModel.getData().getItems().get(i).getParams().getPoster(),homeModel.getData().getItems().get(i).getParams().getUrl());
                         } else if (i == 6) {
                             Glide.with(getContext()).load(homeModel.getData().getItems().get(i).getData().get(0).getImgUrl()).into(ivImage);
                         } else if (i == 8) {
@@ -304,8 +304,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         });
     }
 
-    private void initJzVideo(String image) {
-        jzVideo.setUp("http://1251316161.vod2.myqcloud.com/5f6ddb64vodsh1251316161/ece2c7df5285890812999168943/mKHguCyn6gIA.mp4"
+    private void initJzVideo(String image,String url) {
+        jzVideo.setUp(url
                 , "");
         Glide.with(getContext())
                 .load(image)

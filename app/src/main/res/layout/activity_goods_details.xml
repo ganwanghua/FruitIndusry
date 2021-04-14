@@ -244,6 +244,7 @@
                 android:textColor="#666666" />
 
             <RelativeLayout
+                android:id="@+id/rl_coupon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -273,6 +274,7 @@
                         android:textColor="#DA251D" />
 
                     <TextView
+                        android:id="@+id/tv_coupon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_pick_4"
@@ -368,6 +370,53 @@
                     android:padding="15dp"
                     android:src="@mipmap/right2" />
             </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/ll_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rl_appraise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_evaluation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="end"
+                        android:drawableEnd="@mipmap/arrow_right"
+                        android:drawablePadding="20dp"
+                        android:text="查看更多"
+                        android:textSize="13sp" />
+
+
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#F0F0F0" />
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="match_parent"

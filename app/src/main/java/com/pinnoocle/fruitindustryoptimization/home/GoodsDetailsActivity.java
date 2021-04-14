@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -19,7 +21,10 @@ import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
+import com.pinnoocle.fruitindustryoptimization.adapter.Evaluation2Adapter;
+import com.pinnoocle.fruitindustryoptimization.adapter.EvaluationAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.GoodsDetailModel;
+import com.pinnoocle.fruitindustryoptimization.bean.MyCommentModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.bean.VipIntroModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
@@ -32,7 +37,6 @@ import com.pinnoocle.fruitindustryoptimization.widget.DialogShopCar;
 import com.pinnoocle.fruitindustryoptimization.widget.VerticalMarqueeLayout;
 import com.timmy.tdialog.TDialog;
 import com.timmy.tdialog.base.BindViewHolder;
-import com.timmy.tdialog.listener.OnBindViewListener;
 import com.timmy.tdialog.listener.OnViewClickListener;
 import com.to.aboomy.banner.Banner;
 import com.to.aboomy.banner.HolderCreator;
@@ -102,10 +106,27 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
     ImageView ivCollection;
     @BindView(R.id.tv_collection)
     TextView tvCollection;
+    @BindView(R.id.ll_look)
+    LinearLayout llLook;
+    @BindView(R.id.rl_server)
+    RelativeLayout rlServer;
+    @BindView(R.id.tv_evaluation)
+    TextView tvEvaluation;
+    @BindView(R.id.tv_more)
+    TextView tvMore;
+    @BindView(R.id.rl_appraise)
+    RelativeLayout rlAppraise;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    @BindView(R.id.ll_comment)
+    LinearLayout llComment;
+    @BindView(R.id.tv_coupon)
+    TextView tvCoupon;
     private DataRepository dataRepository;
     private List<String> imagesBeans = new ArrayList<>();
     private GoodsDetailModel.DataBean dataBean;
     private BasePopupView selectDialog;
+    private EvaluationAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +135,17 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
         setContentView(R.layout.activity_goods_details);
         ButterKnife.bind(this);
         dataRepository = Injection.dataRepository(this);
-
+        initView();
         goodsDetail();
+        goodsComment();
+
+    }
+
+    private void initView() {
+        adapter = new EvaluationAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     private void goodsDetail() {
@@ -163,10 +193,46 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
                             .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
                             .into(tvContent);
 
+
                 }
             }
         });
     }
+
+    private void goodsComment() {
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/comment/lists");
+        map.put("wxapp_id", "10001");
+        map.put("token", FastData.getToken());
+        map.put("goods_id", getIntent().getStringExtra("goods_id"));
+        map.put("scoreType", "-1");
+        map.put("page", "1");
+        dataRepository.goodsComment(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                MyCommentModel myCommentModel = (MyCommentModel) data;
+                if (myCommentModel.getCode() == 1) {
+                    tvEvaluation.setText("评价（" + myCommentModel.getData().getTotal().getAll() + "条）");
+
+                    List<MyCommentModel.DataBeanX.ListBean.DataBean> comments = new ArrayList<>();
+                    List<MyCommentModel.DataBeanX.ListBean.DataBean> dataBeans = myCommentModel.getData().getList().getData();
+                    for (int i = 0; i < dataBeans.size(); i++) {
+                        if (i > 1) {
+                            break;
+                        }
+                        comments.add(dataBeans.get(i));
+                    }
+                    adapter.setData(comments);
+                }
+
+            }
+        });
+    }
+
 
     private void userCollect() {
         ViewLoading.show(this);
@@ -236,7 +302,7 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
     }
 
 
-    @OnClick({R.id.iv_back, R.id.ll_message, R.id.ll_collection, R.id.ll_shop, R.id.tv_add_cart, R.id.tv_buy, R.id.ll_look,R.id.rl_server})
+    @OnClick({R.id.iv_back, R.id.ll_message, R.id.ll_collection, R.id.ll_shop, R.id.tv_add_cart, R.id.tv_buy, R.id.ll_look, R.id.rl_server, R.id.tv_more, R.id.rl_coupon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -261,6 +327,15 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
             case R.id.rl_server:
                 showServerDialog();
                 break;
+            case R.id.tv_more:
+                Intent intent = new Intent(this, EvaluationActivity.class);
+                intent.putExtra("goods_id", getIntent().getStringExtra("goods_id"));
+                startActivity(intent);
+                break;
+            case R.id.rl_coupon:
+                if (tvCoupon.getText().toString().equals("暂无可用优惠券"))
+                    startActivity(new Intent(mContext, CouponsCenterActivity.class));
+                break;
         }
     }
 
@@ -270,7 +345,7 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
                 .setScreenWidthAspect(mContext, 1f)
                 .setGravity(Gravity.BOTTOM)
                 .setCancelableOutside(true)
-                .addOnClickListener( R.id.tv_sure)
+                .addOnClickListener(R.id.tv_sure)
                 .setOnViewClickListener(new OnViewClickListener() {
                     @Override
                     public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {

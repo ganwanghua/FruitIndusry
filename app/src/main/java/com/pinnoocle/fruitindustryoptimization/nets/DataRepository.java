@@ -394,6 +394,11 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
+    public void goodsComment(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.goodsComment(queryMap, callback);
+    }
+
+    @Override
     public Observable<UploadImageModel> imageObservable(Map<String, String> queryMap, MultipartBody.Part file) {
         return mRemoteDataSource.imageObservable(queryMap,file);
     }
