@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,16 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.haozhang.lib.SlantedTextView;
 import com.pinnoocle.fruitindustryoptimization.R;
-import com.pinnoocle.fruitindustryoptimization.bean.CouponListsModel;
+import com.pinnoocle.fruitindustryoptimization.bean.BuyNowModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CouponAdapter extends BaseAdapter<CouponListsModel.DataBean.ListBean, CouponAdapter.VH> {
+public class SelectCouponsAdapter extends BaseAdapter<BuyNowModel.DataBean.CouponBean, SelectCouponsAdapter.VH> {
 
 
-    public CouponAdapter(Context mContext) {
+    public SelectCouponsAdapter(Context mContext) {
         super(mContext);
     }
 
@@ -32,50 +34,32 @@ public class CouponAdapter extends BaseAdapter<CouponListsModel.DataBean.ListBea
     }
 
     @Override
-    public int getItemCount() {
-        return mDatas == null ? 0 : mDatas.size();
-    }
-
-    @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        if (mDatas.get(position).getIs_use() == 1) {
-            holder.tvUse.setVisibility(View.GONE);
-            holder.tvReceive.setVisibility(View.VISIBLE);
-            holder.tvReceive.setText("已使用");
-            holder.llCoupon.setBackgroundResource(R.mipmap.coupon_1);
-            holder.tvCoupon.setSlantedBackgroundColor(mContext.getResources().getColor(R.color.coupon_grey));
-            holder.tvCoupon.setTextColor(R.color.white);
-
-        } else if (mDatas.get(position).getIs_expire() == 1) {
-            holder.tvUse.setVisibility(View.GONE);
-            holder.tvReceive.setVisibility(View.VISIBLE);
-            holder.tvReceive.setText("已过期");
-            holder.llCoupon.setBackgroundResource(R.mipmap.coupon_1);
-            holder.tvCoupon.setSlantedBackgroundColor(mContext.getResources().getColor(R.color.coupon_grey));
-            holder.tvCoupon.setTextColor(R.color.white);
-
-        } else {
-            holder.tvUse.setVisibility(View.VISIBLE);
-            holder.tvReceive.setVisibility(View.GONE);
-            holder.llCoupon.setBackgroundResource(R.mipmap.coupon);
-            holder.tvCoupon.setSlantedBackgroundColor(mContext.getResources().getColor(R.color.coupon_yellow));
-            holder.tvCoupon.setTextColor(R.color.red_1);
-            holder.itemView.setOnClickListener(v -> {
-                if (mOnItemClickListener != null) {
-
-                mOnItemClickListener.onItemViewClick(v,position);
-                }
-            });
-        }
-
+        holder.tvUse.setVisibility(View.GONE);
         holder.tvMoney.setText(mDatas.get(position).getReduce_price());
         holder.tvDiscount.setText("满" + mDatas.get(position).getMin_price() + "元使用");
         holder.tvName.setText(mDatas.get(position).getName());
         holder.tvValidity.setText(mDatas.get(position).getStart_time().getText() + "~" + mDatas.get(position).getEnd_time().getText());
         holder.tvCoupon.setText(mDatas.get(position).getCoupon_type().getText());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (mOnItemDataClickListener != null) {
+                mOnItemDataClickListener.onItemViewClick(v, position, mDatas.get(position));
+            }
+        });
     }
 
-    static class VH extends RecyclerView.ViewHolder {
+
+    @Override
+    public int getItemCount() {
+        return mDatas == null ? 0 : mDatas.size();
+    }
+
+    public void setPos(int position) {
+        notifyDataSetChanged();
+    }
+
+    public static class VH extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_money)
         TextView tvMoney;

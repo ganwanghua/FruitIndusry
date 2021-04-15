@@ -191,7 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:textColor="#111111"
+                        android:textColor="@color/light_red"
                         android:textSize="14sp" />
                 </RelativeLayout>
 
@@ -202,6 +202,7 @@
                     android:background="#E5E5E7" />
 
                 <RelativeLayout
+                    android:id="@+id/rl_coupon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="15dp">
@@ -218,7 +219,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:textColor="#111111"
+                        android:textColor="@color/light_red"
                         android:textSize="14sp" />
                 </RelativeLayout>
 
@@ -245,7 +246,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:textColor="#111111"
+                        android:textColor="@color/light_red"
                         android:textSize="14sp" />
                 </RelativeLayout>
             </LinearLayout>

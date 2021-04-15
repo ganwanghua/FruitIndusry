@@ -102,9 +102,230 @@ public class BuyNowModel {
         private String order_price;
         private String order_pay_price;
         private List<GoodsListBean> goods_list;
-        private List<?> coupon_list;
+        private List<CouponBean> coupon_list;
         private List<?> extract_shop;
         private List<String> deliverySetting;
+
+        public static class CouponBean{
+
+            /**
+             * user_coupon_id : 11151
+             * name : 测试优惠券
+             * color : {"text":"blue","value":10}
+             * coupon_type : {"text":"满减券","value":10}
+             * reduce_price : 1.00
+             * discount : 0
+             * min_price : 198.00
+             * expire_type : 10
+             * start_time : {"text":"2021/04/15","value":1618469893}
+             * end_time : {"text":"2021/04/18","value":1618729093}
+             * reduced_price : 1.00
+             */
+
+            private int user_coupon_id;
+            private String name;
+            private ColorBean color;
+            private CouponTypeBean coupon_type;
+            private String reduce_price;
+            private int discount;
+            private String min_price;
+            private int expire_type;
+            private StartTimeBean start_time;
+            private EndTimeBean end_time;
+            private String reduced_price;
+
+            public int getUser_coupon_id() {
+                return user_coupon_id;
+            }
+
+            public void setUser_coupon_id(int user_coupon_id) {
+                this.user_coupon_id = user_coupon_id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public ColorBean getColor() {
+                return color;
+            }
+
+            public void setColor(ColorBean color) {
+                this.color = color;
+            }
+
+            public CouponTypeBean getCoupon_type() {
+                return coupon_type;
+            }
+
+            public void setCoupon_type(CouponTypeBean coupon_type) {
+                this.coupon_type = coupon_type;
+            }
+
+            public String getReduce_price() {
+                return reduce_price;
+            }
+
+            public void setReduce_price(String reduce_price) {
+                this.reduce_price = reduce_price;
+            }
+
+            public int getDiscount() {
+                return discount;
+            }
+
+            public void setDiscount(int discount) {
+                this.discount = discount;
+            }
+
+            public String getMin_price() {
+                return min_price;
+            }
+
+            public void setMin_price(String min_price) {
+                this.min_price = min_price;
+            }
+
+            public int getExpire_type() {
+                return expire_type;
+            }
+
+            public void setExpire_type(int expire_type) {
+                this.expire_type = expire_type;
+            }
+
+            public StartTimeBean getStart_time() {
+                return start_time;
+            }
+
+            public void setStart_time(StartTimeBean start_time) {
+                this.start_time = start_time;
+            }
+
+            public EndTimeBean getEnd_time() {
+                return end_time;
+            }
+
+            public void setEnd_time(EndTimeBean end_time) {
+                this.end_time = end_time;
+            }
+
+            public String getReduced_price() {
+                return reduced_price;
+            }
+
+            public void setReduced_price(String reduced_price) {
+                this.reduced_price = reduced_price;
+            }
+
+            public static class ColorBean {
+                /**
+                 * text : blue
+                 * value : 10
+                 */
+
+                private String text;
+                private int value;
+
+                public String getText() {
+                    return text;
+                }
+
+                public void setText(String text) {
+                    this.text = text;
+                }
+
+                public int getValue() {
+                    return value;
+                }
+
+                public void setValue(int value) {
+                    this.value = value;
+                }
+            }
+
+            public static class CouponTypeBean {
+                /**
+                 * text : 满减券
+                 * value : 10
+                 */
+
+                private String text;
+                private int value;
+
+                public String getText() {
+                    return text;
+                }
+
+                public void setText(String text) {
+                    this.text = text;
+                }
+
+                public int getValue() {
+                    return value;
+                }
+
+                public void setValue(int value) {
+                    this.value = value;
+                }
+            }
+
+            public static class StartTimeBean {
+                /**
+                 * text : 2021/04/15
+                 * value : 1618469893
+                 */
+
+                private String text;
+                private int value;
+
+                public String getText() {
+                    return text;
+                }
+
+                public void setText(String text) {
+                    this.text = text;
+                }
+
+                public int getValue() {
+                    return value;
+                }
+
+                public void setValue(int value) {
+                    this.value = value;
+                }
+            }
+
+            public static class EndTimeBean {
+                /**
+                 * text : 2021/04/18
+                 * value : 1618729093
+                 */
+
+                private String text;
+                private int value;
+
+                public String getText() {
+                    return text;
+                }
+
+                public void setText(String text) {
+                    this.text = text;
+                }
+
+                public int getValue() {
+                    return value;
+                }
+
+                public void setValue(int value) {
+                    this.value = value;
+                }
+            }
+        }
 
         public int getOrder_total_num() {
             return order_total_num;
@@ -314,11 +535,11 @@ public class BuyNowModel {
             this.goods_list = goods_list;
         }
 
-        public List<?> getCoupon_list() {
+        public List<CouponBean> getCoupon_list() {
             return coupon_list;
         }
 
-        public void setCoupon_list(List<?> coupon_list) {
+        public void setCoupon_list(List<CouponBean> coupon_list) {
             this.coupon_list = coupon_list;
         }
 

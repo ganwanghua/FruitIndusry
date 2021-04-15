@@ -181,7 +181,7 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
                     tvMoney1.setText("" + decimalFormat.format(Double.parseDouble(goodsDetailModel.getData().getDetail().getGoods_sku().getGoods_price()) * 0.1));
                     tvSellingPoint.setText(goodsDetailModel.getData().getDetail().getSelling_point());
                     tvNum.setText("剩余:" + goodsDetailModel.getData().getDetail().getGoods_sku().getStock_num() + "件");
-
+                    tvCoupon.setText(goodsDetailModel.getData().getCoupon().getName());
                     if (goodsDetailModel.getData().getDetail().getCollect() == 1) {
                         tvCollection.setText("已收藏");
                     } else {
@@ -333,7 +333,6 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
                 startActivity(intent);
                 break;
             case R.id.rl_coupon:
-                if (tvCoupon.getText().toString().equals("暂无可用优惠券"))
                     startActivity(new Intent(mContext, CouponsCenterActivity.class));
                 break;
         }

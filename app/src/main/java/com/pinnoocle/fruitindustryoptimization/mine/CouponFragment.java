@@ -1,5 +1,7 @@
 package com.pinnoocle.fruitindustryoptimization.mine;
 
+import android.view.View;
+
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,14 +10,18 @@ import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.AdoptAdapter;
 import com.pinnoocle.fruitindustryoptimization.adapter.CouponAdapter;
+import com.pinnoocle.fruitindustryoptimization.adapter.EvaluationAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.CouponListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.TreesModel;
+import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
 import com.pinnoocle.fruitindustryoptimization.widget.CommItemDecoration;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +53,13 @@ public class CouponFragment extends BaseFragment {
         recycleView.addItemDecoration(new CommItemDecoration(getContext(), DividerItemDecoration.VERTICAL, getResources().getColor(R.color.transparent), 30));
         couponAdapter = new CouponAdapter(getContext());
         recycleView.setAdapter(couponAdapter);
+        couponAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemViewClick(View view, int position) {
+                getActivity().finish();
+                EventBus.getDefault().post("3");
+                }
+        });
     }
 
     @Override

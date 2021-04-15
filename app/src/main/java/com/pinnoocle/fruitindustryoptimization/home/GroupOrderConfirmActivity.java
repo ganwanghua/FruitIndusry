@@ -3,6 +3,7 @@ package com.pinnoocle.fruitindustryoptimization.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,16 +20,23 @@ import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pedaily.yc.ycdialoglib.toast.ToastUtils;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.OrderConfirmAdapter;
+import com.pinnoocle.fruitindustryoptimization.adapter.SelectCouponsAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BuyNowModel;
 import com.pinnoocle.fruitindustryoptimization.bean.RightBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
+import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.mine.AddressActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
 import com.pinnoocle.fruitindustryoptimization.utils.FastData;
+import com.pinnoocle.fruitindustryoptimization.widget.CommItemDecoration;
+import com.timmy.tdialog.TDialog;
+import com.timmy.tdialog.base.BindViewHolder;
+import com.timmy.tdialog.listener.OnBindViewListener;
+import com.timmy.tdialog.listener.OnViewClickListener;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -89,6 +98,12 @@ public class GroupOrderConfirmActivity extends BaseActivity {
     private String order_type ;
     private String pay_type = "10";
 
+    private SelectCouponsAdapter selectCouponsAdapter;
+    private TDialog dialog;
+    private List<BuyNowModel.DataBean.CouponBean> coupon_list;
+    private String coupon_id;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initWhite();
@@ -124,6 +139,8 @@ public class GroupOrderConfirmActivity extends BaseActivity {
         map.put("goods_num", getIntent().getStringExtra("goods_num"));
         map.put("goods_id", getIntent().getStringExtra("goods_id"));
         map.put("goods_sku_id", "0");
+        if (!TextUtils.isEmpty(coupon_id))
+            map.put("coupon_id", coupon_id);
 
         dataRepository.groupBuy(map, new RemotDataSource.getCallback() {
             @Override
@@ -137,7 +154,15 @@ public class GroupOrderConfirmActivity extends BaseActivity {
                 BuyNowModel buyNowModel = (BuyNowModel) data;
                 if (buyNowModel.getCode() == 1) {
                     tvTotalMoney.setText("￥" + buyNowModel.getData().getOrder_total_price());
-                    tvCoupon.setText("无优惠券可用");
+                    coupon_list = buyNowModel.getData().getCoupon_list();
+                    if (coupon_list != null && coupon_list.size() > 0) {
+                        tvCoupon.setText("有" + buyNowModel.getData().getCoupon_list().size() + "张优惠券可用");
+                    } else {
+                        tvCoupon.setText("无优惠券可用");
+                    }
+                    if(buyNowModel.getData().getCoupon_money()>0){
+                        tvCoupon.setText("-￥"+buyNowModel.getData().getCoupon_money());
+                    }
                     if (buyNowModel.getData().getAddress() != null) {
                         rlName.setVisibility(View.VISIBLE);
                         tvName.setText(buyNowModel.getData().getAddress().getName());
@@ -217,7 +242,7 @@ public class GroupOrderConfirmActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.iv_back, R.id.rl_address, R.id.tv_go_buy})
+    @OnClick({R.id.iv_back, R.id.rl_address, R.id.tv_go_buy,R.id.rl_coupon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -243,6 +268,64 @@ public class GroupOrderConfirmActivity extends BaseActivity {
 //                }
 
                 break;
+            case R.id.rl_coupon:
+                if (coupon_list != null && coupon_list.size() > 0) {
+                    showSelectCouponsDialog(coupon_list);
+                }
+                break;
         }
     }
+    private void showSelectCouponsDialog(List<BuyNowModel.DataBean.CouponBean> list) {
+        dialog = new TDialog.Builder(getSupportFragmentManager())
+                .setLayoutRes(R.layout.dialog_select_coupons)
+                .setScreenWidthAspect(this, 1f)
+                .setGravity(Gravity.BOTTOM)
+                .setCancelableOutside(true)
+                .addOnClickListener(R.id.tv_no_use)
+                .setOnViewClickListener(new OnViewClickListener() {
+                    @Override
+                    public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+                        if(view.getId()==R.id.tv_no_use){
+                            coupon_id = "";
+                            tDialog.dismiss();
+                        }
+                    }
+                })
+                .setOnBindViewListener(new OnBindViewListener() {
+                    @Override
+                    public void bindView(BindViewHolder viewHolder) {
+                        RecyclerView recyclerView = viewHolder.itemView.findViewById(R.id.recyclerView);
+                        TextView tv_empty = viewHolder.itemView.findViewById(R.id.tv_empty);
+                        if (list.size() == 0 || list == null) {
+                            tv_empty.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
+                        } else {
+                            tv_empty.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
+                            if (selectCouponsAdapter == null) {
+                                selectCouponsAdapter = new SelectCouponsAdapter(GroupOrderConfirmActivity.this);
+                            }
+                            recyclerView.setLayoutManager(new LinearLayoutManager(GroupOrderConfirmActivity.this));
+                            recyclerView.addItemDecoration(new CommItemDecoration(mContext, DividerItemDecoration.VERTICAL, getResources().getColor(R.color.transparent), 30));
+                            selectCouponsAdapter.setData(list);
+                            recyclerView.setAdapter(selectCouponsAdapter);
+                            selectCouponsAdapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<BuyNowModel.DataBean.CouponBean>() {
+                                @Override
+                                public void onItemViewClick(View view, int position, BuyNowModel.DataBean.CouponBean o) {
+                                    if (o != null) {
+                                        coupon_id = o.getUser_coupon_id()+"";
+                                        groupBuy();
+                                    }
+                                    dialog.dismiss();
+                                }
+                            });
+                        }
+
+
+                    }
+                })
+                .create();
+        dialog.show();
+    }
+
 }

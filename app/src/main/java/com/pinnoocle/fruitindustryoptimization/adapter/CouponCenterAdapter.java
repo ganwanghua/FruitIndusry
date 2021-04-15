@@ -12,23 +12,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.haozhang.lib.SlantedTextView;
 import com.pinnoocle.fruitindustryoptimization.R;
-import com.pinnoocle.fruitindustryoptimization.bean.CouponListsModel;
+import com.pinnoocle.fruitindustryoptimization.bean.CouponCenterModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CouponAdapter extends BaseAdapter<CouponListsModel.DataBean.ListBean, CouponAdapter.VH> {
+public class CouponCenterAdapter extends BaseAdapter<CouponCenterModel.DataBean.ListBean, CouponCenterAdapter.VH> {
 
 
-    public CouponAdapter(Context mContext) {
+    public CouponCenterAdapter(Context mContext) {
         super(mContext);
     }
 
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new VH(LayoutInflater.from(mContext).inflate(R.layout.item_coupon, parent, false));
+        return new VH(LayoutInflater.from(mContext).inflate(R.layout.item_coupon_center, parent, false));
     }
 
     @Override
@@ -38,18 +38,9 @@ public class CouponAdapter extends BaseAdapter<CouponListsModel.DataBean.ListBea
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        if (mDatas.get(position).getIs_use() == 1) {
+        if (mDatas.get(position).isIs_receive()) {
             holder.tvUse.setVisibility(View.GONE);
             holder.tvReceive.setVisibility(View.VISIBLE);
-            holder.tvReceive.setText("已使用");
-            holder.llCoupon.setBackgroundResource(R.mipmap.coupon_1);
-            holder.tvCoupon.setSlantedBackgroundColor(mContext.getResources().getColor(R.color.coupon_grey));
-            holder.tvCoupon.setTextColor(R.color.white);
-
-        } else if (mDatas.get(position).getIs_expire() == 1) {
-            holder.tvUse.setVisibility(View.GONE);
-            holder.tvReceive.setVisibility(View.VISIBLE);
-            holder.tvReceive.setText("已过期");
             holder.llCoupon.setBackgroundResource(R.mipmap.coupon_1);
             holder.tvCoupon.setSlantedBackgroundColor(mContext.getResources().getColor(R.color.coupon_grey));
             holder.tvCoupon.setTextColor(R.color.white);
@@ -60,12 +51,6 @@ public class CouponAdapter extends BaseAdapter<CouponListsModel.DataBean.ListBea
             holder.llCoupon.setBackgroundResource(R.mipmap.coupon);
             holder.tvCoupon.setSlantedBackgroundColor(mContext.getResources().getColor(R.color.coupon_yellow));
             holder.tvCoupon.setTextColor(R.color.red_1);
-            holder.itemView.setOnClickListener(v -> {
-                if (mOnItemClickListener != null) {
-
-                mOnItemClickListener.onItemViewClick(v,position);
-                }
-            });
         }
 
         holder.tvMoney.setText(mDatas.get(position).getReduce_price());
@@ -73,6 +58,12 @@ public class CouponAdapter extends BaseAdapter<CouponListsModel.DataBean.ListBea
         holder.tvName.setText(mDatas.get(position).getName());
         holder.tvValidity.setText(mDatas.get(position).getStart_time().getText() + "~" + mDatas.get(position).getEnd_time().getText());
         holder.tvCoupon.setText(mDatas.get(position).getCoupon_type().getText());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (mOnItemDataClickListener != null) {
+                mOnItemDataClickListener.onItemViewClick(v, position, mDatas.get(position));
+            }
+        });
     }
 
     static class VH extends RecyclerView.ViewHolder {

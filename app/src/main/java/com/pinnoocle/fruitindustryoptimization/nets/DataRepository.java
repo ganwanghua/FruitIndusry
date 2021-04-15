@@ -399,6 +399,16 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
+    public void couponCenter(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.couponCenter(queryMap, callback);
+    }
+
+    @Override
+    public void getCoupon(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.getCoupon(queryMap, callback);
+    }
+
+    @Override
     public Observable<UploadImageModel> imageObservable(Map<String, String> queryMap, MultipartBody.Part file) {
         return mRemoteDataSource.imageObservable(queryMap,file);
     }

@@ -10,6 +10,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.CartListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CategoryIndexModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CertificateDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CollectModel;
+import com.pinnoocle.fruitindustryoptimization.bean.CouponCenterModel;
 import com.pinnoocle.fruitindustryoptimization.bean.CouponListsModel;
 import com.pinnoocle.fruitindustryoptimization.bean.FileInfoModel;
 import com.pinnoocle.fruitindustryoptimization.bean.GeneTreeOrderModel;
@@ -363,5 +364,16 @@ public interface RetrofitService {
     //商品评价
     @GET("index.php")
     Observable<MyCommentModel> goodsComment(@QueryMap Map<String, String> queryMap);
+
+    //领券中心
+    @GET("index.php")
+    Observable<CouponCenterModel> couponCenter(@QueryMap Map<String, String> queryMap);
+
+    //领取优惠券
+    @POST("index.php")
+    Observable<StatusModel> getCoupon(@QueryMap Map<String, String> queryMap);
+
+
+
 
 }

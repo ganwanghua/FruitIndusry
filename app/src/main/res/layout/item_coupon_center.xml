@@ -106,7 +106,7 @@
             android:paddingTop="5dp"
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
-            android:text="立即使用"
+            android:text="立即领取"
             android:textColor="@color/white"
             android:textSize="13sp" />
     </RelativeLayout>

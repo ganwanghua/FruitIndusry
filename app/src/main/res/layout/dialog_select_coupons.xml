@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingTop="4dp"
+    >
+
+    <RelativeLayout
+        android:layout_marginBottom="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="选择优惠券"
+            android:textColor="@color/black_1"
+            android:textSize="15sp" />
+    </RelativeLayout>
+    <TextView
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_empty"
+        android:padding="25dp"
+        android:text="暂无可用优惠券"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:overScrollMode="never" />
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/bg_grey_1_stroke"
+        android:id="@+id/tv_no_use"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="不使用优惠券"
+        android:textSize="13sp"
+        android:textColor="#999999"/>
+</LinearLayout>
