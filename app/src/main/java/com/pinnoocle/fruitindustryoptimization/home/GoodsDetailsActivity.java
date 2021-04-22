@@ -371,7 +371,7 @@ public class GoodsDetailsActivity extends BaseActivity implements ViewPager.OnPa
             iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, index + "", Toast.LENGTH_LONG).show();
+
                 }
             });
             return iv;

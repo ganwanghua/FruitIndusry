@@ -22,6 +22,7 @@ import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.home.GoodsDetailsActivity;
+import com.pinnoocle.fruitindustryoptimization.home.GroupGoodsDetailsActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
@@ -140,9 +141,19 @@ public class GroupOrderDetailActivity extends BaseActivity {
         adapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<OrderDetailModel.DataBean.OrderBean.GoodsBeanX>() {
             @Override
             public void onItemViewClick(View view, int position, OrderDetailModel.DataBean.OrderBean.GoodsBeanX o) {
-                Intent intent = new Intent(mContext, GoodsDetailsActivity.class);
-                intent.putExtra("goods_id", o.getGoods_id() + "");
-                startActivity(intent);
+                switch (view.getId()){
+                    case R.id.tv_after_sale:
+                        Intent intent1 = new Intent(mContext, ApplyForAfterSalesActivity.class);
+                        intent1.putExtra("order_id", o.getOrder_id() + "");
+                        intent1.putExtra("type", "group");
+                        startActivity(intent1);
+                        break;
+                    default:
+                        Intent intent = new Intent(mContext, GroupGoodsDetailsActivity.class);
+                        intent.putExtra("goods_id", o.getGoods_id() + "");
+                        startActivity(intent);
+                        break;
+                }
             }
         });
     }
@@ -175,7 +186,14 @@ public class GroupOrderDetailActivity extends BaseActivity {
                     tvStatus.setText(orderDetailModel.getData().getOrder().getState_text());
                     order_id = orderDetailModel.getData().getOrder().getOrder_id() + "";
                     order_no = orderDetailModel.getData().getOrder().getOrder_no() + "";
-                    if (orderDetailModel.getData().getOrder().getState_text().equals("已取消")||orderDetailModel.getData().getOrder().getState_text().equals("拼团未成功，已退款")) {
+                    if (orderDetailModel.getData().getOrder().isIsAllowRefund()) {
+//                        adapter.setShow(true);
+                    }
+                    adapter.setShow(true);
+
+                    if (orderDetailModel.getData().getOrder().getState_text().equals("已取消")
+                            || orderDetailModel.getData().getOrder().getIs_comment() == 1 && orderDetailModel.getData().getOrder().getOrder_status().getValue() == 30
+                            || orderDetailModel.getData().getOrder().getState_text().equals("拼团未成功，已退款")) {
                         rlPanel.setVisibility(View.GONE);
                     } else if (orderDetailModel.getData().getOrder().getState_text().equals("待付款")) {
                         view.setBackgroundResource(R.color.light_white);
@@ -194,7 +212,7 @@ public class GroupOrderDetailActivity extends BaseActivity {
 
                         tvCancel.setText("取消订单");
                         tvBuy.setText("去付款");
-                    } else if (orderDetailModel.getData().getOrder().getState_text().equals("已付款，待发货")||orderDetailModel.getData().getOrder().getState_text().equals("已付款，待成团")) {
+                    } else if (orderDetailModel.getData().getOrder().getState_text().equals("已付款，待发货") || orderDetailModel.getData().getOrder().getState_text().equals("已付款，待成团")) {
                         view1.setBackgroundResource(R.color.light_white);
                         view2.setBackgroundResource(R.color.light_white);
                         ivReceivingGoods.setBackgroundResource(R.drawable.bg_light_white_stroke);
@@ -205,15 +223,14 @@ public class GroupOrderDetailActivity extends BaseActivity {
                         tvMessageFill.setTextColor(0x99ffffff);
                         tvHint.setText("您的订单正在备货中~");
 
-                        tvBuy.setText("申请售后");
-                        tvCancel.setVisibility(View.GONE);
+                        rlPanel.setVisibility(View.GONE);
                     } else if (orderDetailModel.getData().getOrder().getState_text().equals("已发货，待收货")) {
                         view2.setBackgroundResource(R.color.light_white);
                         ivMessageFill.setBackgroundResource(R.drawable.bg_light_white_stroke);
                         ivMessageFill.setImageResource(R.mipmap.message_fill_no);
                         tvMessageFill.setTextColor(0x99ffffff);
                         tvHint.setText("您的订单已发货，请这注意查收~");
-
+                        tvCancel.setVisibility(View.GONE);
                         tvCancel.setText("申请售后");
                         tvBuy.setText("确认收货");
                     } else if (orderDetailModel.getData().getOrder().getState_text().equals("已完成")) {

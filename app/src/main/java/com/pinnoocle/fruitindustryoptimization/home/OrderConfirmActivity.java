@@ -25,6 +25,7 @@ import com.pinnoocle.fruitindustryoptimization.adapter.SelectCouponsAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BuyNowModel;
 import com.pinnoocle.fruitindustryoptimization.bean.LoginModel;
+import com.pinnoocle.fruitindustryoptimization.bean.ResultModel;
 import com.pinnoocle.fruitindustryoptimization.bean.RightBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
@@ -213,11 +214,12 @@ public class OrderConfirmActivity extends BaseActivity {
             @Override
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(mContext);
-                StatusModel statusModel = (StatusModel) data;
+                ResultModel statusModel = (ResultModel) data;
                 if (statusModel.getCode() == 1) {
                     EventBus.getDefault().post("cart_refresh");
                     RightBuyModel rightBuyModel = new Gson().fromJson(statusModel.getData(), RightBuyModel.class);
                     startActivity(new Intent(mContext, PaySuccessActivity.class));
+                    finish();
                 } else {
                     ToastUtils.showToast(statusModel.getMsg());
                 }

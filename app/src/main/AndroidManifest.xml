@@ -118,6 +118,7 @@
         <activity android:name=".mine.GroupAfterSaleListActivity" />
         <activity android:name=".home.EvaluationActivity" />
         <activity android:name=".home.CouponsCenterActivity" />
+        <activity android:name=".mine.AfterSaleDetailActivity" />
     </application>
 
 </manifest>

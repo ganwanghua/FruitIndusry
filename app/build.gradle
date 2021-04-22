@@ -135,4 +135,8 @@ dependencies {
     //评分控件
     implementation 'com.github.KaelLi1989:NiceRatingBar:1.0.0'
     implementation 'com.jaeger.ninegridimageview:library:1.1.1'
+
+    implementation('cn.qqtheme.framework:WheelPicker:1.5.5') {
+        exclude group: 'com.android.support'
+    }
 }

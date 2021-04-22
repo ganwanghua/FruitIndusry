@@ -344,13 +344,13 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
-    public void commentOrder(Map<String, String> map1,Map<String, String> map2, getCallback callback) {
-        mRemoteDataSource.commentOrder(map1,map2, callback);
+    public void commentOrder(Map<String, String> map1, Map<String, String> map2, getCallback callback) {
+        mRemoteDataSource.commentOrder(map1, map2, callback);
     }
 
     @Override
-    public void image(Map<String, String> queryMap,MultipartBody.Part file,getCallback callback) {
-        mRemoteDataSource.image(queryMap,file,callback);
+    public void image(Map<String, String> queryMap, MultipartBody.Part file, getCallback callback) {
+        mRemoteDataSource.image(queryMap, file, callback);
     }
 
     @Override
@@ -409,7 +409,22 @@ public class DataRepository implements RemotDataSource {
     }
 
     @Override
+    public void refundDetail(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.refundDetail(queryMap, callback);
+    }
+
+    @Override
+    public void refundDelivery(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.refundDelivery(queryMap, callback);
+    }
+
+    @Override
+    public void groupRefundApply(Map<String, String> queryMap, getCallback callback) {
+        mRemoteDataSource.groupRefundApply(queryMap, callback);
+    }
+
+    @Override
     public Observable<UploadImageModel> imageObservable(Map<String, String> queryMap, MultipartBody.Part file) {
-        return mRemoteDataSource.imageObservable(queryMap,file);
+        return mRemoteDataSource.imageObservable(queryMap, file);
     }
 }

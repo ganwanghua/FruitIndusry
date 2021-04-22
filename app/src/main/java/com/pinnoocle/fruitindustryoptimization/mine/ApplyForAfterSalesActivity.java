@@ -111,7 +111,11 @@ public class ApplyForAfterSalesActivity extends BaseActivity {
         adapter = new OrderDetailAdapter(this);
         recyclerView.setAdapter(adapter);
         grid(mList);
-        orderDetail();
+        if(getIntent().getStringExtra("type")!=null&&getIntent().getStringExtra("type").equals("group")){
+            groupOrderDetail();
+        }else {
+            orderDetail();
+        }
     }
 
     private void orderDetail() {
@@ -148,11 +152,39 @@ public class ApplyForAfterSalesActivity extends BaseActivity {
         });
     }
 
+    private void groupOrderDetail() {
+        Map<String, String> map = new HashMap<>();
+        map.put("s", "/api/sharing.order/detail");
+        map.put("wxapp_id", "10001");
+        map.put("token", FastData.getToken());
+        map.put("order_id", getIntent().getStringExtra("order_id"));
+
+        ViewLoading.show(mContext);
+        dataRepository.groupOrderDetail(map, new RemotDataSource.getCallback() {
+            @Override
+            public void onFailure(String info) {
+                ViewLoading.dismiss(mContext);
+
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                ViewLoading.dismiss(mContext);
+                OrderDetailModel orderDetailModel = (OrderDetailModel) data;
+                if (orderDetailModel.getCode() == 1) {
+                    List<OrderDetailModel.DataBean.OrderBean.GoodsBeanX> goods = orderDetailModel.getData().getOrder().getGoods();
+                    adapter.setData(goods);
+                }
+            }
+        });
+    }
+
     private void refundApply(String images) {
         Map<String, String> map = new HashMap<>();
         map.put("s", "/api/user.refund/apply");
         map.put("wxapp_id", "10001");
         map.put("token", FastData.getToken());
+        map.put("type", type);
         map.put("order_goods_id", getIntent().getStringExtra("order_goods_id"));
         map.put("content",edAdvise.getText().toString());
         if(!TextUtils.isEmpty(images))

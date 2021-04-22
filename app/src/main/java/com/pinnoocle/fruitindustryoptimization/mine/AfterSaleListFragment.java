@@ -1,5 +1,6 @@
 package com.pinnoocle.fruitindustryoptimization.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.pedaily.yc.ycdialoglib.dialog.loading.ViewLoading;
 import com.pinnoocle.fruitindustryoptimization.R;
 import com.pinnoocle.fruitindustryoptimization.adapter.AfterSaleListAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.RefundListsModel;
+import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.common.BaseFragment;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
@@ -74,6 +76,14 @@ public class AfterSaleListFragment extends BaseFragment implements OnRefreshLoad
         adapter = new AfterSaleListAdapter(getContext());
         recycleView.setAdapter(adapter);
         refresh.setOnRefreshLoadMoreListener(this);
+        adapter.setOnItemDataClickListener(new BaseAdapter.OnItemDataClickListener<RefundListsModel.DataBeanX.ListBean.DataBean>() {
+            @Override
+            public void onItemViewClick(View view, int position, RefundListsModel.DataBeanX.ListBean.DataBean o) {
+                Intent intent = new Intent(mContext, AfterSaleDetailActivity.class);
+                intent.putExtra("order_refund_id",o.getOrder_refund_id()+"");
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -127,10 +137,10 @@ public class AfterSaleListFragment extends BaseFragment implements OnRefreshLoad
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = false) //在ui线程执行，优先级为100
     public void onEvent(String event) {
-        if (event.equals("order_refresh")) {
-//            page = 1;
-//            dataBeanList.clear();
-//            orderList();
+        if (event.equals("6")) {
+            page = 1;
+            dataBeanList.clear();
+            refundLists();
         }
     }
 

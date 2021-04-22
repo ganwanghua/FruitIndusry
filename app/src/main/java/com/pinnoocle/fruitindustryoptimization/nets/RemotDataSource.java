@@ -171,5 +171,11 @@ public interface RemotDataSource {
 
     void getCoupon(Map<String, String> queryMap, getCallback callback);
 
+    void refundDetail(Map<String, String> queryMap, getCallback callback);
+
+    void refundDelivery(Map<String, String> queryMap, getCallback callback);
+
+    void groupRefundApply(Map<String, String> queryMap, getCallback callback);
+
     Observable<UploadImageModel> imageObservable(Map<String, String> queryMap, MultipartBody.Part file);
 }

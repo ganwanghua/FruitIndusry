@@ -30,7 +30,9 @@ import com.pinnoocle.fruitindustryoptimization.bean.MyPushModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.PartakeModel;
+import com.pinnoocle.fruitindustryoptimization.bean.RefundDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.RefundListsModel;
+import com.pinnoocle.fruitindustryoptimization.bean.ResultModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SecKillDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SecKillVenueModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
@@ -673,9 +675,9 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
     @Override
     public void rightBuy(Map<String, String> queryMap, getCallback callback) {
-        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().rightBuy(queryMap);
+        Observable<ResultModel> observable = RetrofitHelper.getInstance(mContext).getServer().rightBuy(queryMap);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<StatusModel>() {
+                .subscribe(new Observer<ResultModel>() {
                     @Override
                     public void onCompleted() { // 完成请求后
 
@@ -687,7 +689,7 @@ public class RemotDataSourceImpl implements RemotDataSource {
                     }
 
                     @Override
-                    public void onNext(StatusModel s) { // 请求成功
+                    public void onNext(ResultModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });
@@ -805,9 +807,9 @@ public class RemotDataSourceImpl implements RemotDataSource {
 
     @Override
     public void groupRightBuy(Map<String, String> queryMap, getCallback callback) {
-        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().groupRightBuy(queryMap);
+        Observable<ResultModel> observable = RetrofitHelper.getInstance(mContext).getServer().groupRightBuy(queryMap);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<StatusModel>() {
+                .subscribe(new Observer<ResultModel>() {
                     @Override
                     public void onCompleted() { // 完成请求后
 
@@ -819,7 +821,7 @@ public class RemotDataSourceImpl implements RemotDataSource {
                     }
 
                     @Override
-                    public void onNext(StatusModel s) { // 请求成功
+                    public void onNext(ResultModel s) { // 请求成功
                         callback.onSuccess(s);
                     }
                 });
@@ -1642,6 +1644,72 @@ public class RemotDataSourceImpl implements RemotDataSource {
     @Override
     public void getCoupon(Map<String, String> queryMap, getCallback callback) {
         Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().getCoupon(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<StatusModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(StatusModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void refundDetail(Map<String, String> queryMap, getCallback callback) {
+        Observable<RefundDetailModel> observable = RetrofitHelper.getInstance(mContext).getServer().refundDetail(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RefundDetailModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(RefundDetailModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void refundDelivery(Map<String, String> queryMap, getCallback callback) {
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().refundDelivery(queryMap);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<StatusModel>() {
+                    @Override
+                    public void onCompleted() { // 完成请求后
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { // 异常处理
+                        callback.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(StatusModel s) { // 请求成功
+                        callback.onSuccess(s);
+                    }
+                });
+    }
+
+    @Override
+    public void groupRefundApply(Map<String, String> queryMap, getCallback callback) {
+        Observable<StatusModel> observable = RetrofitHelper.getInstance(mContext).getServer().groupRefundApply(queryMap);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<StatusModel>() {
                     @Override

@@ -53,12 +53,21 @@ public class OrderDetailAdapter extends BaseAdapter<OrderDetailModel.DataBean.Or
                 mOnItemDataClickListener.onItemViewClick(v, position, mDatas.get(position));
             }
         });
-
         if(show){
             holder.tvAfterSale.setVisibility(View.VISIBLE);
         }else {
             holder.tvAfterSale.setVisibility(View.GONE);
         }
+        if (TextUtils.isEmpty(mDatas.get(position).getRefund())) {
+            if(show) {
+                holder.tvAfterSale.setVisibility(View.VISIBLE);
+            }
+            holder.tvAfterSaleText.setVisibility(View.GONE);
+        }else {
+            holder.tvAfterSale.setVisibility(View.GONE);
+            holder.tvAfterSaleText.setVisibility(View.VISIBLE);
+        }
+
         holder.tvAfterSale.setOnClickListener(v -> {
             if (mOnItemDataClickListener != null) {
                 mOnItemDataClickListener.onItemViewClick(v, position, mDatas.get(position));

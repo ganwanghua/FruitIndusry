@@ -1,6 +1,8 @@
 package com.pinnoocle.fruitindustryoptimization.bean;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.pinnoocle.fruitindustryoptimization.adapter.RawStringJsonAdapter;
 
 import java.util.List;
 
@@ -1006,7 +1008,9 @@ public class OrderDetailModel {
                 private ImageBean image;
                 private SkuBean sku;
                 private GoodsBean goods;
-                private Object refund;
+                @SerializedName("refund")
+                @JsonAdapter(RawStringJsonAdapter.class)
+                private String refund;
 
                 public int getOrder_goods_id() {
                     return order_goods_id;
@@ -1312,11 +1316,11 @@ public class OrderDetailModel {
                     this.goods = goods;
                 }
 
-                public Object getRefund() {
+                public String getRefund() {
                     return refund;
                 }
 
-                public void setRefund(Object refund) {
+                public void setRefund(String refund) {
                     this.refund = refund;
                 }
 

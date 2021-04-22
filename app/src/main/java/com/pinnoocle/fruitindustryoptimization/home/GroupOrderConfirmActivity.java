@@ -23,11 +23,13 @@ import com.pinnoocle.fruitindustryoptimization.adapter.OrderConfirmAdapter;
 import com.pinnoocle.fruitindustryoptimization.adapter.SelectCouponsAdapter;
 import com.pinnoocle.fruitindustryoptimization.bean.AddressListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.BuyNowModel;
+import com.pinnoocle.fruitindustryoptimization.bean.ResultModel;
 import com.pinnoocle.fruitindustryoptimization.bean.RightBuyModel;
 import com.pinnoocle.fruitindustryoptimization.bean.StatusModel;
 import com.pinnoocle.fruitindustryoptimization.common.BaseActivity;
 import com.pinnoocle.fruitindustryoptimization.common.BaseAdapter;
 import com.pinnoocle.fruitindustryoptimization.mine.AddressActivity;
+import com.pinnoocle.fruitindustryoptimization.mine.GroupOrderActivity;
 import com.pinnoocle.fruitindustryoptimization.nets.DataRepository;
 import com.pinnoocle.fruitindustryoptimization.nets.Injection;
 import com.pinnoocle.fruitindustryoptimization.nets.RemotDataSource;
@@ -206,9 +208,12 @@ public class GroupOrderConfirmActivity extends BaseActivity {
             @Override
             public void onSuccess(Object data) {
                 ViewLoading.dismiss(mContext);
-                StatusModel statusModel = (StatusModel) data;
+                ResultModel statusModel = (ResultModel) data;
                 if (statusModel.getCode() == 1) {
                     RightBuyModel rightBuyModel = new Gson().fromJson(statusModel.getData(), RightBuyModel.class);
+                    ToastUtils.showToast("拼团成功");
+                    startActivity(new Intent(mContext, GroupOrderActivity.class));
+                    finish();
                 } else {
                     ToastUtils.showToast(statusModel.getMsg());
                 }

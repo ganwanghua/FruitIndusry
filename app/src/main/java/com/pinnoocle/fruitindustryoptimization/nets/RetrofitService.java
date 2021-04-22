@@ -28,7 +28,9 @@ import com.pinnoocle.fruitindustryoptimization.bean.MyPushModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.OrderListModel;
 import com.pinnoocle.fruitindustryoptimization.bean.PartakeModel;
+import com.pinnoocle.fruitindustryoptimization.bean.RefundDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.RefundListsModel;
+import com.pinnoocle.fruitindustryoptimization.bean.ResultModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SecKillDetailModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SecKillVenueModel;
 import com.pinnoocle.fruitindustryoptimization.bean.SeckillModel;
@@ -238,7 +240,7 @@ public interface RetrofitService {
 
     //立即购买
     @POST("index.php")
-    Observable<StatusModel> rightBuy(@QueryMap Map<String, String> queryMap);
+    Observable<ResultModel> rightBuy(@QueryMap Map<String, String> queryMap);
 
     //预结算
     @GET("index.php")
@@ -266,7 +268,7 @@ public interface RetrofitService {
 
     //开团
     @POST("index.php")
-    Observable<StatusModel> groupRightBuy(@QueryMap Map<String, String> queryMap);
+    Observable<ResultModel> groupRightBuy(@QueryMap Map<String, String> queryMap);
 
     //取消订单
     @POST("index.php")
@@ -346,7 +348,7 @@ public interface RetrofitService {
     Observable<UploadImageModel> image(@QueryMap Map<String, String> queryMap, @Part MultipartBody.Part file);
 
     //申请售后
-    @GET("index.php")
+    @POST("index.php")
     Observable<StatusModel> refundApply(@QueryMap Map<String, String> queryMap);
 
     //我的评价
@@ -373,7 +375,16 @@ public interface RetrofitService {
     @POST("index.php")
     Observable<StatusModel> getCoupon(@QueryMap Map<String, String> queryMap);
 
+    //申请售后详情
+    @POST("index.php")
+    Observable<RefundDetailModel> refundDetail(@QueryMap Map<String, String> queryMap);
 
+    //退货-用户发货
+    @POST("index.php")
+    Observable<StatusModel> refundDelivery(@QueryMap Map<String, String> queryMap);
 
+    //拼团商品申请售后
+    @POST("index.php")
+    Observable<StatusModel> groupRefundApply(@QueryMap Map<String, String> queryMap);
 
 }
